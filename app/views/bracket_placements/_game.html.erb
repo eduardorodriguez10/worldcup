@@ -1,0 +1,9 @@
+<% if f.selection_type = "Group" %>
+<%= f.collection_select :team_id, Team.where(group: f.selection_code), :id, :name, {}, {:multiple => true} do |cb| %>
+		<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
+	<% end %>
+<% else %>
+	<% game = BracketPlacement.where(game_number: f.selection_code) %>
+	<% teams = Team.all %>
+	<%= f.collection_select :team, :team_id, teams, :id, :name %>
+<% end %>

@@ -1,0 +1,123 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+.bracket {
+	margin: 5px;
+	background-color:#3E97D1!important;
+	background-image:none!important;
+	border-style:none!important;
+	padding-left:1px;
+	padding-right:1px;
+	font-size:95%;
+}
+
+.bracket-column {
+	width: 14.2%;
+	display: inline-block;
+	float:left;
+	height:100%;
+}
+.bracket-qf {
+	margin-top:45%;
+}
+.bracket-sf {
+	margin-top:90%;
+}
+.qf {
+	height:100%;
+/*	position:absolute;
+*/}
+.sf {
+	height:100%;
+/*	position:absolute;
+*/}
+.column-title {
+	text-align:center;
+	padding:auto;
+	color:white;
+	font-style:bold;
+	font-size:125%;
+}
+.bracketcontainer {
+	background-color: #0A67A3;
+	width:100%;
+	margin:auto;
+	margin-top:20px;
+	margin-bottom:50px;
+	border-radius:10px;
+	border-color:#24587A;
+	border-style:solid;
+	clear:right;
+	float:right;
+}
+.bracket-title {
+	text-align:center;
+	font-style:italic;
+}
+.bracket-text {
+	color:#FFC173;
+	font-size:110%;
+	font-family:arial;
+	margin-left:4px;
+}
+.selected {
+	width: 100%;
+	border-width:1px;
+	background-color:#FF8E00;
+	color:black;
+	border-color:yellow;
+	margin: 5px;
+	margin-left:0;
+	margin-right:0;
+	color:yellow;
+	font-family:verdana;
+}
+.right {
+	float:right;
+}
+.nav li {
+	display:inline-block!important;
+}
+.nav li a {
+	display:inline-block!important;
+}
+.notselected {
+	width: 100%;
+	border-width:1px;
+	background-color:#6A98D3;
+	color:black;
+	border-color:white;
+	margin:5px;
+	border-radius:0px!important;
+	color:white;
+	margin-left:0;
+	margin-right:0;
+	font-family:verdana;
+}
+
+.disabled {
+	width: 100%;
+	border-width:2px;
+	background-color:lightgray;
+	color:gray;
+	border-color:gray;
+	margin:5px;
+}
+.champion {
+	border-width:4px;
+	border-color:#FFC173;
+}
+
