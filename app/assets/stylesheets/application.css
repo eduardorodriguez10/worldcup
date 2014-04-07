@@ -68,10 +68,11 @@
 	font-style:italic;
 }
 .bracket-text {
-	color:#FFC173;
+	color:white;
 	font-size:110%;
 	font-family:arial;
 	margin-left:4px;
+	text-align:center;
 }
 .selected {
 	width: 100%;
@@ -119,5 +120,8 @@
 .champion {
 	border-width:4px;
 	border-color:#FFC173;
+}
+.icon {
+	width:32px;
 }
 

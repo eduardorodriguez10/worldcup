@@ -115,12 +115,12 @@
 			</div>
 			<div class="well bracket well-sm">
 				<p class="bracket-text">Third Place Game</p>
-					<%= f.collection_select :l61, allTeams, :id, :name, {:prompt=> 'L61'}, {class: 'notselected',:onchange=>"javascript: updateOptionsFinals('l61','w61','third')"} do |cb| %>
+					<%= f.collection_select :l61, allTeams, :id, :name, {:prompt=> 'Loser Game 61'}, {class: 'notselected',:onchange=>"javascript: updateOptionsFinals('l61','w61','third')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
 				<input id='l61-old' type="hidden" value="0"/>
 				<br/>
-				<%= f.collection_select :l62, allTeams, :id, :name, {:prompt=> 'L62'}, {class: 'notselected',:onchange=>"javascript: updateOptionsFinals('l62','w62','third')"} do |cb| %>
+				<%= f.collection_select :l62, allTeams, :id, :name, {:prompt=> 'Loser Game 62'}, {class: 'notselected',:onchange=>"javascript: updateOptionsFinals('l62','w62','third')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
 				<input id='l62-old' type="hidden" value="0"/>
@@ -217,27 +217,12 @@
 <script>
 	$(document).ready(function(){
 
-		//hide teams for wGames
-		for (var i = 49; i<63; i++)
-			hideTeamsW(i);
+		//hide all teams in select opionts
+		hideTeams();
 
-		//check if R16 are selected
-			fixR16Games();
 
-			fixWGames();
-
-		for (var i = 61; i<63; i++)
-			for(var t = 1; t<33; t++){
-				$("#bracket_l"+i.toString()+" option[value="+t.toString()+"]").hide();
-				$("#bracket_l"+i.toString()+" option[value="+t.toString()+"]").wrap('<span style="display:none;" />');
-			};
-		for(var t = 1; t<33; t++){
-				$("#bracket_third option[value="+t.toString()+"]").hide();
-				$("#bracket_third option[value="+t.toString()+"]").wrap('<span style="display:none;" />');
-			};
-		for(var t = 1; t<33; t++){
-				$("#bracket_champion option[value="+t.toString()+"]").hide();
-				$("#bracket_champion option[value="+t.toString()+"]").wrap('<span style="display:none;" />');
-			};
+		//fix selects with old selections if page reload
+		fixSelects(); 
+		
 	});
 </script>

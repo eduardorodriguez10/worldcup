@@ -109,15 +109,41 @@ function updateOptionsR16(selected, disabled, next_round){
 		setCSSSelected("#bracket_"+selected, valueSelected);
 	};
 
-	function hideTeamsW(w_number){
-		var selIndex = document.getElementById("bracket_w"+w_number).selectedIndex;
+	function hideTeamsW(){
+		for (var i = 49; i<63; i++){
+			var selIndex = document.getElementById("bracket_w"+i).selectedIndex;
+			if (selIndex)
+				selIndex++;
+			for(var t = 1; t<33; t++){
+					if(selIndex!=t){
+					$("#bracket_w"+i.toString()+" option[value="+t.toString()+"]").hide();
+					$("#bracket_w"+i.toString()+" option[value="+t.toString()+"]").wrap('<span style="display:none;" />');
+					}
+				};
+		};
+	};
+	function hideTeamsL(){
+		for (var i = 61; i < 63; i++){
+		var selIndex = document.getElementById("bracket_l"+i).selectedIndex;
 		if (selIndex)
 			selIndex++;
 		for(var t = 1; t<33; t++){
 				if(selIndex!=t){
-				$("#bracket_w"+w_number.toString()+" option[value="+t.toString()+"]").hide();
-				$("#bracket_w"+w_number.toString()+" option[value="+t.toString()+"]").wrap('<span style="display:none;" />');
+				$("#bracket_l"+i.toString()+" option[value="+t.toString()+"]").hide();
+				$("#bracket_l"+i.toString()+" option[value="+t.toString()+"]").wrap('<span style="display:none;" />');
 				}
+			};
+		}
+	};
+
+	function hide3rdAndChampion(){
+		for(var t = 1; t<33; t++){
+				$("#bracket_third option[value="+t.toString()+"]").hide();
+				$("#bracket_third option[value="+t.toString()+"]").wrap('<span style="display:none;" />');
+			};
+		for(var t = 1; t<33; t++){
+				$("#bracket_champion option[value="+t.toString()+"]").hide();
+				$("#bracket_champion option[value="+t.toString()+"]").wrap('<span style="display:none;" />');
 			};
 	};
 
@@ -178,25 +204,76 @@ function updateOptionsR16(selected, disabled, next_round){
 		var next_game = {'a1': 'w49', 'b2': 'w49', 'c1': 'w50', 'd2': 'w50', 'e1': 'w53', 'f2': 'w53', 'g1': 'w54', 'h2': 'w54', 'b1': 'w51', 'a2':'w51', 'd1':'w52', 'c2': 'w52', 'f1': 'e2', 'h1': 'w56', 'g2': 'w56', 'w49': 'w57', 'w50': 'w57', 'w53': 'w58', 'w54': 'w58', 'w57': 'w61', 'w58': 'w61', 'w51': 'w59', 'w52': 'w59', 'w55': 'w60', 'w56': 'w60', 'w59': 'w62', 'w60': 'w62'};
 		for (var i = 49; i < 63; i++){
 			var value = document.getElementById("bracket_w"+i.toString()).value;
-			console.log("value = "+value);
 			var e = document.getElementById("bracket_w"+i.toString());
-			// var teamSelected = e.options[e.selectedIndex].value;
-			// console.log("bracket_w"+i.toString());
-			// console.log(e.selectedIndex);
 			var teamSelected = document.getElementById("bracket_w"+i.toString()).value;
-			console.log(teamSelected);
 			var next_round = next_game['w'+i.toString()];
 			if(teamSelected){
-					console.log("Team Selected "+teamSelected+" for "+i);
 					if(e.options[0].value)
 					$("#bracket_w"+i.toString()).prepend("<option value=''>Winner Game "+i.toString()+"</option>");
+
 					setCSSSelected("#bracket_w"+i.toString(),true);
+
+					if(i<61)
 					displayInNextRound("#bracket_"+next_round+" option[value="+teamSelected+"]", true);
-					console.log("#bracket_"+next_round+" option[value="+teamSelected+"]");
 
+					if(i==57 || i == 58)
+						displayInNextRound("#bracket_l61 option[value="+teamSelected+"]", true);
+
+					if(i==59 || i == 60)
+						displayInNextRound("#bracket_l62 option[value="+teamSelected+"]", true);
+
+					if(i==61 || i == 62)
+						displayInNextRound("#bracket_champion option[value="+teamSelected+"]", true);
+			};
+
+		};
+	};
+
+	function fixLGames(){
+				for (var i = 61; i < 63; i++){
+			var e = document.getElementById("bracket_l"+i.toString());
+			var teamSelected = document.getElementById("bracket_l"+i.toString()).value;
+			if(teamSelected){
+				if(e.options[0].value)
+					$("#bracket_l"+i.toString()).prepend("<option value=''>Loser Game "+i.toString()+"</option>");
+
+				setCSSSelected("#bracket_l"+i.toString(),true);
+
+				displayInNextRound("#bracket_third option[value="+teamSelected+"]", true);
+			};
+		};
+	};
+
+	function disableFinals(){
+		for (var i = 61; i < 63; i++){
+			var e = document.getElementById("bracket_l"+i.toString());
+			var teamSelected = document.getElementById("bracket_l"+i.toString()).value;
+			if(teamSelected)
+				document.getElementById("bracket_w"+i.toString()).options[teamSelected].disabled = true;
+			var e = document.getElementById("bracket_w"+i.toString());
+			var teamSelected = document.getElementById("bracket_w"+i.toString()).value;
+			if(teamSelected)
+				document.getElementById("bracket_l"+i.toString()).options[teamSelected].disabled = true;
+		};
+	};
+
+	function fix3rdAndChampion(){
+			var e = document.getElementById("bracket_third");
+			var teamSelected = document.getElementById("bracket_third").value;
+			if(teamSelected){
+				if(e.options[0].value)
+					$("#bracket_third").prepend("<option value=''>Third Place</option>");
+
+				setCSSSelected("#bracket_third",true);
 			}
+			var e = document.getElementById("bracket_champion");
+			var teamSelected = document.getElementById("bracket_champion").value;
+			if(teamSelected){
+				if(e.options[0].value)
+					$("#bracket_champion").prepend("<option value=''>Champion</option>");
 
-		}
+				setCSSSelected("#bracket_champion",true);
+			}
 	};
 
 	function setCSSSelected(elem, b){
@@ -213,6 +290,7 @@ function updateOptionsR16(selected, disabled, next_round){
 
 	function displayInNextRound(elem, b){
 		if(b) {
+			console.log("trying to set "+elem+" with span length "+$(elem).parent("span").length)
 			if($(elem).parent("span").length){
 				console.log(elem+" Parent span length: "+$(elem).parent("span").length);
 				$(elem).show();
@@ -226,3 +304,29 @@ function updateOptionsR16(selected, disabled, next_round){
 			$(elem).wrap('<span style="display:none;" />');
 		};
 	};
+
+	function hideTeams(){
+				//hide teams for wGames
+			hideTeamsW();
+
+		//hide teams for L61 and L62
+			hideTeamsL();
+
+		// hide 3rd Place and Champions Teams
+			hide3rdAndChampion();
+
+	};
+
+	function fixSelects(){
+
+			fixR16Games();
+
+			fixWGames();
+
+			fixLGames();
+
+			fix3rdAndChampion();
+
+			disableFinals();
+	};
+
