@@ -23,7 +23,36 @@
 	padding-right:1px;
 	font-size:95%;
 }
-
+.off {
+	display:none;
+}
+.on {
+	display:block;
+}
+.warning-message{
+	padding:20px;
+	position:absolute;
+	background-color:white;
+	border-style:solid;
+	border-color:gray;
+	border-radius:4%;
+	border-width: 4px;
+	width:300px;
+	height:200px;
+}
+.btn-message {
+	text-align:center;
+	width:60px;
+	height:40px;
+	margin-left:40px;
+}
+.inline {
+	display:inline;
+	clear:none;
+}
+.right {
+	float:right;
+}
 .bracket-column {
 	width: 14.2%;
 	display: inline-block;
@@ -66,6 +95,43 @@
 .bracket-title {
 	text-align:center;
 	font-style:italic;
+}
+.form-label{
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:18px;
+	font-weight: 200;
+	/*margin-left:5%;*/
+	text-align:left;
+	/*width:15%;*/
+}
+.form-row {
+	width:100%;
+	clear:both;
+}
+#login-container:after {
+	height:10px;
+	clear:both;
+}
+
+@media (min-width: 768px){
+	.form-label{
+		text-align:right;
+	}
+}
+.form-input{
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:16px;
+	font-weight: 200;
+	text-align:left;
+	/*width:25%;*/
+}
+.center{
+	text-align:center;
+	margin:auto;
+}
+.form-btn{
+	margin-top:10px;
+	float:none;
 }
 .bracket-text {
 	color:white;

@@ -1,3 +1,16 @@
+	
+	<div class="col-md-2">
+		<%= link_to "Go Back", :back, class: 'btn btn-primary' %>
+	</div>
+	<% if @bracket.user_id == session[:user_id] %>
+		<div class="col-md-offset-8 col-md-2">
+			<%= link_to "Edit Bracket", edit_bracket_path(@bracket.id), class: 'btn btn-primary' %>
+		</div>
+	<% else %>
+		<div class="col-md-10">
+			<h4>You are seeing <%= @screen_name %>'s bracket</h4>
+		</div>
+	<% end %> 
 	<div class='bracketcontainer container'>
 		<div class='bracket-column' id="Round16-1">
 			<p class='column-title'>Round of 16</p>

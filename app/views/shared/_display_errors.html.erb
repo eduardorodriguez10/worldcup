@@ -1,0 +1,13 @@
+<% unless obj.nil? %>
+	<% if obj.errors.any? %>
+		<div class='alert alert-error'>
+			<h5>There were some errors:</h5>
+			<ul>
+			<% obj.errors.full_messages.each do |msg| %>
+			<%= msg %>
+			<br/>
+			<% end %>
+			</ul>
+		</div>
+	<% end %>
+<% end %>

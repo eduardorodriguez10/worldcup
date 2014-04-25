@@ -72,8 +72,7 @@ function updateOptionsR16(selected, disabled, next_round){
 		var oldTeam = document.getElementById(selected+"-old").value;
 		// get value of new team selected
 		var teamSelected = e.value;
-		console.log(teamSelected);
-		console.log(selected[0]);
+
 
 		// set CSS to selected if value selected
 		setCSSSelected("#bracket_"+selected, valueSelected);
@@ -149,7 +148,7 @@ function updateOptionsR16(selected, disabled, next_round){
 
 	//readjust R16 javascript in case of reload
 	function fixR16Games() {
-		var next_game = {'a1': 'w49', 'b2': 'w49', 'c1': 'w50', 'd2': 'w50', 'e1': 'w53', 'f2': 'w53', 'g1': 'w54', 'h2': 'w54', 'b1': 'w51', 'a2':'w51', 'd1':'w52', 'c2': 'w52', 'f1': 'e2', 'h1': 'w56', 'g2': 'w56', 'w49': 'w57', 'w50': 'w57', 'w53': 'w58', 'w54': 'w58', 'w57': 'w61', 'w58': 'w61', 'w51': 'w59', 'w52': 'w59', 'w55': 'w60', 'w56': 'w60', 'w59': 'w62', 'w60': 'w62'};
+		var next_game = {'a1': 'w49', 'b2': 'w49', 'c1': 'w50', 'd2': 'w50', 'e1': 'w53', 'f2': 'w53', 'g1': 'w54', 'h2': 'w54', 'b1': 'w51', 'a2':'w51', 'd1':'w52', 'c2': 'w52', 'f1': 'w60', 'e2': 'w60', 'h1': 'w56', 'g2': 'w56', 'w49': 'w57', 'w50': 'w57', 'w53': 'w58', 'w54': 'w58', 'w57': 'w61', 'w58': 'w61', 'w51': 'w59', 'w52': 'w59', 'w55': 'w60', 'w56': 'w60', 'w59': 'w62', 'w60': 'w62'};
 		for (var i = 97; i <105; i++){
 			var e = document.getElementById("bracket_"+String.fromCharCode(i)+"1");
 			var teamSelected = e.value;
@@ -171,37 +170,20 @@ function updateOptionsR16(selected, disabled, next_round){
 			if(teamSelected){
 					document.getElementById("bracket_"+String.fromCharCode(i)+"2").options[e.selectedIndex].disabled = true;
 					setCSSSelected("#bracket_"+String.fromCharCode(i)+"1", true);
-					console.log($("#bracket_"+next_round1).val());
-					console.log("#bracket_"+next_round1);
 					if(document.getElementById("bracket_"+next_round1).value!=teamSelected)
 					displayInNextRound("#bracket_"+next_round1+" option[value="+teamSelected+"]", true);
 				}
 			if(teamSelected2){
 					document.getElementById("bracket_"+String.fromCharCode(i)+"1").options[e2.selectedIndex].disabled = true;
 					setCSSSelected("#bracket_"+String.fromCharCode(i)+"2",true);
-					console.log($("#bracket_"+next_round2).val());
 					if(document.getElementById("bracket_"+next_round2).value!=teamSelected2)
 					displayInNextRound("#bracket_"+next_round2+" option[value="+teamSelected2+"]", true);
 			}
 		}
-		// for (var i = 97; i <105; i++){
-		// 	var e = document.getElementById("bracket_"+String.fromCharCode(i)+"1");
-		// 	var teamSelected = e.options[e.selectedIndex].value;
-		// 	var e2 = document.getElementById("bracket_"+String.fromCharCode(i)+"2");
-		// 	var teamSelected2 = e2.options[e2.selectedIndex].value;
-		// 	var next_round1 = next_game[String.fromCharCode(i)+'1'];
-		// 	var next_round2 = next_game[String.fromCharCode(i)+'2'];
-		// 	if(teamSelected)
-		// 			if(document.getElementById("bracket_"+next_round1).value==teamSelected)
-		// 			displayInNextRound("#bracket_"+next_round1+" option[value="+teamSelected+"]", true);
-		// 	if(teamSelected2)
-		// 			if(document.getElementById("bracket_"+next_round2).value==teamSelected2)
-		// 			displayInNextRound("#bracket_"+next_round2+" option[value="+teamSelected2+"]", true);
-		// }
 	};
 
 	function fixWGames () {
-		var next_game = {'a1': 'w49', 'b2': 'w49', 'c1': 'w50', 'd2': 'w50', 'e1': 'w53', 'f2': 'w53', 'g1': 'w54', 'h2': 'w54', 'b1': 'w51', 'a2':'w51', 'd1':'w52', 'c2': 'w52', 'f1': 'e2', 'h1': 'w56', 'g2': 'w56', 'w49': 'w57', 'w50': 'w57', 'w53': 'w58', 'w54': 'w58', 'w57': 'w61', 'w58': 'w61', 'w51': 'w59', 'w52': 'w59', 'w55': 'w60', 'w56': 'w60', 'w59': 'w62', 'w60': 'w62'};
+		var next_game = {'a1': 'w49', 'b2': 'w49', 'c1': 'w50', 'd2': 'w50', 'e1': 'w53', 'f2': 'w53', 'g1': 'w54', 'h2': 'w54', 'b1': 'w51', 'a2':'w51', 'd1':'w52', 'c2': 'w52', 'f1': 'w60', 'e2': 'w60', 'h1': 'w56', 'g2': 'w56', 'w49': 'w57', 'w50': 'w57', 'w53': 'w58', 'w54': 'w58', 'w57': 'w61', 'w58': 'w61', 'w51': 'w59', 'w52': 'w59', 'w55': 'w60', 'w56': 'w60', 'w59': 'w62', 'w60': 'w62'};
 		for (var i = 49; i < 63; i++){
 			var value = document.getElementById("bracket_w"+i.toString()).value;
 			var e = document.getElementById("bracket_w"+i.toString());
@@ -212,6 +194,7 @@ function updateOptionsR16(selected, disabled, next_round){
 					$("#bracket_w"+i.toString()).prepend("<option value=''>Winner Game "+i.toString()+"</option>");
 
 					setCSSSelected("#bracket_w"+i.toString(),true);
+					document.getElementById('w'+i.toString()+"-old").value = teamSelected;
 
 					if(i<61)
 					displayInNextRound("#bracket_"+next_round+" option[value="+teamSelected+"]", true);
@@ -230,7 +213,7 @@ function updateOptionsR16(selected, disabled, next_round){
 	};
 
 	function fixLGames(){
-				for (var i = 61; i < 63; i++){
+		for (var i = 61; i < 63; i++){
 			var e = document.getElementById("bracket_l"+i.toString());
 			var teamSelected = document.getElementById("bracket_l"+i.toString()).value;
 			if(teamSelected){
@@ -238,10 +221,15 @@ function updateOptionsR16(selected, disabled, next_round){
 					$("#bracket_l"+i.toString()).prepend("<option value=''>Loser Game "+i.toString()+"</option>");
 
 				setCSSSelected("#bracket_l"+i.toString(),true);
-
+				document.getElementById('l'+i.toString()+"-old").value = teamSelected;
 				displayInNextRound("#bracket_third option[value="+teamSelected+"]", true);
 			};
 		};
+		var teamSelectedThird = document.getElementById("bracket_third").value;
+		console.log("TEAM SELECTED IN THIRD BEFORE FIXING "+ teamSelectedThird);
+		$("#bracket_third").val(teamSelectedThird);
+		var teamSelectedThird = document.getElementById("bracket_third").value;
+		console.log("TEAM SELECTED IN THIRD AFTER FIXING "+ teamSelectedThird);
 	};
 
 	function disableFinals(){
@@ -322,11 +310,29 @@ function updateOptionsR16(selected, disabled, next_round){
 			fixR16Games();
 
 			fixWGames();
-
+			console.log("ABOUT TO CALL FIXLGAMES");
 			fixLGames();
 
 			fix3rdAndChampion();
 
 			disableFinals();
 	};
+
+	function showMessage(elem){
+		var y = window.scrollY + (window.innerHeight / 2) - 100;
+		var x = (window.innerWidth / 2) - 150;
+		$(elem).css("top",y+'px');
+		$(elem).css("left",x+'px');
+		$(elem).removeClass("off");
+		$(elem).addClass("on");
+		console.log("showMessage Function");
+	};
+
+	function clearMessage(elem){
+		$(elem).removeClass("on");
+		$(elem).addClass("off");
+		console.log("clearMessage Function");
+	};
+
+
 

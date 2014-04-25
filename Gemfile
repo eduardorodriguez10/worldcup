@@ -30,10 +30,10 @@ gem 'spring',        group: :development
 
 # Use unicorn as the app server
 # gem 'unicorn'
-
+gem 'bcrypt-ruby', '~> 3.1.2', :require => 'bcrypt'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
+gem 'country_select'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 

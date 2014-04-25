@@ -1,0 +1,114 @@
+
+<div class="well col-md-6">
+	<div class="col-md-12">
+		<%= link_to "Go Back", :back, class: 'btn btn-primary' %>
+		<% if @group.organizer == session[:user_id] %>
+			<%= link_to "Edit This Group", edit_group_path(@group), class: 'btn btn-primary' %>
+			<button type="button" class="btn btn-danger" id="button_delete_group" onclick="showMessage('#delete-group-message')">Delete Group</button>
+		<% else %>
+			<button type="button" class="btn btn-danger" id="button_leave_group">Leave Group</button>
+		<% end %>
+	</div>
+	<br>
+	<br>
+	<h3>Group Information</h3>
+	<table class="table">
+		<tr>
+			<td> Group Name </td> 
+			<td> <%= @group.group_name %></td>
+		</tr>
+		<tr>
+			<td> Group Id </td> 
+			<td> <%= @group.id %></td>
+		</tr>
+		<tr>
+			<td> Passcode </td> 
+			<td> <%= @group.passcode %></td>
+		</tr>
+		<tr>
+			<td> Organizer </td>
+			<td> <%= User.find(@group.organizer).first_name %> <%= User.find(@group.organizer).last_name %> </td>
+		</tr>
+		<% if !@group.leader.nil? %>
+			<tr>
+				<td> Current Leader </td>
+				<td> <%= User.find(@group.leader).first_name %> <%= User.find(@group.leader).last_name %></td> 
+			</tr>
+		<% end %>
+		<tr>
+			<td> Number of Members </td>
+			<td> <%= Membership.where(group_id: @group.id).count() %> </td>
+		</tr>
+	</table>
+</div>
+<div class="well col-md-offset-1 col-md-5">
+	<div class="col-md-12">
+		<%= link_to "Invite More Players", edit_group_path(@group), class: 'btn btn-primary' %>
+	</div>
+	<br>
+	<br>
+	<h3>Group Members</h3>
+	<% @members = Membership.where(group_id: @group.id) %>
+	<% if !@members.empty? %>
+		<table class="table">
+			<tr> 
+				<td> Screen Name </td>
+				<td> Score </td>
+			</tr>
+			<% @members.each do |member| %>
+				<% @bracket = Bracket.find_by(user_id: member.user_id) %>
+				<tr>
+					<td> <%= member.user_screen_name %> 
+						<% if member.user_id == current_user.id %> 
+						  <%= link_to " (change)", 'javascript:void(0)', id: "change-screenname" %>
+						<% elsif !@bracket.nil? %> 
+						<%= link_to " View Bracket", bracket_path(@bracket, other_bracket: true, screen_name: member.user_screen_name ) %>
+						<% else %>
+						 (No bracket yet)
+						<% end %> </td>
+				</tr>
+			<% end %>
+		</table>
+	<% end %>
+</div>
+<div id="leave-group-message" class="warning-message off">
+	<br>
+	<h4 class="center">Are you sure you want to leave this group?</h4>
+	<br>
+	<br>
+	<%= link_to "Yes", membership_path(@group), method: 'delete', class: 'btn btn-danger btn-message' %>
+	<button type="button" class="btn btn-success btn-message " onclick="clearMessage('#leave-group-message')">No</button>
+</div>
+<div id="delete-group-message" class="warning-message off">
+	<br>
+	<h4 class="center">Are you sure you want to delete this group?</h4>
+	<br>
+	<br>
+	<%= link_to "Yes", group_path(@group), method: 'delete', class: 'btn btn-danger btn-message' %>
+	<button type="button" class="btn btn-success btn-message " onclick="clearMessage('#delete-group-message')">No</button>
+</div>
+<div id="screenname-form-message" class="warning-message off">
+	<h4 class="center">Enter new screen name:</h4>
+	<br/>
+	<% @this_member = Membership.find_by(user_id: session[:user_id], group_id: @group.id) %>
+	<%= form_for @this_member do |f| %>
+	<%= f.text_field :user_screen_name, class: 'form-input col-md-12' %>
+	<br/>
+	<br/>
+	<br/>
+	<button type="button" class="btn btn-primary col-xs-4 col-xs-offset-1" id="cancel-screenname">Cancel</button>
+	<%= f.submit  "Save", class: 'btn btn-success col-xs-4 col-xs-offset-2' %>
+	<% end %>
+</div>
+
+<script>
+		$('#cancel-screenname').click(function (event) {
+			clearMessage("#screenname-form-message");
+		});
+		$('#change-screenname').click(function (event) {
+			showMessage("#screenname-form-message");
+		});
+		$('#button_leave_group').click(function (event) {
+			showMessage("#leave-group-message");
+		});	
+</script>

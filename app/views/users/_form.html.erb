@@ -1,0 +1,31 @@
+
+<div class='well'>
+	<%= form_for @user do |f| %>
+		<%= render 'shared/display_errors', obj: @user %> 
+		<div class='control-group form-row'>
+			<%= f.label :email, class: 'form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12' %>
+			<%= f.text_field :email, class: 'form-input col-lg-3 col-md-4 col-sm-5 col-xs-10' %>
+		</div>
+		<div class='control-group form-row'>
+			<%= f.label :password, class: 'form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12' %> 
+			<%= f.password_field :password, class: 'form-input col-lg-3 col-md-4 col-sm-5 col-xs-10' %>
+		</div>
+		<div class='control-group form-row'>
+			<label class='form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12'>Re-type Password</label>
+			<input class='form-input col-lg-3 col-md-4 col-sm-5 col-xs-10' id="retype" type="password"></input>
+		</div>
+		<div class='control-group form-row'>
+			<%= f.label :first_name, class: 'form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12' %>
+			<%= f.text_field :first_name, class: 'form-input col-lg-3 col-md-4 col-sm-5 col-xs-10' %>
+		</div>
+		<div class='control-group form-row'>
+			<%= f.label :last_name, class: 'form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12' %>
+			<%= f.text_field :last_name, class: 'form-input col-lg-3 col-md-4 col-sm-5 col-xs-10' %>
+		</div>
+		<div class='control-group form-row'>
+			<%= f.label :country, class: 'form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12' %> 
+			<%= f.country_select(:country, ["United States"])%>
+		</div>
+		<%= f.submit @user.new_record? ? "Register" : "Update Profile", class: 'btn btn-success form-btn' %>
+	<% end %>
+</div>

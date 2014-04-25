@@ -1,0 +1,28 @@
+<div class="col-md-5">
+		<%= link_to "Create New Group", new_group_path(), class: 'btn btn-success inline' %>
+		<%= link_to "Join Existing Group", new_membership_path(), class: 'btn btn-primary inline' %>
+</div>
+<br/>
+<br/>
+<div class="col-md-12">
+	<%if @groups.empty? %>
+		<h4>You haven't joined any groups yet.</h4>
+	<% else %>
+			<div class="well">
+				<table class="table">
+					<tr>
+						<th>Group Name</th>
+						<th>Organizer</th>
+						<th>Number of Members</th>
+					</tr>
+					<% @groups.all.each do |group| %>
+						<tr>
+							<td><%= link_to group.group_name, group_path(group) %></td>
+							<td><%= User.find(group.organizer).first_name%> <%= User.find(group.organizer).last_name%></td>
+							<td><%= Membership.where(group_id: group.id).count() %></td>
+						</tr>
+					<% end %>
+				</table>
+			</div>
+	<% end %>
+</div>
