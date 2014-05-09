@@ -3,7 +3,7 @@
     <%= link_to "World Cup Bracket!", root_path, :class => 'brand' %>
   </li>
   <li>
-    <%= link_to 'Your Bracket', bracket_path(session[:user_id]) if logged_in? %>
+    <%= link_to 'Your Bracket', bracket_path(current_user.slug) if logged_in? %>
   </li>
   <li>
   	<%= link_to 'Groups', groups_path if logged_in? %>
@@ -21,10 +21,7 @@
         <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span> <%= current_user.first_name %>'s Account</a>
         <ul class="dropdown-menu">
           <li>
-            <%= link_to 'Edit Profile', root_path %>
-          </li>
-          <li>
-            <%= link_to 'View Profile', root_path%>
+            <%= link_to 'Edit Profile', edit_user_path(current_user.slug) %>
           </li>
           <li>
             <%= link_to 'Logout', logout_path %>

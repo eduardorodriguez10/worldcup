@@ -1,7 +1,5 @@
 class GroupsController < ApplicationController
 
-
-
 	def index
 		Membership.uncached do
 			@association = Membership.select(:group_id).where(user_id: session[:user_id])
@@ -37,26 +35,26 @@ class GroupsController < ApplicationController
 	end
 
 	def edit 
-		@group = Group.find(params[:id])
+		@group = Group.find_by(slug: params[:id])
 	end
 
 	def update
-		@group = Group.find(params[:id])
+		@group = Group.find_by(slug: params[:id])
 		binding.pry
 		if @group.update(group_params)
 			redirect_to group_path(@group)
 		else
 			flash[:error] = "There was a problem updating the group"
-			redirect_to group_path(params[:id])
+			redirect_to group_path(slug: params[:id])
 		end
 	end
 
 	def show
-		@group = Group.find(params[:id])
+		@group = Group.find_by(slug: params[:id])
 	end
 
 	def destroy
-		@group = Group.find(params[:id])
+		@group = Group.find_by(slug: params[:id])
 		@memberships = Membership.where(group_id: params[:id])
 		if @memberships.destroy_all
 			@group.destroy
@@ -72,6 +70,7 @@ class GroupsController < ApplicationController
 	def group_params
 		params.require(:group).permit(:group_name, :passcode)
 	end
+
 	def membership_params
 		params.require(:membership).permit(:user_id, :group_id, :user_screen_name)
 	end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140408231714) do
+ActiveRecord::Schema.define(version: 20140507205454) do
 
   create_table "bracket_placements", force: true do |t|
     t.string  "placement"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 20140408231714) do
     t.integer  "champion"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
 
   create_table "groups", force: true do |t|
@@ -70,6 +71,7 @@ ActiveRecord::Schema.define(version: 20140408231714) do
     t.string   "passcode"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
 
   create_table "memberships", force: true do |t|
@@ -93,6 +95,7 @@ ActiveRecord::Schema.define(version: 20140408231714) do
     t.string   "country"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
 
 end

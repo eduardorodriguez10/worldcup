@@ -42,6 +42,7 @@ group :doc do
 end
 
 group :development do
+  gem 'sprockets-rails', :require => 'sprockets/railtie'
   gem 'quiet_assets'
   gem 'pry'
   gem 'sqlite3'

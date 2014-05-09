@@ -10735,8 +10735,10 @@ return jQuery;
 
 })( jQuery );
 (function() {
-  var CSRFToken, allowLinkExtensions, anchoredLink, browserCompatibleDocumentParser, browserIsntBuggy, browserSupportsCustomEvents, browserSupportsPushState, browserSupportsTurbolinks, bypassOnLoadPopstate, cacheCurrentPage, cacheSize, changePage, constrainPageCacheTo, createDocument, crossOriginLink, currentState, enableTransitionCache, executeScriptTags, extractLink, extractTitleAndBody, fetch, fetchHistory, fetchReplacement, handleClick, historyStateIsDefined, htmlExtensions, ignoreClick, initializeTurbolinks, installClickHandlerLast, installDocumentReadyPageEventTriggers, installHistoryChangeHandler, installJqueryAjaxSuccessPageUpdateTrigger, loadedAssets, noTurbolink, nonHtmlLink, nonStandardClick, pageCache, pageChangePrevented, pagesCached, popCookie, processResponse, recallScrollPosition, referer, reflectNewUrl, reflectRedirectedUrl, rememberCurrentState, rememberCurrentUrl, rememberReferer, removeHash, removeHashForIE10compatiblity, removeNoscriptTags, requestMethodIsSafe, resetScrollPosition, targetLink, transitionCacheEnabled, transitionCacheFor, triggerEvent, visit, xhr, _ref,
+  var CSRFToken, Click, ComponentUrl, Link, browserCompatibleDocumentParser, browserIsntBuggy, browserSupportsCustomEvents, browserSupportsPushState, browserSupportsTurbolinks, bypassOnLoadPopstate, cacheCurrentPage, cacheSize, changePage, constrainPageCacheTo, createDocument, currentState, enableTransitionCache, executeScriptTags, extractTitleAndBody, fetch, fetchHistory, fetchReplacement, historyStateIsDefined, initializeTurbolinks, installDocumentReadyPageEventTriggers, installHistoryChangeHandler, installJqueryAjaxSuccessPageUpdateTrigger, loadedAssets, pageCache, pageChangePrevented, pagesCached, popCookie, processResponse, recallScrollPosition, referer, reflectNewUrl, reflectRedirectedUrl, rememberCurrentState, rememberCurrentUrl, rememberReferer, removeNoscriptTags, requestMethodIsSafe, resetScrollPosition, transitionCacheEnabled, transitionCacheFor, triggerEvent, visit, xhr, _ref,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; },
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     __slice = [].slice;
 
   pageCache = {};
@@ -10749,8 +10751,6 @@ return jQuery;
 
   loadedAssets = null;
 
-  htmlExtensions = ['html'];
-
   referer = null;
 
   createDocument = null;
@@ -10759,10 +10759,11 @@ return jQuery;
 
   fetch = function(url) {
     var cachedPage;
+    url = new ComponentUrl(url);
     rememberReferer();
     cacheCurrentPage();
     reflectNewUrl(url);
-    if (transitionCacheEnabled && (cachedPage = transitionCacheFor(url))) {
+    if (transitionCacheEnabled && (cachedPage = transitionCacheFor(url.absolute))) {
       fetchHistory(cachedPage);
       return fetchReplacement(url);
     } else {
@@ -10792,13 +10793,13 @@ return jQuery;
       })(this);
     }
     triggerEvent('page:fetch', {
-      url: url
+      url: url.absolute
     });
     if (xhr != null) {
       xhr.abort();
     }
     xhr = new XMLHttpRequest;
-    xhr.open('GET', removeHashForIE10compatiblity(url), true);
+    xhr.open('GET', url.withoutHashForIE10compatibility(), true);
     xhr.setRequestHeader('Accept', 'text/html, application/xhtml+xml, application/xml');
     xhr.setRequestHeader('X-XHR-Referer', referer);
     xhr.onload = function() {
@@ -10810,14 +10811,14 @@ return jQuery;
         onLoadFunction();
         return triggerEvent('page:load');
       } else {
-        return document.location.href = url;
+        return document.location.href = url.absolute;
       }
     };
     xhr.onloadend = function() {
       return xhr = null;
     };
     xhr.onerror = function() {
-      return document.location.href = url;
+      return document.location.href = url.absolute;
     };
     return xhr.send();
   };
@@ -10832,8 +10833,10 @@ return jQuery;
   };
 
   cacheCurrentPage = function() {
-    pageCache[currentState.url] = {
-      url: document.location.href,
+    var currentStateUrl;
+    currentStateUrl = new ComponentUrl(currentState.url);
+    pageCache[currentStateUrl.absolute] = {
+      url: currentStateUrl.relative,
       body: document.body,
       title: document.title,
       positionY: window.pageYOffset,
@@ -10914,19 +10917,20 @@ return jQuery;
   };
 
   reflectNewUrl = function(url) {
-    if (url !== referer) {
+    if ((url = new ComponentUrl(url)).absolute !== referer) {
       return window.history.pushState({
         turbolinks: true,
-        url: url
-      }, '', url);
+        url: url.absolute
+      }, '', url.absolute);
     }
   };
 
   reflectRedirectedUrl = function() {
     var location, preservedHash;
     if (location = xhr.getResponseHeader('X-XHR-Redirected-To')) {
-      preservedHash = removeHash(location) === location ? document.location.hash : '';
-      return window.history.replaceState(currentState, '', location + preservedHash);
+      location = new ComponentUrl(location);
+      preservedHash = location.hasNoHash() ? document.location.hash : '';
+      return window.history.replaceState(currentState, '', location.href + preservedHash);
     }
   };
 
@@ -10955,20 +10959,6 @@ return jQuery;
     } else {
       return window.scrollTo(0, 0);
     }
-  };
-
-  removeHashForIE10compatiblity = function(url) {
-    return removeHash(url);
-  };
-
-  removeHash = function(url) {
-    var link;
-    link = url;
-    if (url.href == null) {
-      link = document.createElement('A');
-      link.href = url;
-    }
-    return link.href.replace(link.hash, '');
   };
 
   popCookie = function(name) {
@@ -11102,79 +11092,150 @@ return jQuery;
     }
   };
 
-  installClickHandlerLast = function(event) {
-    if (!event.defaultPrevented) {
-      document.removeEventListener('click', handleClick, false);
-      return document.addEventListener('click', handleClick, false);
+  ComponentUrl = (function() {
+    function ComponentUrl(original) {
+      this.original = original != null ? original : document.location.href;
+      if (this.original.constructor === ComponentUrl) {
+        return this.original;
+      }
+      this._parse();
     }
-  };
 
-  handleClick = function(event) {
-    var link;
-    if (!event.defaultPrevented) {
-      link = extractLink(event);
-      if (link.nodeName === 'A' && !ignoreClick(event, link)) {
+    ComponentUrl.prototype.withoutHash = function() {
+      return this.href.replace(this.hash, '');
+    };
+
+    ComponentUrl.prototype.withoutHashForIE10compatibility = function() {
+      return this.withoutHash();
+    };
+
+    ComponentUrl.prototype.hasNoHash = function() {
+      return this.hash.length === 0;
+    };
+
+    ComponentUrl.prototype._parse = function() {
+      var _ref;
+      (this.link != null ? this.link : this.link = document.createElement('a')).href = this.original;
+      _ref = this.link, this.href = _ref.href, this.protocol = _ref.protocol, this.host = _ref.host, this.hostname = _ref.hostname, this.port = _ref.port, this.pathname = _ref.pathname, this.search = _ref.search, this.hash = _ref.hash;
+      this.origin = [this.protocol, '//', this.hostname].join('');
+      if (this.port.length !== 0) {
+        this.origin += ":" + this.port;
+      }
+      this.relative = [this.pathname, this.search, this.hash].join('');
+      return this.absolute = this.href;
+    };
+
+    return ComponentUrl;
+
+  })();
+
+  Link = (function(_super) {
+    __extends(Link, _super);
+
+    Link.HTML_EXTENSIONS = ['html'];
+
+    Link.allowExtensions = function() {
+      var extension, extensions, _i, _len;
+      extensions = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+      for (_i = 0, _len = extensions.length; _i < _len; _i++) {
+        extension = extensions[_i];
+        Link.HTML_EXTENSIONS.push(extension);
+      }
+      return Link.HTML_EXTENSIONS;
+    };
+
+    function Link(link) {
+      this.link = link;
+      if (this.link.constructor === Link) {
+        return this.link;
+      }
+      this.original = this.link.href;
+      Link.__super__.constructor.apply(this, arguments);
+    }
+
+    Link.prototype.shouldIgnore = function() {
+      return this._crossOrigin() || this._anchored() || this._nonHtml() || this._optOut() || this._target();
+    };
+
+    Link.prototype._crossOrigin = function() {
+      return this.origin !== (new ComponentUrl).origin;
+    };
+
+    Link.prototype._anchored = function() {
+      var current;
+      return ((this.hash && this.withoutHash()) === (current = new ComponentUrl).withoutHash()) || (this.href === current.href + '#');
+    };
+
+    Link.prototype._nonHtml = function() {
+      return this.pathname.match(/\.[a-z]+$/g) && !this.pathname.match(new RegExp("\\.(?:" + (Link.HTML_EXTENSIONS.join('|')) + ")?$", 'g'));
+    };
+
+    Link.prototype._optOut = function() {
+      var ignore, link;
+      link = this.link;
+      while (!(ignore || link === document)) {
+        ignore = link.getAttribute('data-no-turbolink') != null;
+        link = link.parentNode;
+      }
+      return ignore;
+    };
+
+    Link.prototype._target = function() {
+      return this.link.target.length !== 0;
+    };
+
+    return Link;
+
+  })(ComponentUrl);
+
+  Click = (function() {
+    Click.installHandlerLast = function(event) {
+      if (!event.defaultPrevented) {
+        document.removeEventListener('click', Click.handle, false);
+        return document.addEventListener('click', Click.handle, false);
+      }
+    };
+
+    Click.handle = function(event) {
+      return new Click(event);
+    };
+
+    function Click(event) {
+      this.event = event;
+      if (this.event.defaultPrevented) {
+        return;
+      }
+      this._extractLink();
+      if (this._validForTurbolinks()) {
         if (!pageChangePrevented()) {
-          visit(link.href);
+          visit(this.link.href);
         }
-        return event.preventDefault();
+        this.event.preventDefault();
       }
     }
-  };
 
-  extractLink = function(event) {
-    var link;
-    link = event.target;
-    while (!(!link.parentNode || link.nodeName === 'A')) {
-      link = link.parentNode;
-    }
-    return link;
-  };
+    Click.prototype._extractLink = function() {
+      var link;
+      link = this.event.target;
+      while (!(!link.parentNode || link.nodeName === 'A')) {
+        link = link.parentNode;
+      }
+      if (link.nodeName === 'A' && link.href.length !== 0) {
+        return this.link = new Link(link);
+      }
+    };
 
-  crossOriginLink = function(link) {
-    return location.protocol !== link.protocol || location.host !== link.host;
-  };
+    Click.prototype._validForTurbolinks = function() {
+      return (this.link != null) && !(this.link.shouldIgnore() || this._nonStandardClick());
+    };
 
-  anchoredLink = function(link) {
-    return ((link.hash && removeHash(link)) === removeHash(location)) || (link.href === location.href + '#');
-  };
+    Click.prototype._nonStandardClick = function() {
+      return this.event.which > 1 || this.event.metaKey || this.event.ctrlKey || this.event.shiftKey || this.event.altKey;
+    };
 
-  nonHtmlLink = function(link) {
-    var url;
-    url = removeHash(link);
-    return url.match(/\.[a-z]+(\?.*)?$/g) && !url.match(new RegExp("\\.(?:" + (htmlExtensions.join('|')) + ")?(\\?.*)?$", 'g'));
-  };
+    return Click;
 
-  noTurbolink = function(link) {
-    var ignore;
-    while (!(ignore || link === document)) {
-      ignore = link.getAttribute('data-no-turbolink') != null;
-      link = link.parentNode;
-    }
-    return ignore;
-  };
-
-  targetLink = function(link) {
-    return link.target.length !== 0;
-  };
-
-  nonStandardClick = function(event) {
-    return event.which > 1 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey;
-  };
-
-  ignoreClick = function(event, link) {
-    return crossOriginLink(link) || anchoredLink(link) || nonHtmlLink(link) || noTurbolink(link) || targetLink(link) || nonStandardClick(event);
-  };
-
-  allowLinkExtensions = function() {
-    var extension, extensions, _i, _len;
-    extensions = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-    for (_i = 0, _len = extensions.length; _i < _len; _i++) {
-      extension = extensions[_i];
-      htmlExtensions.push(extension);
-    }
-    return htmlExtensions;
-  };
+  })();
 
   bypassOnLoadPopstate = function(fn) {
     return setTimeout(fn, 500);
@@ -11201,7 +11262,7 @@ return jQuery;
   installHistoryChangeHandler = function(event) {
     var cachedPage, _ref;
     if ((_ref = event.state) != null ? _ref.turbolinks : void 0) {
-      if (cachedPage = pageCache[event.state.url]) {
+      if (cachedPage = pageCache[(new ComponentUrl(event.state.url)).absolute]) {
         cacheCurrentPage();
         return fetchHistory(cachedPage);
       } else {
@@ -11214,7 +11275,7 @@ return jQuery;
     rememberCurrentUrl();
     rememberCurrentState();
     createDocument = browserCompatibleDocumentParser();
-    document.addEventListener('click', installClickHandlerLast, true);
+    document.addEventListener('click', Click.installHandlerLast, true);
     return bypassOnLoadPopstate(function() {
       return window.addEventListener('popstate', installHistoryChangeHandler, false);
     });
@@ -11250,7 +11311,7 @@ return jQuery;
     visit: visit,
     pagesCached: pagesCached,
     enableTransitionCache: enableTransitionCache,
-    allowLinkExtensions: allowLinkExtensions,
+    allowLinkExtensions: Link.allowExtensions,
     supported: browserSupportsTurbolinks
   };
 
@@ -11276,26 +11337,18 @@ function updateOptionsR16(selected, disabled, next_round){
 				oldTeamIndex = i;
 				oldTeam = document.getElementById("bracket_"+disabled).options[i].value;
 			}
-		}			
-
+		}	
+		var teamSelected = e.options[valueSelected].value;		
+		// set CSS to selected if value selected
+		setCSSSelected("#bracket_"+selected, valueSelected);
 		// show the new team and hide the old team in the next round
-		var teamSelected = e.options[valueSelected].value;
 		if(valueSelected){
 			document.getElementById("bracket_"+disabled).options[valueSelected].disabled = true;
-			$("#bracket_"+next_round+" option[value="+teamSelected.toString()+"]").show();
-			$("#bracket_"+next_round+" option[value="+teamSelected+"]").unwrap('<span style="display:none;" />');
-			$("#bracket_"+selected).removeClass("notselected");
-			$("#bracket_"+selected).addClass("selected");
-		}
-		else {
-			$("#bracket_"+selected).removeClass("selected");
-			$("#bracket_"+selected).addClass("notselected");
+			displayInNextRound("#bracket_"+next_round+" option[value="+teamSelected.toString()+"]", true);
 		};
 		if(oldTeam){
 			document.getElementById("bracket_"+disabled).options[oldTeamIndex].disabled = false;
-			$("#bracket_"+next_round+" option[value="+oldTeam.toString()+"]").hide();
-			$("#bracket_"+next_round+" option[value="+oldTeam+"]").wrap('<span style="display:none;" />');
-			$("#bracket_"+next_round+" option[value="+oldTeam+"]").prop("selected", false);
+			displayInNextRound("#bracket_"+next_round+" option[value="+oldTeam.toString()+"]", false);
 		}
 	};
 	function updateOptionsQF(selected, next_round){
@@ -11305,21 +11358,14 @@ function updateOptionsR16(selected, disabled, next_round){
 		var oldTeam = document.getElementById(selected+"-old").value;
 		// get value of new team selected
 		var teamSelected = e.value;
+		// set CSS to selected if value selected
+		setCSSSelected("#bracket_"+selected, valueSelected);
 		// show the new team and hide the old team in the next round
 		if(valueSelected){
-			$("#bracket_"+next_round+" option[value="+teamSelected.toString()+"]").show();
-			$("#bracket_"+next_round+" option[value="+teamSelected+"]").unwrap('<span style="display:none;" />');
-			$("#bracket_"+selected).removeClass("notselected");
-			$("#bracket_"+selected).addClass("selected");
-		}
-		else {
-			$("#bracket_"+selected).removeClass("selected");
-			$("#bracket_"+selected).addClass("notselected");
+			displayInNextRound("#bracket_"+next_round+" option[value="+teamSelected.toString()+"]", true);
 		};
 		if(oldTeam){
-			$("#bracket_"+next_round+" option[value="+oldTeam.toString()+"]").hide();
-			$("#bracket_"+next_round+" option[value="+oldTeam+"]").wrap('<span style="display:none;" />');
-			$("#bracket_"+next_round+" option[value="+oldTeam+"]").prop("selected", false);
+			displayInNextRound("#bracket_"+next_round+" option[value="+oldTeam.toString()+"]", false);
 		}
 		document.getElementById(selected+"-old").value = e.value;
 	};
@@ -11330,28 +11376,17 @@ function updateOptionsR16(selected, disabled, next_round){
 		var oldTeam = document.getElementById(selected+"-old").value;
 		// get value of new team selected
 		var teamSelected = e.value;
-		console.log("Team Selected:"+teamSelected);
-		console.log("oldTeam:"+oldTeam);
+		// set CSS to selected if value selected
+		setCSSSelected("#bracket_"+selected, valueSelected);
+
 		// show the new team and hide the old team in the next round
-		if(valueSelected){
-			$("#bracket_w"+next_round+" option[value="+teamSelected.toString()+"]").show();
-			$("#bracket_w"+next_round+" option[value="+teamSelected+"]").unwrap('<span style="display:none;" />');
-			$("#bracket_l"+next_round+" option[value="+teamSelected.toString()+"]").show();
-			$("#bracket_l"+next_round+" option[value="+teamSelected+"]").unwrap('<span style="display:none;" />');
-			$("#bracket_"+selected).removeClass("notselected");
-			$("#bracket_"+selected).addClass("selected");
+		if(valueSelected>0){
+			displayInNextRound("#bracket_w"+next_round+" option[value="+teamSelected.toString()+"]", true);
+			displayInNextRound("#bracket_l"+next_round+" option[value="+teamSelected.toString()+"]", true);
 		}
-		else {
-			$("#bracket_"+selected).removeClass("selected");
-			$("#bracket_"+selected).addClass("notselected");
-		};
-		if(oldTeam){
-			$("#bracket_w"+next_round+" option[value="+oldTeam.toString()+"]").hide();
-			$("#bracket_w"+next_round+" option[value="+oldTeam+"]").wrap('<span style="display:none;" />');
-			$("#bracket_w"+next_round+" option[value="+oldTeam+"]").prop("selected", false);
-			$("#bracket_l"+next_round+" option[value="+oldTeam.toString()+"]").hide();
-			$("#bracket_l"+next_round+" option[value="+oldTeam+"]").wrap('<span style="display:none;" />');
-			$("#bracket_l"+next_round+" option[value="+oldTeam+"]").prop("selected", false);
+		if(oldTeam>0){
+			displayInNextRound("#bracket_w"+next_round+" option[value="+oldTeam.toString()+"]", false);
+			displayInNextRound("#bracket_l"+next_round+" option[value="+oldTeam.toString()+"]", false);
 		}
 		document.getElementById(selected+"-old").value = e.value;
 	};
@@ -11362,38 +11397,28 @@ function updateOptionsR16(selected, disabled, next_round){
 		var oldTeam = document.getElementById(selected+"-old").value;
 		// get value of new team selected
 		var teamSelected = e.value;
-		console.log(teamSelected);
-		console.log(selected[0]);
+
+
+		// set CSS to selected if value selected
+		setCSSSelected("#bracket_"+selected, valueSelected);
 		// show the new team and hide the old team in the next round
 		if(valueSelected){
 			document.getElementById("bracket_"+disabled).options[teamSelected].disabled = true;
-			$("#bracket_"+selected).removeClass("notselected");
-			$("#bracket_"+selected).addClass("selected");
 			if(selected[0]=='w'){
-				$("#bracket_champion option[value="+teamSelected.toString()+"]").show();
-				$("#bracket_champion option[value="+teamSelected+"]").unwrap('<span style="display:none;" />');
+				displayInNextRound("#bracket_champion option[value="+teamSelected.toString()+"]", true);
 			};
 			if(selected[0]=='l'){
-				$("#bracket_third option[value="+teamSelected.toString()+"]").show();
-				$("#bracket_third option[value="+teamSelected+"]").unwrap('<span style="display:none;" />');
+				displayInNextRound("#bracket_third option[value="+teamSelected.toString()+"]", true);
 			};
-		}
-		else
-		{
-			$("#bracket_"+selected).removeClass("selected");
-			$("#bracket_"+selected).addClass("notselected");
 		};
+
 		if(oldTeam){
 			document.getElementById("bracket_"+disabled).options[oldTeam].disabled = false;
 			if(selected[0]=='w'){
-				$("#bracket_champion option[value="+oldTeam.toString()+"]").hide();
-				$("#bracket_champion option[value="+oldTeam+"]").wrap('<span style="display:none;" />');
-				$("#bracket_champion option[value="+oldTeam+"]").prop("selected", false);
+				displayInNextRound("#bracket_champion option[value="+oldTeam.toString()+"]", false);
 			};
 			if(selected[0]=='l'){
-				$("#bracket_third option[value="+oldTeam.toString()+"]").hide();
-				$("#bracket_third option[value="+oldTeam+"]").wrap('<span style="display:none;" />');
-				$("#bracket_third option[value="+oldTeam+"]").prop("selected", false);
+				displayInNextRound("#bracket_third option[value="+oldTeam.toString()+"]", false);
 			}
 		}
 		document.getElementById(selected+"-old").value = e.value;
@@ -11403,24 +11428,253 @@ function updateOptionsR16(selected, disabled, next_round){
 		var valueSelected = e.selectedIndex;
 		// get value of new team selected
 		var teamSelected = e.value;
-		// show the new team and hide the old team in the next round
-		if(valueSelected){
-			$("#bracket_"+selected).removeClass("notselected");
-			$("#bracket_"+selected).addClass("selected");
+
+		// set the CSS to selected if value is selected
+		setCSSSelected("#bracket_"+selected, valueSelected);
+	};
+
+
+	function hideTeamsW(){
+		for (var i = 49; i<63; i++){
+			var selIndex = document.getElementById("bracket_w"+i).selectedIndex;
+			document.getElementById("w"+i+"-old").value = document.getElementById("bracket_w"+i).value;
+			if (selIndex)
+				selIndex++;
+			for(var t = 1; t<33; t++){
+					if(selIndex!=t){
+					$("#bracket_w"+i.toString()+" option[value="+t.toString()+"]").hide();
+					$("#bracket_w"+i.toString()+" option[value="+t.toString()+"]").wrap('<span style="display:none;" />');
+					}
+				};
+		};
+	};
+	function hideTeamsL(){
+		for (var i = 61; i < 63; i++){
+		var selIndex = document.getElementById("bracket_l"+i).selectedIndex;
+		document.getElementById("l"+i+"-old").value = document.getElementById("bracket_l"+i).value;
+		if (selIndex)
+			selIndex++;
+		for(var t = 1; t<33; t++){
+				if(selIndex!=t){
+				$("#bracket_l"+i.toString()+" option[value="+t.toString()+"]").hide();
+				$("#bracket_l"+i.toString()+" option[value="+t.toString()+"]").wrap('<span style="display:none;" />');
+				}
+			};
 		}
-		else
-		{
-			$("#bracket_"+selected).removeClass("selected");
-			$("#bracket_"+selected).addClass("notselected");
+	};
+
+	function hide3rdAndChampion(){
+		for(var t = 1; t<33; t++){
+				$("#bracket_third option[value="+t.toString()+"]").hide();
+				$("#bracket_third option[value="+t.toString()+"]").wrap('<span style="display:none;" />');
+			};
+		for(var t = 1; t<33; t++){
+				$("#bracket_champion option[value="+t.toString()+"]").hide();
+				$("#bracket_champion option[value="+t.toString()+"]").wrap('<span style="display:none;" />');
+			};
+	};
+
+	//readjust R16 javascript in case of reload
+	function fixR16Games() {
+		var next_game = {'a1': 'w49', 'b2': 'w49', 'c1': 'w50', 'd2': 'w50', 'e1': 'w53', 'f2': 'w53', 'g1': 'w54', 'h2': 'w54', 'b1': 'w51', 'a2':'w51', 'd1':'w52', 'c2': 'w52', 'f1': 'w60', 'e2': 'w60', 'h1': 'w56', 'g2': 'w56', 'w49': 'w57', 'w50': 'w57', 'w53': 'w58', 'w54': 'w58', 'w57': 'w61', 'w58': 'w61', 'w51': 'w59', 'w52': 'w59', 'w55': 'w60', 'w56': 'w60', 'w59': 'w62', 'w60': 'w62'};
+		for (var i = 97; i <105; i++){
+			var e = document.getElementById("bracket_"+String.fromCharCode(i)+"1");
+			var teamSelected = e.value;
+			var e2 = document.getElementById("bracket_"+String.fromCharCode(i)+"2");
+			var teamSelected2 = e2.value;
+			var next_round1 = next_game[String.fromCharCode(i)+'1'];
+			var next_round2 = next_game[String.fromCharCode(i)+'2'];
+
+			if(teamSelected){
+					if(e.options[0].value)
+					$("#bracket_"+String.fromCharCode(i)+"1").prepend("<option value=''>Group "+String.fromCharCode(i-32)+" 1st</option>");
+			}
+			if(teamSelected2){
+					if(e2.options[0].value)
+					$("#bracket_"+String.fromCharCode(i)+"2").prepend("<option value=''>Group "+String.fromCharCode(i-32)+" 2nd</option>");
+			}
+			if(teamSelected){
+					document.getElementById("bracket_"+String.fromCharCode(i)+"2").options[e.selectedIndex].disabled = true;
+					setCSSSelected("#bracket_"+String.fromCharCode(i)+"1", true);
+					console.log("TEAM SELECTED NEXT ROUND FOR "+next_round1+" "+document.getElementById("bracket_"+next_round1).value);
+					if(document.getElementById("bracket_"+next_round1).value!=teamSelected)
+						displayInNextRound("#bracket_"+next_round1+" option[value="+teamSelected+"]", true);
+				}
+			if(teamSelected2){
+					document.getElementById("bracket_"+String.fromCharCode(i)+"1").options[e2.selectedIndex].disabled = true;
+					setCSSSelected("#bracket_"+String.fromCharCode(i)+"2",true);
+					if(document.getElementById("bracket_"+next_round2).value!=teamSelected2)
+						displayInNextRound("#bracket_"+next_round2+" option[value="+teamSelected2+"]", true);
+			}
+
+			document.getElementById("bracket_"+next_round1).value = document.getElementById(next_round1+"-old").value;
+			document.getElementById("bracket_"+next_round2).value = document.getElementById(next_round2+"-old").value;
+
+		}
+	};
+
+	function fixWGames () {
+		var next_game = {'a1': 'w49', 'b2': 'w49', 'c1': 'w50', 'd2': 'w50', 'e1': 'w53', 'f2': 'w53', 'g1': 'w54', 'h2': 'w54', 'b1': 'w51', 'a2':'w51', 'd1':'w52', 'c2': 'w52', 'f1': 'w60', 'e2': 'w60', 'h1': 'w56', 'g2': 'w56', 'w49': 'w57', 'w50': 'w57', 'w53': 'w58', 'w54': 'w58', 'w57': 'w61', 'w58': 'w61', 'w51': 'w59', 'w52': 'w59', 'w55': 'w60', 'w56': 'w60', 'w59': 'w62', 'w60': 'w62', 'w61': 'champion', 'w62': 'champion', 'l58':'l61', 'l59': 'l62', 'l60': 'l62', 'l57': 'l61'};
+		for (var i = 49; i < 63; i++){
+			var value = document.getElementById("bracket_w"+i.toString()).value;
+			var e = document.getElementById("bracket_w"+i.toString());
+			var teamSelected = document.getElementById("bracket_w"+i.toString()).value;
+			var next_round = next_game['w'+i.toString()];
+			if(teamSelected){
+					if(e.options[0].value)
+					$("#bracket_w"+i.toString()).prepend("<option value=''>Winner Game "+i.toString()+"</option>");
+
+					setCSSSelected("#bracket_w"+i.toString(),true);
+					document.getElementById('w'+i.toString()+"-old").value = teamSelected;
+
+					if(i<61)
+					displayInNextRound("#bracket_"+next_round+" option[value="+teamSelected+"]", true);
+
+					if(i==57 || i == 58)
+						displayInNextRound("#bracket_l61 option[value="+teamSelected+"]", true);
+
+					if(i==59 || i == 60)
+						displayInNextRound("#bracket_l62 option[value="+teamSelected+"]", true);
+
+					if(i==61 || i == 62)
+						displayInNextRound("#bracket_champion option[value="+teamSelected+"]", true);
+			};
+		if(i<61)
+			document.getElementById("bracket_"+next_round).value = document.getElementById(next_round+"-old").value;
+		if(i>56 && i<61){
+			next_round = next_game['l'+i.toString()];
+			document.getElementById("bracket_"+next_round).value = document.getElementById(next_round+"-old").value;
+		}
+
+		};
+		
+
+	};
+
+	function fixLGames(){
+		for (var i = 61; i < 63; i++){
+			var e = document.getElementById("bracket_l"+i.toString());
+			var teamSelected = document.getElementById("bracket_l"+i.toString()).value;
+			if(teamSelected){
+				if(e.options[0].value)
+					$("#bracket_l"+i.toString()).prepend("<option value=''>Loser Game "+i.toString()+"</option>");
+
+				setCSSSelected("#bracket_l"+i.toString(),true);
+				document.getElementById('l'+i.toString()+"-old").value = teamSelected;
+				displayInNextRound("#bracket_third option[value="+teamSelected+"]", true);
+			};
+		};
+		var teamSelectedThird = document.getElementById("bracket_third").value;
+		console.log("TEAM SELECTED IN THIRD BEFORE FIXING "+ teamSelectedThird);
+		$("#bracket_third").val(teamSelectedThird);
+		var teamSelectedThird = document.getElementById("bracket_third").value;
+		console.log("TEAM SELECTED IN THIRD AFTER FIXING "+ teamSelectedThird);
+	};
+
+	function disableFinals(){
+		for (var i = 61; i < 63; i++){
+			var e = document.getElementById("bracket_l"+i.toString());
+			var teamSelected = document.getElementById("bracket_l"+i.toString()).value;
+			if(teamSelected)
+				document.getElementById("bracket_w"+i.toString()).options[teamSelected].disabled = true;
+			var e = document.getElementById("bracket_w"+i.toString());
+			var teamSelected = document.getElementById("bracket_w"+i.toString()).value;
+			if(teamSelected)
+				document.getElementById("bracket_l"+i.toString()).options[teamSelected].disabled = true;
 		};
 	};
 
-	function hideTeamsW(w_number){
-		for(var t = 1; t<33; t++){
-				$("#bracket_w"+w_number.toString()+" option[value="+t.toString()+"]").hide();
-				$("#bracket_w"+w_number.toString()+" option[value="+t.toString()+"]").wrap('<span style="display:none;" />');
-			};
+	function fix3rdAndChampion(){
+			var e = document.getElementById("bracket_third");
+			var teamSelected = document.getElementById("bracket_third").value;
+			if(teamSelected){
+				if(e.options[0].value)
+					$("#bracket_third").prepend("<option value=''>Third Place</option>");
+
+				setCSSSelected("#bracket_third",true);
+			}
+			var e = document.getElementById("bracket_champion");
+			var teamSelected = document.getElementById("bracket_champion").value;
+			if(teamSelected){
+				if(e.options[0].value)
+					$("#bracket_champion").prepend("<option value=''>Champion</option>");
+
+				setCSSSelected("#bracket_champion",true);
+			}
 	};
+
+	function setCSSSelected(elem, b){
+		if (b) {
+		$(elem).removeClass("notselected");
+		$(elem).addClass("selected");
+		}
+		else
+		{
+		$(elem).removeClass("selected");
+		$(elem).addClass("notselected");
+		}
+	};
+
+	function displayInNextRound(elem, b){
+		if(b) {
+			console.log("trying to set "+elem+" with span length "+$(elem).parent("span").length)
+			if($(elem).parent("span").length){
+				console.log(elem+" Parent span length: "+$(elem).parent("span").length);
+				$(elem).show();
+				$(elem).unwrap('<span style="display:none;" />');
+			}
+		}
+		else{
+			$(elem).hide();
+			$(elem).prop("selected", false);
+			if($(elem).parent("select").length)
+			$(elem).wrap('<span style="display:none;" />');
+		};
+	};
+
+	function hideTeams(){
+				//hide teams for wGames
+			hideTeamsW();
+
+		//hide teams for L61 and L62
+			hideTeamsL();
+
+		// hide 3rd Place and Champions Teams
+			hide3rdAndChampion();
+
+	};
+
+	function fixSelects(){
+
+			fixR16Games();
+
+			fixWGames();
+			console.log("ABOUT TO CALL FIXLGAMES for WIN");
+			fixLGames();
+
+			fix3rdAndChampion();
+
+			disableFinals();
+	};
+
+	function showMessage(elem){
+		var y = window.scrollY + (window.innerHeight / 2) - 100;
+		var x = (window.innerWidth / 2) - 150;
+		$(elem).css("top",y+'px');
+		$(elem).css("left",x+'px');
+		$(elem).removeClass("off");
+		$(elem).addClass("on");
+		console.log("showMessage Function");
+	};
+
+	function clearMessage(elem){
+		$(elem).removeClass("on");
+		$(elem).addClass("off");
+		console.log("clearMessage Function");
+	};
+
+
+
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
@@ -11437,167 +11691,4 @@ function updateOptionsR16(selected, disabled, next_round){
 
 
 
-
-<script>
-
-function updateOptionsR16(selected, disabled, next_round){
-		var e = document.getElementById("bracket_"+selected);
-		var valueSelected = e.selectedIndex;
-		var oldTeam = 0;
-		var oldTeamIndex = 0;
-
-		//get value of previously selected team
-		for(var i=0;i<5;i++)
-		{
-			if(document.getElementById("bracket_"+disabled).options[i].disabled == true){
-				oldTeamIndex = i;
-				oldTeam = document.getElementById("bracket_"+disabled).options[i].value;
-			}
-		}			
-
-		// show the new team and hide the old team in the next round
-		var teamSelected = e.options[valueSelected].value;
-		if(valueSelected){
-			document.getElementById("bracket_"+disabled).options[valueSelected].disabled = true;
-			$("#bracket_"+next_round+" option[value="+teamSelected.toString()+"]").show();
-			$("#bracket_"+next_round+" option[value="+teamSelected+"]").unwrap('<span style="display:none;" />');
-			$("#bracket_"+selected).removeClass("notselected");
-			$("#bracket_"+selected).addClass("selected");
-		}
-		else {
-			$("#bracket_"+selected).removeClass("selected");
-			$("#bracket_"+selected).addClass("notselected");
-		};
-		if(oldTeam){
-			document.getElementById("bracket_"+disabled).options[oldTeamIndex].disabled = false;
-			$("#bracket_"+next_round+" option[value="+oldTeam.toString()+"]").hide();
-			$("#bracket_"+next_round+" option[value="+oldTeam+"]").wrap('<span style="display:none;" />');
-			$("#bracket_"+next_round+" option[value="+oldTeam+"]").prop("selected", false);
-		}
-	};
-	function updateOptionsQF(selected, next_round){
-		var e = document.getElementById("bracket_"+selected);
-		var valueSelected = e.selectedIndex;
-		// get value of previously selected team
-		var oldTeam = document.getElementById(selected+"-old").value;
-		// get value of new team selected
-		var teamSelected = e.value;
-		// show the new team and hide the old team in the next round
-		if(valueSelected){
-			$("#bracket_"+next_round+" option[value="+teamSelected.toString()+"]").show();
-			$("#bracket_"+next_round+" option[value="+teamSelected+"]").unwrap('<span style="display:none;" />');
-			$("#bracket_"+selected).removeClass("notselected");
-			$("#bracket_"+selected).addClass("selected");
-		}
-		else {
-			$("#bracket_"+selected).removeClass("selected");
-			$("#bracket_"+selected).addClass("notselected");
-		};
-		if(oldTeam){
-			$("#bracket_"+next_round+" option[value="+oldTeam.toString()+"]").hide();
-			$("#bracket_"+next_round+" option[value="+oldTeam+"]").wrap('<span style="display:none;" />');
-			$("#bracket_"+next_round+" option[value="+oldTeam+"]").prop("selected", false);
-		}
-		document.getElementById(selected+"-old").value = e.value;
-	};
-	function updateOptionsSF(selected, next_round){
-		var e = document.getElementById("bracket_"+selected);
-		var valueSelected = e.selectedIndex;
-		// get value of previously selected team
-		var oldTeam = document.getElementById(selected+"-old").value;
-		// get value of new team selected
-		var teamSelected = e.value;
-		console.log("Team Selected:"+teamSelected);
-		console.log("oldTeam:"+oldTeam);
-		// show the new team and hide the old team in the next round
-		if(valueSelected){
-			$("#bracket_w"+next_round+" option[value="+teamSelected.toString()+"]").show();
-			$("#bracket_w"+next_round+" option[value="+teamSelected+"]").unwrap('<span style="display:none;" />');
-			$("#bracket_l"+next_round+" option[value="+teamSelected.toString()+"]").show();
-			$("#bracket_l"+next_round+" option[value="+teamSelected+"]").unwrap('<span style="display:none;" />');
-			$("#bracket_"+selected).removeClass("notselected");
-			$("#bracket_"+selected).addClass("selected");
-		}
-		else {
-			$("#bracket_"+selected).removeClass("selected");
-			$("#bracket_"+selected).addClass("notselected");
-		};
-		if(oldTeam){
-			$("#bracket_w"+next_round+" option[value="+oldTeam.toString()+"]").hide();
-			$("#bracket_w"+next_round+" option[value="+oldTeam+"]").wrap('<span style="display:none;" />');
-			$("#bracket_w"+next_round+" option[value="+oldTeam+"]").prop("selected", false);
-			$("#bracket_l"+next_round+" option[value="+oldTeam.toString()+"]").hide();
-			$("#bracket_l"+next_round+" option[value="+oldTeam+"]").wrap('<span style="display:none;" />');
-			$("#bracket_l"+next_round+" option[value="+oldTeam+"]").prop("selected", false);
-		}
-		document.getElementById(selected+"-old").value = e.value;
-	};
-	function updateOptionsFinals(selected, disabled, next_round){
-		var e = document.getElementById("bracket_"+selected);
-		var valueSelected = e.selectedIndex;
-		// get value of previously selected team
-		var oldTeam = document.getElementById(selected+"-old").value;
-		// get value of new team selected
-		var teamSelected = e.value;
-		console.log(teamSelected);
-		console.log(selected[0]);
-		// show the new team and hide the old team in the next round
-		if(valueSelected){
-			document.getElementById("bracket_"+disabled).options[teamSelected].disabled = true;
-			$("#bracket_"+selected).removeClass("notselected");
-			$("#bracket_"+selected).addClass("selected");
-			if(selected[0]=='w'){
-				$("#bracket_champion option[value="+teamSelected.toString()+"]").show();
-				$("#bracket_champion option[value="+teamSelected+"]").unwrap('<span style="display:none;" />');
-			};
-			if(selected[0]=='l'){
-				$("#bracket_third option[value="+teamSelected.toString()+"]").show();
-				$("#bracket_third option[value="+teamSelected+"]").unwrap('<span style="display:none;" />');
-			};
-		}
-		else
-		{
-			$("#bracket_"+selected).removeClass("selected");
-			$("#bracket_"+selected).addClass("notselected");
-		};
-		if(oldTeam){
-			document.getElementById("bracket_"+disabled).options[oldTeam].disabled = false;
-			if(selected[0]=='w'){
-				$("#bracket_champion option[value="+oldTeam.toString()+"]").hide();
-				$("#bracket_champion option[value="+oldTeam+"]").wrap('<span style="display:none;" />');
-				$("#bracket_champion option[value="+oldTeam+"]").prop("selected", false);
-			};
-			if(selected[0]=='l'){
-				$("#bracket_third option[value="+oldTeam.toString()+"]").hide();
-				$("#bracket_third option[value="+oldTeam+"]").wrap('<span style="display:none;" />');
-				$("#bracket_third option[value="+oldTeam+"]").prop("selected", false);
-			}
-		}
-		document.getElementById(selected+"-old").value = e.value;
-	};
-	function changeFinals(selected){
-		var e = document.getElementById("bracket_"+selected);
-		var valueSelected = e.selectedIndex;
-		// get value of new team selected
-		var teamSelected = e.value;
-		// show the new team and hide the old team in the next round
-		if(valueSelected){
-			$("#bracket_"+selected).removeClass("notselected");
-			$("#bracket_"+selected).addClass("selected");
-		}
-		else
-		{
-			$("#bracket_"+selected).removeClass("selected");
-			$("#bracket_"+selected).addClass("notselected");
-		};
-	};
-
-	function hideTeamsW(w_number){
-		for(var t = 1; t<33; t++){
-				$("#bracket_w"+w_number.toString()+" option[value="+t.toString()+"]").hide();
-				$("#bracket_w"+w_number.toString()+" option[value="+t.toString()+"]").wrap('<span style="display:none;" />');
-			};
-	};
-
-</script>
 ;
