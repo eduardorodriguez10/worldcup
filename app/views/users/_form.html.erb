@@ -1,31 +1,34 @@
-
-<div class='well'>
-	<%= form_for @user do |f| %>
-		<%= render 'shared/display_errors', obj: @user %> 
-		<div class='control-group form-row'>
-			<%= f.label :email, class: 'form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12' %>
-			<%= f.text_field :email, class: 'form-input col-lg-3 col-md-4 col-sm-5 col-xs-10' %>
-		</div>
-		<div class='control-group form-row'>
-			<%= f.label :password, class: 'form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12' %> 
-			<%= f.password_field :password, class: 'form-input col-lg-3 col-md-4 col-sm-5 col-xs-10' %>
-		</div>
-		<div class='control-group form-row'>
-			<label class='form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12'>Re-type Password</label>
-			<input class='form-input col-lg-3 col-md-4 col-sm-5 col-xs-10' id="retype" type="password"></input>
-		</div>
-		<div class='control-group form-row'>
-			<%= f.label :first_name, class: 'form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12' %>
-			<%= f.text_field :first_name, class: 'form-input col-lg-3 col-md-4 col-sm-5 col-xs-10' %>
-		</div>
-		<div class='control-group form-row'>
-			<%= f.label :last_name, class: 'form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12' %>
-			<%= f.text_field :last_name, class: 'form-input col-lg-3 col-md-4 col-sm-5 col-xs-10' %>
-		</div>
-		<div class='control-group form-row'>
-			<%= f.label :country, class: 'form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12' %> 
-			<%= f.country_select(:country, ["United States"])%>
-		</div>
-		<%= f.submit @user.new_record? ? "Register" : "Update Profile", class: 'btn btn-success form-btn' %>
+<div class='login-background'>
+		<h4 class='register-title register-label'>Sign Up</h4>
+		<%= form_for @user do |f| %>
+			<%= render 'shared/display_errors', obj: @user %> 
+			<div class='control-group form-row'>
+				<%= f.label :email, class: 'form-label register-label' %>
+				<%= f.text_field :email, class: 'form-input register-input', id:'register-email' %>
+			</div>
+			<div class='control-group form-row'>
+				<%= f.label :password, class: 'form-label register-label' %> 
+				<%= f.password_field :password, class: 'form-input register-input', id:'register-password' %>
+				<h5 class='form-error off' id="error-password">Passwords must have at least 8 characters</h5>
+			</div>
+			<div class='control-group form-row'>
+				<label class='form-label register-label'>Re-type Password</label>
+				<input class='form-input register-input' id="register-retype" type="password"></input>
+				<h5 class='form-error off' id="error-retype">Passwords do not match</h5>
+			</div>
+			<div class='control-group form-row'>
+				<%= f.label :first_name, class: 'form-label register-label' %>
+				<%= f.text_field :first_name, class: 'form-input register-input', id:'register-firstname' %>
+			</div>
+			<div class='control-group form-row'>
+				<%= f.label :last_name, class: 'form-label register-label' %>
+				<%= f.text_field :last_name, class: 'form-input register-input', id:'register-lastname' %>
+			</div>
+			<div class='control-group form-row'>
+				<%= f.label :country, class: 'form-label register-label' %> 
+				<%= f.country_select(:country, ["United States"], class: 'form-label register-input') %>
+			</div>
+			<%= f.submit @user.new_record? ? "Sign Up" : "Update Profile", class: 'btn-wcb-normal form-btn register-button', id: 'signup-button' %>
 	<% end %>
+	</div>
 </div>

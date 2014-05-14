@@ -1,24 +1,18 @@
-<ul class="nav">
-  <li>
-    <%= link_to "World Cup Bracket!", root_path, :class => 'brand' %>
-  </li>
-  <li>
-    <%= link_to 'Your Bracket', bracket_path(current_user.slug) if logged_in? %>
-  </li>
-  <li>
-  	<%= link_to 'Groups', groups_path if logged_in? %>
+<ul class="nav main-nav">
+  <li class ="logo">
+    <%= link_to image_tag('logo.png', :width => '200px'), root_path, :class => 'brand', :id => 'logo' %>
   </li>
   <% if !logged_in? %>
-      <li class="right">
+      <li class="right login btn-wcb-normal">
         <%= link_to 'Login', login_path %>
       </li>
-      <li class="right">
-      	<%= link_to 'Register', register_path %>
+      <li class="right register btn-wcb-normal">
+      	<%= link_to 'Sign Up', attempt_path %>
       </li>
   <% end %>
      <div class="btn-group nav_item right">
       <% if logged_in? %>
-        <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span> <%= current_user.first_name %>'s Account</a>
+        <a class="btn btn-small dropdown-toggle nav-dropdown" data-toggle="dropdown" href="#"><span class="caret"></span> <%= current_user.first_name %>'s Account</a>
         <ul class="dropdown-menu">
           <li>
             <%= link_to 'Edit Profile', edit_user_path(current_user.slug) %>
@@ -30,3 +24,36 @@
       <% end %>
     </div>
 </ul>
+
+<% if !logged_in? %>
+  <div id="register-email-message" class="warning-message off">
+  <br>
+  <%= form_tag '/attemp' do %>
+      <div class='control-group form-row'>
+       <label class='form-label register-label'>Enter Your Email Address:</label>
+      <%= text_field_tag :email, params[:email] || '', class: 'form-input register-input' %>
+      </div>
+      <div class='control-group form-row'>
+        <%= submit_tag "Register", class: 'btn-wcb-normal register-button' %>
+      </div>
+    <% end %>
+  </div>
+  <div id="register-thanks-message" class="warning-message off">
+  <br>
+      <div class='control-group form-row'>
+       <label class='form-label register-label'>Thank you! Check your email to complete the registration process. </label>
+      </div>
+      <div class='control-group form-row'>
+        <%= link_to "Register", "#", class: 'btn-wcb-normal register-button' %>
+      </div>
+  </div>
+  <div id="register-error-message" class="warning-message off">
+  <br>
+      <div class='control-group form-row'>
+       <label class='form-label register-label'>Invalid Email. Please Try Again.</label>
+      </div>
+      <div class='control-group form-row'>
+        <%= link_to "Register", "#", class: 'btn-wcb-normal register-button' %>
+      </div>
+  </div>
+<% end %>

@@ -1,0 +1,14 @@
+<div class='login-background'>
+	<div id='login-container' class='register-form'>
+		<h4 class='register-title register-label'>Register</h4>
+		<%= form_tag '/attempt' do %>
+			<div class='control-group form-row'>
+				<%= label_tag :email, nil, class: 'form-label register-label' %>
+				<%= text_field_tag :email, params[:email] || '', class: 'form-input register-input' %>
+			</div>
+			<div class='control-group form-row'>
+				<%= submit_tag "Register", class: 'btn-wcb-normal register-button' %>
+			</div>
+		<% end %>
+	</div>
+</div>

@@ -1,0 +1,19 @@
+<div class="navbar">
+   	<div class="navbar-inner">
+       	<div class="container">	
+			<nav class="third-navbar" role="navigation">
+				<ul class="nav">
+				  <li>
+				    <%= link_to "Create New Group", new_group_path() %>
+				  </li>
+				  <li>
+				    <%= link_to "Join Public Group", groups_path(showpublic: true) %>
+				  </li>
+				  <li>
+				  		<%= link_to "Join Private Group", new_membership_path(isprivate: true) %>
+				  </li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,37 @@
+<div class="navbar">
+   	<div class="navbar-inner">
+       	<div class="container">	
+			<nav class="third-navbar" role="navigation">
+				<ul class="nav">
+				  <li>
+				    <%= link_to "Go Back", :back %>
+				  </li>
+				  <li>
+				    <%= link_to "Invite More Players", groups_path(showpublic: true) %>
+				  </li>
+				  <% if @group.organizer == session[:user_id] %>
+					  <li>
+						<%= link_to "Edit This Group", edit_group_path(@group) %>
+					  </li>
+					  <li>
+					  	<%= link_to "Delete This Group", "#", :onclick => "showMessage('#delete-group-message')" %>
+					  </li>
+				  <% else %>
+				  	  <li>
+				      	<%= link_to "Leave This Group", "#", :id => "button_leave_group" %>
+				  	  </li>
+				<% end %>
+				<li>
+				    <%= link_to "Create New Group", new_group_path() %>
+				  </li>
+				  <li>
+				    <%= link_to "Join Public Group", groups_path(showpublic: true) %>
+				  </li>
+				  <li>
+				  		<%= link_to "Join Private Group", new_membership_path(isprivate: true) %>
+				  </li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>

@@ -29,4 +29,16 @@ class Group < ActiveRecord::Base;
     def to_param
     	self.slug
     end
+
+    def is_member?(user)
+        Membership.where(user_id: user, group_id: self.id).exists?
+    end
+
+    def is_private?
+        self.isprivate 
+    end
+
+    def is_organizer?(user)
+        self.organizer == user.id
+    end
 end

@@ -1,0 +1,40 @@
+
+<table class="table">
+		<tr>
+			<th>Group Name</th>
+			<th>Organizer</th>
+			<th>Number of Members</th>
+			<th>Group Type</th>
+		</tr>
+	<% @groups.all.each do |group| %>
+		<tr>
+			<td>
+				<%= link_to group.group_name, group_path(group) %>
+				<% if !group.is_private? %>
+				   <% if !group.is_organizer?(current_user) %>
+						<% if group.is_member?(current_user.id) %>
+					   		<%= link_to "(Leave Group)", group_path(group) %>
+						<% else %>
+					   		<%= link_to "(Join Group)", group_path(group) %>
+						<% end %>
+					<% end %>
+				<% else %>
+					<% if group.is_organizer?(current_user) %>
+						<%= link_to "(Delete Group)", group_path(group) %>
+					<% else %>
+						<%= link_to "(Leave Group)", group_path(group) %>
+					<% end %>
+				<% end %>
+			</td>
+			<td>
+				<% if group.is_organizer?(current_user) %>
+					You
+				<% else %>
+				<%= User.find(group.organizer).first_name%> <%= User.find(group.organizer).last_name%>
+				<% end %>
+			</td>
+			<td><%= Membership.where(group_id: group.id).count() %></td>
+			<td><%= group.isprivate ? 'Private' : 'Public' %></td>
+		</tr>
+	<% end %>
+</table>

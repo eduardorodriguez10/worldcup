@@ -1,0 +1,62 @@
+<div class="panel-group" id="user-accordion">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#user-accordion" href="#userName">
+					Name and Location
+				</a>
+			</h4>
+		</div>
+		<div id="userName" class="panel-collapse collapse in">
+			<div class="panel-body register-form">
+				<%= form_for @user do |f| %>
+				<%= render 'shared/display_errors', obj: @user %> 
+				<div class='control-group form-row'>
+					<%= f.label :first_name, class: 'form-label register-label f90' %>
+					<%= f.text_field :first_name, class: 'form-input register-input' %>
+				</div>
+				<div class='control-group form-row'>
+					<%= f.label :last_name, class: 'form-label register-label f90' %>
+					<%= f.text_field :last_name, class: 'form-input register-input' %>
+				</div>
+				<div class='control-group form-row'>
+					<%= f.label :country, class: 'form-label register-label f90' %> 
+					<%= f.country_select(:country, ["United States"])%>
+				</div>
+				<%= f.submit @user.new_record? ? "Register" : "Update Profile", class: 'btn-wcb-normal register-button' %>
+				<% end %>
+			</div>
+		</div>
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#user-accordion" href="#userPassword">
+					Change Password
+				</a>
+			</h4>
+		</div>
+		<div id="userPassword" class="panel-collapse collapse">
+			<div class="panel-body register-form">
+				<%= form_for @user do |g| %>
+				<%= render 'shared/display_errors', obj: @user %>
+				<div class='control-group form-row'>
+					<label class='form-label register-label f90'>Current Password</label>
+					<input class='form-input register-input' id="change-oldpassword" name="oldpassword" type="password"></input>
+					<h5 class='form-error off' id="error-change-same">New Password must be different than old password</h5>
+				</div> 
+				<div class='control-group form-row'>
+					<label class='form-label register-label f90'>New Password</label>
+					<%= g.password_field :password, class: 'form-input register-input', id:'change-password' %><br>
+					<h5 class='form-error off' id="error-change-password">Passwords must have at least 8 characters</h5>
+				</div>
+				<div class='control-group form-row'>
+					<label class='form-label register-label f90'>Re-type New Password</label>
+					<input class='form-input register-input' id="change-retype" type="password"></input><br>
+					<h5 class='form-error off' id="error-change-retype">Passwords do not match</h5>
+				</div>
+				<br>
+				<%= g.submit @user.new_record? ? "Register" : "Update Password", class: 'btn-wcb-normal register-button', id:'change-button' %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

@@ -12,8 +12,7 @@ class MembershipsController < ApplicationController
 		if(@group.passcode == params[:passcode])
 			if @membership.save
 				redirect_to groups_path()
-			else
-			     
+			else	     
 			    render 'new'
 			end
 		else
@@ -29,10 +28,11 @@ class MembershipsController < ApplicationController
 	end
 
 	def destroy
-
-		@membership = Membership.find_by(group_id: params[:id], user_id: session[:user_id])
+		group = Group.find_by(slug: params[:id])
+		@membership = Membership.find_by(group_id: group.id, user_id: session[:user_id])
 		if @membership.nil? 
 			flash[:error] = "Error trying to leave group."
+			redirect_to groups_path()
 		else
 			@membership.destroy
 			redirect_to groups_path()

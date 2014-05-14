@@ -3,13 +3,19 @@
 			<%= f.label :group_name, class: 'form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12' %>
 			<%= f.text_field :group_name, class: 'form-input col-lg-3 col-md-4 col-sm-5 col-xs-10' %>
 		</div>
+		<br>
 		<div class='control-group form-row'>
+			<label class='form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12'>Private</label> 
+			<%= f.check_box :isprivate, :checked => true, class: 'form-input col-lg-3 col-md-4 col-sm-5 col-xs-10'%>
+		</div>
+		<br>
+		<div id="div_passcode" class='control-group form-row'>
 			<%= f.label :passcode, class: 'form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12' %> 
 			<%= f.text_field :passcode, class: 'form-input col-lg-3 col-md-4 col-sm-5 col-xs-10' %>
 		</div>
 		<% if @group.new_record? %>
 			<div class='control-group form-row'>
-				<label for="screen_name" class= 'form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12'>Your screen name for this group</label>
+				<label for="screen_name" class= 'form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12'>Your screen name</label>
 				<input type="text" name="screenname" id="screen_name" class='form-input col-lg-3 col-md-4 col-sm-5 col-xs-10'>
 			</div>
 		<% end %>
@@ -17,3 +23,14 @@
 		<%= f.submit @group.new_record? ? "Create Group" : "Update Group", class: 'btn btn-success form-btn col-md-offset-4' %>
 		</div>
 	<% end %>
+	<script>
+		var checkbox = document.getElementById('group_isprivate');
+		var passcode = document.getElementById('div_passcode');
+		checkbox.onchange = function(){
+			if(this.checked){
+				passcode.style['display'] = 'block';
+			} else {
+				passcode.style['display'] = 'none';
+			}
+		};
+	</script>

@@ -11,5 +11,10 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   get 'logout', to: 'sessions#destroy'
-
+  get '/stats', to: 'stats#index'
+  get '/wcbadmin', to: 'sessions#admin'
+  post '/wcblogin', to: 'sessions#newadmin'
+  get '/wcbmgmt', to: 'admin#index'
+  get '/attempt', to: 'register_attempts#new'
+  post '/attempt', to: 'register_attempts#create'
 end

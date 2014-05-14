@@ -1,2 +1,46 @@
-<%= render 'shared/content_title', title: current_user.first_name + "'s Profile" %>
-<%= render 'form' %>
+<%= render 'edit_user_form' %>
+
+<script>
+	$('#change-button').prop("disabled", true);
+	
+	$('.form-input').keyup(function(){
+		if(change_passwords_match() && $('#change-oldpassword').val().length > 7 && !old_and_new_passwords_same())
+			$('#change-button').prop("disabled", false);
+		else
+			$('#change-button').prop("disabled", true);
+
+		if( old_and_new_passwords_same() && ($('#change-password').val().length > 0))
+			$('#error-change-same').show();
+		else
+			$('#error-change-same').hide();
+	});
+
+	$('#change-password').keyup(function(){
+		if($(this).val().length<8)
+			$('#error-change-password').show();
+		else 
+			$('#error-change-password').hide();
+		
+		if($('#change-retype').val().length > 0)
+			if($(this).val() != $('#change-retype').val())
+				$('#error-change-retype').show();
+			else 
+				$('#error-change-retype').hide();
+	});
+
+	$('#change-retype').keyup(function(){
+		if($(this).val() != $('#change-password').val())
+			$('#error-change-retype').show();
+		else 
+			$('#error-change-retype').hide();
+	});
+
+ 	function change_passwords_match(){
+ 		return (($('#change-password').val().length > 7) && ($('#change-retype')).val() == $('#change-password').val())
+ 	};
+
+ 	function old_and_new_passwords_same(){
+ 		return ($('#change-oldpassword').val() == $('#change-password').val());
+ 	}
+
+</script>

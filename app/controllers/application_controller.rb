@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :current_user, :logged_in?, :results_visible?
+  helper_method :current_user, :logged_in?, :results_visible?, :to_boolean, :is_admin?
 
   def current_user
   	@current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -34,5 +34,41 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
+
+  def require_admin
+    if (!logged_in? || !current_user.admin)
+      flash[:error] = "Access denied."
+      redirect_to root_path
+    end
+  end
+
+  def is_admin? 
+     current_user.admin
+  end 
+
+  def items_per_page
+    15
+  end
+
+  def to_boolean(str)
+    str == 'true'
+  end
+
+  def valid_email?(email)
+    !(email =~ /.+@.+\..+/i).nil?
+  end
+  
+  def user_email_exists?(email)
+    !User.find_by(email: email).nil?
+  end
+
+  def user_attempt_exists?(email)
+    !RegisterAttempt.find_by(email: email).nil?
+  end
+
+  def generate_registration_code
+    (0...12).map { (65 + rand(26)).chr }.join
+  end
+
 
 end

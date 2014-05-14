@@ -1,0 +1,18 @@
+<div class="navbar">
+   	<div class="navbar-inner">
+       	<div class="container">	
+			<nav class="third-navbar" role="navigation">
+				<ul class="nav">
+				  <li>
+				    <%= link_to 'Go Back', :back %>
+				  </li>
+				  <li>
+				  		<%= link_to 'Edit Bracket', edit_bracket_path(@bracket.id) if @bracket.user_id == session[:user_id] %>
+				  </li>
+				  <li>
+				  </li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>

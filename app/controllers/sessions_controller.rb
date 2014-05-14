@@ -5,10 +5,8 @@ class SessionsController < ApplicationController
 
 	def create
 		user = User.find_by(email: params[:email])
-		unless user.nil? 
-			bracket = Bracket.find_by(user_id: user.id)
-		end
 		if user && user.authenticate(params[:password])
+			bracket = Bracket.find_by(user_id: user.id)
 			session[:user_id] = user.id 
 			if bracket.nil?
 				redirect_to new_bracket_path()
@@ -25,5 +23,20 @@ class SessionsController < ApplicationController
 	def destroy
 		session[:user_id] = nil
 		redirect_to root_path
+	end
+
+	def admin
+
+	end
+
+	def newadmin
+		user = User.find_by(email: params[:email])
+		if user && user.authenticate(params[:password]) && user.is_admin?
+			session[:user_id] = user.id 
+			redirect_to wcbmgmt_path
+		else
+			flash[:error] = "There's something wrong with your username or password"
+			redirect_to login_path
+		end
 	end
 end

@@ -34,4 +34,8 @@ class User < ActiveRecord::Base;
 	def to_param
 		self.slug
 	end
+
+	def is_admin?
+		self.admin
+	end
 end

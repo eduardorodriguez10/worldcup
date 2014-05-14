@@ -1,31 +1,50 @@
-<ul class="nav nav-tabs" id="myTab">
-	<li class="active"><a href="#results" data-toggle="tab">Group Results</a><li>
-	<li><a href="#members" data-toggle="tab">Group Members</a></li>
-	<li><a href="#info" data-toggle="tab">Group Information</a><li>
-</ul>
-
-<div class="tab-content">
-	<div class="tab-pane active" id="results">
-		<div class="well col-md-12">
-			<h3>Group Results</h3>
+	<%= render 'group_view_buttons' %>
+	<br>
+<div class='reportcontainer' >
+	<div class="group-info">
+		<div class="span4 col-md-4">
+			<p>Select Group: 
+			<%= collection_select(:group, :slug, Group.where(id: Membership.where(user_id: current_user.id).select(:group_id)), :slug,  :group_name, {}, {class: 'group-select'}) %> </p>
+		</div>
+		<div class="span4 col-md-4">
+			<p> Group Name: <%= @group.group_name %></p>
+			<p> Group Id: <%= @group.id %></p>
+			<% if @group.is_private? %>
+				<p> Group Passcode: <%= @group.passcode %></p>
+			<% else %>
+				<p> Public Group </p>
+			<% end %>
+		</div>
+		<div class="span4 col-md-4">
+			<p> Group Organizer: <%= User.find(@group.organizer).first_name %> <%= User.find(@group.organizer).last_name %> </p>
+			<p> Number of Members: <%= Membership.where(group_id: @group.id).count() %> </p>
+			<% if !@group.leader.nil? %>
+						<p> Current Leader: <%= User.exists?(@group.leader) ? User.find(@group.leader).first_name+' '+User.find(@group.leader).last_name : "None" %></p> 
+			<% end %>
 		</div>
 	</div>
-	<div class="tab-pane" id="members">
-		<div class="well col-md-12">
-				<%= link_to "Invite More Players", edit_group_path(@group), class: 'btn btn-primary' %>
-			<br>
-			<br>
-			<h3>Group Members</h3>
-			<% @members = Membership.where(group_id: @group.id) %>
+
+		<div class="col-md-12 group-table">
+			<% @members = Membership.where(group_id: @group.id).order(score: :desc, full_total: :desc, champion: :desc, full_final: :desc, third: :desc, full_third: :desc, bracket_updated_at: :asc) %>
 			<% if !@members.empty? %>
-				<table class="table">
+				<table class="table table-striped">
 					<tr> 
+						<td> Rank </td>
 						<td> Screen Name </td>
 						<td> Score </td>
+						<td> Pct </td>
+						<td> Round of 16 </td>
+						<td> Quater-finals </td>
+						<td> Semi-finals </td>
+						<td> Final </td>
+						<td> Third-Place </td>
+						<td> Champion </td>
 					</tr>
+					<% rank = 1 %>
 					<% @members.each do |member| %>
 						<% @bracket = Bracket.find_by(user_id: member.user_id) %>
 						<tr>
+							<td><%= rank %></td>
 							<td> <%= member.user_screen_name %> 
 								<% if member.user_id == current_user.id %> 
 								  <%= link_to " (change)", 'javascript:void(0)', id: "change-screenname" %>
@@ -37,55 +56,24 @@
 									<% end %> 
 								<% end %>
 								</td>
+							<td> <%= member.score %></td>
+							<td> <%= number_with_precision(member.full_total / 34, :precision => 2) %>% </td>
+							<td> <%= number_with_precision(member.full_r16 / 16, :precision => 2) %>% / <%= number_with_precision(member.half_r16 / 16, :precision => 2) %>% </td>
+							<td> <%= number_with_precision(member.full_quaterfinals / 8, :precision => 2) %>% / <%= number_with_precision(member.half_quaterfinals / 8, :precision => 2) %>% </td>
+							<td> <%= number_with_precision(member.full_semifinals / 4, :precision => 2) %>% / <%= number_with_precision(member.half_semifinals / 4, :precision => 2) %>% </td>
+							<td> <%= number_with_precision(member.full_final / 2, :precision => 2) %>%</td>
+							<td> <%= number_with_precision(member.third, :precision => 2) %>%</td>
+							<td> <%= number_with_precision(member.champion, :precision => 2) %>%</td>
+
 						</tr>
+						<% rank = rank + 1 %>
 					<% end %>
 				</table>
 			<% end %>
 		</div>
-	</div>
-	<div class="tab-pane" id="info">
-		<div class="well col-md-12">
-				<%= link_to "Go Back", :back, class: 'btn btn-primary' %>
-				<% if @group.organizer == session[:user_id] %>
-					<%= link_to "Edit This Group", edit_group_path(@group), class: 'btn btn-primary' %>
-					<button type="button" class="btn btn-danger" id="button_delete_group" onclick="showMessage('#delete-group-message')">Delete Group</button>
-				<% else %>
-					<button type="button" class="btn btn-danger" id="button_leave_group">Leave Group</button>
-				<% end %>
-			<br>
-			<br>
-			<h3>Group Information</h3>
-			<table class="table">
-				<tr>
-					<td> Group Name </td> 
-					<td> <%= @group.group_name %></td>
-				</tr>
-				<tr>
-					<td> Group Id </td> 
-					<td> <%= @group.id %></td>
-				</tr>
-				<tr>
-					<td> Passcode </td> 
-					<td> <%= @group.passcode %></td>
-				</tr>
-				<tr>
-					<td> Organizer </td>
-					<td> <%= User.find(@group.organizer).first_name %> <%= User.find(@group.organizer).last_name %> </td>
-				</tr>
-				<% if !@group.leader.nil? %>
-					<tr>
-						<td> Current Leader </td>
-						<td> <%= User.find(@group.leader).first_name %> <%= User.find(@group.leader).last_name %></td> 
-					</tr>
-				<% end %>
-				<tr>
-					<td> Number of Members </td>
-					<td> <%= Membership.where(group_id: @group.id).count() %> </td>
-				</tr>
-			</table>
-		</div>
-	</div>
 </div>
+		
+
 <div id="leave-group-message" class="warning-message off">
 	<br>
 	<h4 class="center">Are you sure you want to leave this group?</h4>
@@ -125,6 +113,10 @@
 		});
 		$('#button_leave_group').click(function (event) {
 			showMessage("#leave-group-message");
+		});	
+		$('#group_slug').change(function (event) {
+			var newGroup = '/groups/'+ $(this).val();
+			location.href = newGroup;
 		});	
 
 </script>

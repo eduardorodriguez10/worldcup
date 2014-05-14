@@ -100,7 +100,6 @@ class BracketsController < ApplicationController
             end
           end
         end
-        binding.pry
         if(valid_bracket)
           if ((@bracket.w49 != @bracket.a1) && (@bracket.w49 != @bracket.b2)) then valid_bracket = false end
           if ((@bracket.w50 != @bracket.c1) && (@bracket.w50 != @bracket.d2)) then valid_bracket = false end

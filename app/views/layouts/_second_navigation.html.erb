@@ -1,0 +1,37 @@
+<% if logged_in? %>
+	<% if is_admin? %>
+		<nav class="second-navbar" role="navigation">
+				<ul class="nav">
+				  <li>
+				    <%= link_to 'Users', bracket_path(current_user.slug) if logged_in? %>
+				  </li>
+				  <li>
+				  	<%= link_to 'Teams', groups_path if logged_in? %>
+				  </li>
+				  <li>
+				  	<%= link_to 'Groups', stats_path if logged_in? %>
+				  </li>
+				  <li>
+				  	<%= link_to 'Brackets', stats_path if logged_in? %>
+				  </li>
+				</ul>
+			</nav>
+	<% else %> 
+		<nav class="second-navbar" role="navigation">
+			<ul class="nav">
+			  <li>
+			    <%= link_to 'My Bracket', bracket_path(current_user.slug) if logged_in? %>
+			  </li>
+			  <li>
+			  	<%= link_to 'My Groups', groups_path if logged_in? %>
+			  </li>
+			  <li>
+			  	<%= link_to 'Rules', stats_path if logged_in? %>
+			  </li>
+			  <li>
+			  	<%= link_to 'Statistics', stats_path if logged_in? %>
+			  </li>
+			</ul>
+		</nav>
+	<% end %>
+<% end %>
