@@ -9,6 +9,7 @@
 			<div class='control-group form-row'>
 				<%= label_tag :password, nil, class: 'form-label register-label' %>
 				<%= password_field_tag :password, params[:password] || '', class: 'form-input register-input', id:'login-password' %>
+				<%= link_to 'Forgot Password?', recoverpassword_path, class: 'form-input register-label ' %>
 			</div>
 			<div class='control-group form-row'>
 				<%= submit_tag "Login", class: 'btn-wcb-normal register-button', id: 'login-button' %>

@@ -25,7 +25,10 @@ Rails.application.routes.draw do
   get '/teamedit/:id', to: 'admin#team_edit', as: 'teamedit'
   get '/rules', to: 'rules#index', as:'rules'
   get '/groupinvite/:id', to: 'groups#invite_others', as: 'inviteothers'
-  post 'sendinvite', to: 'groups#send_invite', as: 'sendinvite'
+  post '/sendinvite', to: 'groups#send_invite', as: 'sendinvite'
+  get '/recoverpassword', to: 'users#recover_password', as: 'recoverpassword'
+  post '/recover_password_email', to: 'users#recover_password_email', as: 'recover_password_email'
+  get '/password_modify', to: 'users#password_modify', as: 'password_modify'
 
   end
 

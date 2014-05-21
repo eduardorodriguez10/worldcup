@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
     !RegisterAttempt.find_by(email: email).nil?
   end
 
-  def generate_registration_code
+  def generate_random_code
     (0...12).map { (65 + rand(26)).chr }.join
   end
 

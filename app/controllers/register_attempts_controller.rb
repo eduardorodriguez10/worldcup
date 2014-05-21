@@ -18,7 +18,7 @@ class RegisterAttemptsController < ApplicationController
 					flash[:notice] = "A new registration email has been sent. Please check your email to complete the registration process."
 					redirect_to attempt_path
 				else
-					@attempt.passcode = generate_registration_code
+					@attempt.passcode = generate_random_code
 					if @attempt.update(attempt_params)
 						UserMailer.send_register_email(@attempt).deliver
 						flash[:notice] = "A new registration email has been sent. Please check your email to complete the registration process."
@@ -31,7 +31,7 @@ class RegisterAttemptsController < ApplicationController
 			else
 				@attempt = RegisterAttempt.new(attempt_params)
 				@attempt.email = params[:email]
-				@attempt.passcode = generate_registration_code
+				@attempt.passcode = generate_random_code
 				if @attempt.save
 					UserMailer.send_register_email(@attempt).deliver
 					flash[:notice] = "Welcome to World Cup Bracket. Please check your email to complete the registration process."

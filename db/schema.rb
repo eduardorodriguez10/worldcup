@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140521024817) do
+ActiveRecord::Schema.define(version: 20140521191357) do
 
   create_table "bracket_placements", force: true do |t|
     t.string  "placement"
@@ -197,6 +197,9 @@ ActiveRecord::Schema.define(version: 20140521024817) do
     t.boolean  "admin"
     t.boolean  "admin_view"
     t.string   "screenname"
+    t.string   "password_recovery"
+    t.datetime "recovery_time"
+    t.integer  "recovery_attemps"
   end
 
 end
