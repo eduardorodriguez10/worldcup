@@ -10,7 +10,11 @@
 			<p> Group Name: <%= @group.group_name %></p>
 			<p> Group Id: <%= @group.id %></p>
 			<% if @group.is_private? %>
-				<p> Group Passcode: <%= @group.passcode %></p>
+				<% if @group.others_can_invite || (@group.organizer == current_user.id)%>
+					<p> Group Passcode: <%= @group.passcode %></p>
+				<% else %> 
+				<p> Private Group </p>
+				<% end %>
 			<% else %>
 				<p> Public Group </p>
 			<% end %>
@@ -32,13 +36,11 @@
 						<td> Rank </td>
 						<td> Screen Name </td>
 						<td> Score </td>
-						<td> Pct </td>
+						<td> Accuracy </td>
 						<td> Round of 16 </td>
 						<td> Quater-finals </td>
 						<td> Semi-finals </td>
-						<td> Final </td>
-						<td> Third-Place </td>
-						<td> Champion </td>
+						<td> Total Correct </td>
 					</tr>
 					<% rank = 1 %>
 					<% @members.each do |member| %>
@@ -57,14 +59,11 @@
 								<% end %>
 								</td>
 							<td> <%= member.score %></td>
-							<td> <%= number_with_precision(member.full_total / 34, :precision => 2) %>% </td>
-							<td> <%= number_with_precision(member.full_r16 / 16, :precision => 2) %>% / <%= number_with_precision(member.half_r16 / 16, :precision => 2) %>% </td>
-							<td> <%= number_with_precision(member.full_quaterfinals / 8, :precision => 2) %>% / <%= number_with_precision(member.half_quaterfinals / 8, :precision => 2) %>% </td>
-							<td> <%= number_with_precision(member.full_semifinals / 4, :precision => 2) %>% / <%= number_with_precision(member.half_semifinals / 4, :precision => 2) %>% </td>
-							<td> <%= number_with_precision(member.full_final / 2, :precision => 2) %>%</td>
-							<td> <%= number_with_precision(member.third, :precision => 2) %>%</td>
-							<td> <%= number_with_precision(member.champion, :precision => 2) %>%</td>
-
+							<td> <%= @bracket.nil? ? '0%' : ((member.score / (positions_defined(@bracket)*2.00))*100).round(0) %>% </td>
+							<td> <%=  ((member.full_r16 / 16.00)*100).round(2) %>% / <%= ((member.half_r16 / 16.00)*100).round(2) %>% </td>
+							<td> <%= ((member.full_quaterfinals / 8.00)*100).round(2) %>% </td>
+							<td> <%= ((member.full_semifinals / 4.00)*100).round(2) %>% </td>
+							<td> <%= ((member.full_total / 34.00)*100).round(2) %>% </td>
 						</tr>
 						<% rank = rank + 1 %>
 					<% end %>
@@ -94,13 +93,15 @@
 	<h4 class="center">Enter new screen name:</h4>
 	<br/>
 	<% @this_member = Membership.find_by(user_id: session[:user_id], group_id: @group.id) %>
-	<%= form_for @this_member do |f| %>
-	<%= f.text_field :user_screen_name, class: 'form-input col-md-12' %>
-	<br/>
-	<br/>
-	<br/>
-	<button type="button" class="btn btn-primary col-xs-4 col-xs-offset-1" id="cancel-screenname">Cancel</button>
-	<%= f.submit  "Save", class: 'btn btn-success col-xs-4 col-xs-offset-2' %>
+	<% if !@this_member.nil? %> 
+		<%= form_for @this_member do |f| %>
+		<%= f.text_field :user_screen_name, class: 'form-input col-md-12' %>
+		<br/>
+		<br/>
+		<br/>
+		<button type="button" class="btn btn-primary col-xs-4 col-xs-offset-1" id="cancel-screenname">Cancel</button>
+		<%= f.submit  "Save", class: 'btn btn-success col-xs-4 col-xs-offset-2' %>
+		<% end %>
 	<% end %>
 </div>
 

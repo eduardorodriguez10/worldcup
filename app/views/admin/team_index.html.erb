@@ -1,0 +1,54 @@
+<div class="display-container">
+	<table class="table"> 
+		<tr>
+		<td>Team Name</td>
+		<td>Made R16</td>
+		<td>Made Quaterfinals</td>
+		<td>Made Semifinals</td>
+		<td>Made Final</td>
+		<td>Made 3rd Place Match </td>
+		<td>3rd Place</td>
+		<td>Champion</td>
+	</tr>
+	<% Team.all.each do |t| %> 
+		<tr>
+		<td><%= link_to t.name, teamedit_path(t) %></td>
+		<% if t.r16_madeit %>
+			<td><%= t.r16_position %></td>
+		<% else %> 
+			<td>No</td>
+		<% end %> 
+		<% if t.quaterfinals_madeit %>
+			<td><%= t.quaterfinals_position %></td>
+		<% else %> 
+			<td>No</td>
+		<% end %> 
+		<% if t.semifinals_madeit %>
+			<td><%= t.semifinals_position %></td>
+		<% else %> 
+			<td> No </td>
+		<% end %> 
+		<% if t.final_madeit %>
+			<td>Yes</td>
+		<% else %> 
+			<td> No </td>
+		<% end %> 
+		<% if t.third_match_madeit %>
+			<td>Yes</td>
+		<% else %> 
+			<td> No </td>
+		<% end %>
+		<% if t.third_place_madeit %>
+			<td>Yes</td>
+		<% else %> 
+			<td> No </td>
+		<% end %>
+		<% if t.champion_madeit %>
+			<td>Yes</td>
+		<% else %> 
+			<td> No </td>
+		<% end %>
+		</tr>
+	<% end %>
+	</table>
+</div>

@@ -88,6 +88,32 @@ class GroupsController < ApplicationController
 		end
 	end
 
+	def invite_others
+		@group = Group.find_by(slug: params[:id])
+	end
+
+	def send_invite
+		@group = Group.find_by(slug: params[:id])
+		@user = current_user
+		recipients = params[:emails].split(/\s*[,;]\s*|\s{1,}/)
+  		email_error = false
+  		email_errors = []
+  		recipients.each do |recipient|
+  			if valid_email?(recipient)
+				UserMailer.send_join_group_email(@group, recipient, @user).deliver
+			else
+				email_error = true
+				email_errors << recipient
+			end
+			if(email_error)
+				flash[:error] = "There were some errors sending the invitation emails " + email_errors.to_s
+			else
+				flash[:notice] = "All emails were sent successfully."
+			end		
+		end
+		redirect_to inviteothers_path(@group)
+	end
+
 	def show
 		@group = Group.find_by(slug: params[:id])
 		membership = Membership.find_by(group_id: @group.id, user_id: session[:user_id])

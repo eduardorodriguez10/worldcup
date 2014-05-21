@@ -3,7 +3,11 @@ class WelcomeController < ApplicationController
 	
 	def index
 		if logged_in?
-			redirect_to bracket_path(current_user.slug)
+			if is_admin? && admin_view?
+				redirect_to admininfo_path
+			else
+				redirect_to bracket_path(current_user.slug)
+			end
 		end
 	end
 

@@ -1,7 +1,7 @@
 	<%= render 'bracket_buttons' %>
+	<%= render 'bracket_info' %>
 	<div class='bracketcontainer container'>
 		<div class='bracket-column' id="Round16-1">
-			<p class='column-title'>Round of 16</p>
 			<div class="well bracket well-sm bracket-text">
 					<p> 1A vs 2B</p>
 					<%= image_tag @allTeams[@bracket.a1-1].flag_url, :class => 'icon' %> <%= @allTeams[@bracket.a1-1].name %> <span class=<%= get_icon(@bracket.a1s) %> ></span>
@@ -28,7 +28,6 @@
 			</div>	
 		</div>
 		<div class='bracket-column qf' id="Quater-finals-1">
-			<p class='column-title'>Quarter-Finals</p>
 			<div class="bracket bracket-qf well well-sm bracket-text">
 					<p> Quater-final</p>
 					<%= image_tag @allTeams[@bracket.w49-1].flag_url, :class => 'icon' %> <%= @allTeams[@bracket.w49-1].name %> <span class=<%= get_icon(@bracket.w49s) %> ></span>
@@ -43,7 +42,6 @@
 			</div>
 		</div>
 		<div class='bracket-column sf' id="Semi-finals-1">
-			<p class='column-title'>Semi-Finals</p>
 			<div class="well bracket bracket-sf well-sm bracket-text">
 					<p> Semi-final</p>
 					<%= image_tag @allTeams[@bracket.w57-1].flag_url, :class => 'icon' %> <%= @allTeams[@bracket.w57-1].name %> <span class=<%= get_icon(@bracket.w57s) %> ></span>
@@ -52,7 +50,6 @@
 			</div>
 		</div>
 		<div class='bracket-column' id="Finals">
-			<p class='column-title'>Final and<br/>Thrid Place</p>
 			<div class="well bracket well-sm bracket-text">
 				<h4>Champion</h4>
 				<%= image_tag @allTeams[@bracket.champion-1].flag_url, :class => 'icon' %>
@@ -76,7 +73,6 @@
 			</div>
 		</div>
 		<div class='bracket-column sf' id="Semi-finals-2">
-			<p class='column-title'>Semi-Finals</p>
 			<div class="well bracket bracket-sf well-sm bracket-text">
 					<p> Semi-final</p>
 					<%= image_tag @allTeams[@bracket.w59-1].flag_url, :class => 'icon' %> <%= @allTeams[@bracket.w59-1].name %> <span class=<%= get_icon(@bracket.w59s) %> ></span>
@@ -85,7 +81,6 @@
 			</div>
 		</div>
 		<div class='bracket-column qf' id="Quater-finals-2">
-			<p class='column-title'>Quarter-Finals</p>
 			<div class="bracket bracket-qf well well-sm bracket-text">
 					<p> Quater-final</p>
 					<%= image_tag @allTeams[@bracket.w51-1].flag_url, :class => 'icon' %> <%= @allTeams[@bracket.w51-1].name %> <span class=<%= get_icon(@bracket.w51s) %> ></span>
@@ -100,7 +95,6 @@
 			</div>
 		</div>
 		<div class='bracket-column' id="Round16-2">
-			<p class='column-title'>Round of 16</p>
 			<div class="well bracket well-sm bracket-text">
 					<p> 1B vs 2A</p>
 					<%= image_tag @allTeams[@bracket.b1-1].flag_url, :class => 'icon' %> <%= @allTeams[@bracket.b1-1].name %> <span class=<%= get_icon(@bracket.b1s) %> ></span>

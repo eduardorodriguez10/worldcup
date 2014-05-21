@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140512005604) do
+ActiveRecord::Schema.define(version: 20140519193820) do
 
   create_table "bracket_placements", force: true do |t|
     t.string  "placement"
@@ -97,6 +97,14 @@ ActiveRecord::Schema.define(version: 20140512005604) do
     t.integer  "thirds"
     t.integer  "champions"
     t.integer  "score"
+    t.integer  "full_r16"
+    t.integer  "half_r16"
+    t.integer  "full_quaterfinals"
+    t.integer  "half_quaterfinals"
+    t.integer  "full_semifinals"
+    t.integer  "half_semifinals"
+    t.integer  "full_total"
+    t.integer  "half_total"
   end
 
   create_table "final_positions", force: true do |t|
@@ -115,6 +123,7 @@ ActiveRecord::Schema.define(version: 20140512005604) do
     t.datetime "updated_at"
     t.string   "slug"
     t.boolean  "isprivate"
+    t.boolean  "others_can_invite"
   end
 
   create_table "memberships", force: true do |t|
@@ -157,6 +166,23 @@ ActiveRecord::Schema.define(version: 20140512005604) do
     t.integer "third_match_selections"
     t.integer "champion_selections"
     t.integer "third_selections"
+    t.string  "r16_position"
+    t.boolean "r16_madeit"
+    t.string  "quaterfinals_position"
+    t.boolean "quaterfinals_madeit"
+    t.string  "semifinals_position"
+    t.boolean "semifinals_madeit"
+    t.boolean "final_madeit"
+    t.boolean "third_match_madeit"
+    t.boolean "third_place_madeit"
+    t.boolean "champion_madeit"
+    t.boolean "r16_defined"
+    t.boolean "quaterfinals_defined"
+    t.boolean "semifinals_defined"
+    t.boolean "final_defined"
+    t.boolean "third_match_defined"
+    t.boolean "third_place_defined"
+    t.boolean "champion_defined"
   end
 
   create_table "users", force: true do |t|
@@ -169,6 +195,7 @@ ActiveRecord::Schema.define(version: 20140512005604) do
     t.datetime "updated_at"
     t.string   "slug"
     t.boolean  "admin"
+    t.boolean  "admin_view"
   end
 
 end

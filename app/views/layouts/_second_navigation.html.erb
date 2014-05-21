@@ -1,12 +1,15 @@
 <% if logged_in? %>
-	<% if is_admin? %>
+	<% if is_admin? && admin_view?%>
 		<nav class="second-navbar" role="navigation">
 				<ul class="nav">
 				  <li>
-				    <%= link_to 'Users', bracket_path(current_user.slug) if logged_in? %>
+				    <%= link_to 'Info', admininfo_path if logged_in? %>
 				  </li>
 				  <li>
-				  	<%= link_to 'Teams', groups_path if logged_in? %>
+				    <%= link_to 'Users', usersearch_path if logged_in? %>
+				  </li>
+				  <li>
+				  	<%= link_to 'Teams', teamindex_path if logged_in? %>
 				  </li>
 				  <li>
 				  	<%= link_to 'Groups', stats_path if logged_in? %>
@@ -26,10 +29,10 @@
 			  	<%= link_to 'My Groups', groups_path if logged_in? %>
 			  </li>
 			  <li>
-			  	<%= link_to 'Rules', stats_path if logged_in? %>
+			  	<%= link_to 'Rules', rules_path if logged_in? %>
 			  </li>
 			  <li>
-			  	<%= link_to 'Statistics', stats_path if logged_in? %>
+			  	<%= link_to 'Team Statistics', stats_path if logged_in? %>
 			  </li>
 			</ul>
 		</nav>

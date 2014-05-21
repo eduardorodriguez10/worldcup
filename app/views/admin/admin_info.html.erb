@@ -1,0 +1,6 @@
+<div class="display-container">
+	<h5> Total Number of Users Registered: <%= User.all.count %></h5>
+	<h5> Total Number of Brackets Created: <%= Bracket.all.count %> </h5>
+	<h5> Total Number of Private Groups: <%= Group.where(isprivate: true).count %></h5>
+	<h5> Total Number of Public Groups: <%= Group.where(isprivate: false).count %></h5>
+</div>

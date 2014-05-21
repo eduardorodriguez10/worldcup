@@ -1,0 +1,51 @@
+		<h4 class='register-title register-label'><%= @team.name %></h4>
+		<%= form_for @team, :url => teamupdate_path(@team), :method => 'POST' do |f| %>
+			<%= render 'shared/display_errors', obj: @team %> 
+			<div class='control-group form-row'>
+				<%= f.label :r16_defined, class: 'form-label register-label f90' %>
+				<%= f.check_box :r16_defined %>
+				<%= f.label :r16_madeit, class: 'form-label register-label f90' %>
+				<%= f.check_box :r16_madeit %>
+				<%= f.label :r16_position, class: 'form-label register-label f90' %>
+				<%= f.text_field :r16_position, class: 'form-input register-input', id:'register-email' %>
+			</div>
+			<div class='control-group form-row'>
+				<%= f.label :quaterfinals_defined, class: 'form-label register-label f90' %>
+				<%= f.check_box :quaterfinals_defined %>
+				<%= f.label :quaterfinals_madeit, class: 'form-label register-label f90' %>
+				<%= f.check_box :quaterfinals_madeit %>
+				<%= f.label :quaterfinals_position, class: 'form-label register-label f90' %> 
+				<%= f.text_field :quaterfinals_position, class: 'form-input register-input', id:'register-password' %>
+			</div>
+			<div class='control-group form-row'>
+				<%= f.label :semifinals_defined, class: 'form-label register-label f90' %>
+				<%= f.check_box :semifinals_defined %>
+				<%= f.label :semifinals_madeit, class: 'form-label register-label f90' %>
+				<%= f.check_box :semifinals_madeit %>
+				<%= f.label :semifinals_position, class: 'form-label register-label f90' %>
+				<%= f.text_field :semifinals_position, class: 'form-input register-input', id:'register-firstname' %>
+			</div>
+			<div class='control-group form-row'>
+				<%= f.label :final_defined, class: 'form-label register-label f90' %>
+				<%= f.check_box :final_defined %>
+				<%= f.label :final_madeit, class: 'form-label register-label f90' %>
+				<%= f.check_box :final_madeit %>
+				<br>
+				<%= f.label :third_match_defined, class: 'form-label register-label f90' %>
+				<%= f.check_box :third_match_defined %>
+				<%= f.label :third_match_madeit, class: 'form-label register-label f90' %>
+				<%= f.check_box :third_match_madeit %>
+				<br>
+				<%= f.label :third_place_defined, class: 'form-label register-label f90' %>
+				<%= f.check_box :third_place_defined %>
+				<%= f.label :third_place_madeit, class: 'form-label register-label f90' %>
+				<%= f.check_box :third_place_madeit %>
+				<br>
+				<%= f.label :champion_defined, class: 'form-label register-label f90' %>
+				<%= f.check_box :champion_defined %>
+				<%= f.label :champion_madeit, class: 'form-label register-label f90' %>
+				<%= f.check_box :champion_madeit %>
+			</div>
+			<%= f.submit "Update Team", class: 'btn-wcb-normal form-btn register-button', id: 'signup-button' %>
+	<% end %>
+	</div>

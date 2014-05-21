@@ -17,4 +17,15 @@ Rails.application.routes.draw do
   get '/wcbmgmt', to: 'admin#index'
   get '/attempt', to: 'register_attempts#new'
   post '/attempt', to: 'register_attempts#create'
-end
+  get '/updateview', to: 'admin#change_view'
+  get '/usersearch', to: 'admin#user_search'
+  get '/admininfo', to: 'admin#admin_info'
+  post '/teamupdate/:id', to: 'admin#team_update', as: 'teamupdate'
+  get '/teamindex', to: 'admin#team_index' 
+  get '/teamedit/:id', to: 'admin#team_edit', as: 'teamedit'
+  get '/rules', to: 'rules#index', as:'rules'
+  get '/groupinvite/:id', to: 'groups#invite_others', as: 'inviteothers'
+  post 'sendinvite', to: 'groups#send_invite', as: 'sendinvite'
+
+  end
+

@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :current_user, :logged_in?, :results_visible?, :to_boolean, :is_admin?
+  helper_method :current_user, :logged_in?, :results_visible?, :to_boolean, :is_admin?, :admin_view?, :positions_defined, :cutover_time, :valid_email?
 
   def current_user
   	@current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   end
 
   def cutover_time
-    ActiveSupport::TimeZone["Brasilia"].parse("2014-06-12 4pm")
+    ActiveSupport::TimeZone["Brasilia"].parse("2014-06-12 3:45pm")
   end
 
   def require_user
@@ -46,6 +46,10 @@ class ApplicationController < ActionController::Base
      current_user.admin
   end 
 
+  def admin_view?
+    current_user.admin_view
+  end
+
   def items_per_page
     15
   end
@@ -68,6 +72,44 @@ class ApplicationController < ActionController::Base
 
   def generate_registration_code
     (0...12).map { (65 + rand(26)).chr }.join
+  end
+
+  def positions_defined(bracket)
+    count = 0
+    for i in 97..104
+          for x in 1..2
+            if(bracket[i.chr+x.to_s+'s'] != -1)
+              count += 1
+            end
+          end
+    end
+      for i in 49..56
+         if(bracket['w'+i.to_s+'s'] != -1)
+          count += 1
+         end
+      end
+      for i in 57..60
+          if(bracket['w'+i.to_s+'s'] != -1)
+            count += 1
+          end
+      end
+      for i in 61..62
+          if(bracket['w'+i.to_s+'s'] != -1)
+            count += 1
+          end
+      end
+      for i in 61..62
+          if(bracket['l'+i.to_s+'s'] != -1)
+            count += 1
+          end
+      end
+      if(bracket['thirds'] != -1)
+        count += 1
+      end
+      if(bracket['champions'] != -1)
+        count += 1
+      end
+      return count
   end
 
 

@@ -1,0 +1,17 @@
+
+	
+		<%= form_tag '/sendinvite' do %>
+			<div class='form-instructions'>
+				<h4>Invite more people to this group</h4>
+				<p> Enter the email addresses of the people that you'd like to invite to the group. You can enter multiple email addresses by separating each one with a comma.</p>
+				<br>
+			</div>
+			<div class='control-group form-row'>
+				<label for="emails" class= 'form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12'>Recipients</label>
+				<%= text_field_tag :emails, params[:emails] || '', class: 'form-input col-lg-3 col-md-4 col-sm-5 col-xs-10' %>
+				<input type='hidden' name='id' value=<%= @group.slug %> />
+			</div>
+			<div class='control-group form-row form-instructions'>
+				<%= submit_tag "Send Invite", class: 'btn-wcb-normal ' %>
+			</div>
+		<% end %>

@@ -20,6 +20,7 @@ class UsersController < ApplicationController
 	def create
 	@user = User.new(user_params)
 	@user.admin = false
+	@user.admin_view = false
 		if @user.save
 			flash[:notice] = "Welcome to World Cup Bracket, You are registered now."
 			redirect_to new_bracket_path()

@@ -7,7 +7,7 @@
 				    <%= link_to "Go Back", :back %>
 				  </li>
 				  <li>
-				    <%= link_to "Invite More Players", groups_path(showpublic: true) %>
+				    <%= link_to "Invite More Players", inviteothers_path(@group) %>
 				  </li>
 				  <% if @group.organizer == session[:user_id] %>
 					  <li>

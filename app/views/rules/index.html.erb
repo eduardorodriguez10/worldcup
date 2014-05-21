@@ -1,0 +1,19 @@
+<div class="display-container">
+	<br>
+	<h4>Game Rules and Scoring System</h4>
+	<br>
+	<h5>A. A player can define only one bracket per account. This same bracket will be used to compete in all the groups joined by the player. </h5>
+	<h5>B. The dateline to submit brackets is <%= cutover_time %>. This is fifteen minutes prior to kick-off on the inagural game. </h5>
+	<h5>C. The bracket score will be updated as the World Cup progresses. The bracket scoring will be determined as follows: </h5>
+	<h5 class="display-container"> 1. Players will receive <%= points_full %> points for Round of 16 positions if their selected team makes it to the next round in the exact position selected. For instance, if Brazil is selected as 1st Place for Group A, and that's the exact position of Brazil in the Bracket, then the player will receive <%= points_full %> points for this selection. </h5> 
+	<h5 class="display-container"> 2. Players will receive <%= points_half %> point for Round of 16 positions if their selected team makes it to the next round but is in a different bracket position as the one selected. For instance, if Brazil is selected as 1st Place for Group A but makes it to the Round of 16 as 2nd of Group A, then the player will receive <%= points_half %> point. </h5>
+	<h5 class="display-container">  3. Players will receive <%= points_full %> points for each team that makes it to the Quaterfinals, Semifinals, Final or Third Match regardless of the exact position of the team in the bracket. </h5>
+	<h5 class="display-container">  4. Players will receive <%= points_full %> points for the correct selection for Champion and Third Place Teams. </h5>
+	<h5 class="display-container">  5. Players will receive <%= points_wrong %> points for teams that do not qualify to a specifc round. </h5>
+	<h5>D. Group Rankings will be defined as follows: </h5>
+	<h5 class="display-container">  1. Player with the higher score wins. </h5>
+	<h5 class="display-container">  2. If a tie exists in the score, the player with the higher number of exact correct positions in the Round of 16 wins. </h5>
+	<h5 class="display-container">  3. If a tie exists in the score, the player with the higher number of exact correct positions in the Round of 16 wins. </h5>
+	<h5 class="display-container">  4. If a tie exists in the number of Round 16 wins, the player the tie brakes will be defined as follows: Champion Selection Correct, Third Place Selection Selection Correct, Final Selection Correct, Third Match Selection Correct, Semifinals Selection Correct and finally Quaterfinal Selection Correct. </h5>
+	<h5 class="display-container">  5. In case of a complete tie, the player that submitted the bracket first wins.</h5>
+</div>
