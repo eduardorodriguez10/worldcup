@@ -1,0 +1,123 @@
+	<%= render 'group_buttons' %>
+	<br>
+<div class='reportcontainer' >
+	<div class="group-info">
+		<div class="span4 col-md-4">
+			<p>Select Group: 
+			<%= collection_select(:group, :slug, Group.where(id: Membership.where(user_id: current_user.id).select(:group_id)), :slug,  :group_name, {}, {class: 'group-select'}) %> </p>
+		</div>
+		<div class="span4 col-md-4">
+			<p> Group Name: <%= @group.group_name %></p>
+			<p> Group Id: <%= @group.id %></p>
+			<% if @group.is_private? %>
+				<% if @group.others_can_invite || (@group.organizer == current_user.id)%>
+					<p> Group Passcode: <%= @group.passcode %></p>
+				<% else %> 
+				<p> Private Group </p>
+				<% end %>
+			<% else %>
+				<p> Public Group </p>
+			<% end %>
+		</div>
+		<div class="span4 col-md-4">
+			<p> Group Organizer: <%= User.find(@group.organizer).first_name %> <%= User.find(@group.organizer).last_name %> </p>
+			<p> Number of Members: <%= Membership.where(group_id: @group.id).count() %> </p>
+			<% if !@group.leader.nil? %>
+						<p> Current Leader: <%= User.exists?(@group.leader) ? User.find(@group.leader).first_name+' '+User.find(@group.leader).last_name : "None" %></p> 
+			<% end %>
+		</div>
+	</div>
+
+		<div class="col-md-12 group-table">
+			<% @members = Membership.where(group_id: @group.id).order(score: :desc, full_total: :desc, champion: :desc, full_final: :desc, third: :desc, full_third: :desc, bracket_updated_at: :asc) %>
+			<% if !@members.empty? %>
+				<table class="table table-striped">
+					<tr> 
+						<td> Rank </td>
+						<td> Screen Name </td>
+						<td> Score </td>
+						<td> Accuracy </td>
+						<td> Round of 16 </td>
+						<td> Quater-finals </td>
+						<td> Semi-finals </td>
+						<td> Total Correct </td>
+					</tr>
+					<% rank = 1 %>
+					<% @members.each do |member| %>
+						<% @bracket = Bracket.find_by(user_id: member.user_id) %>
+						<tr>
+							<td><%= rank %></td>
+							<td> <%= member.user_screen_name %> 
+								<% if member.user_id == current_user.id %> 
+								  <%= link_to " (change)", 'javascript:void(0)', id: "change-screenname" %>
+								<% elsif results_visible? %>
+									<% if !@bracket.nil? %> 
+										<%= link_to " View Bracket", bracket_path(@bracket, other_bracket: true, screen_name: member.user_screen_name ) %>
+									<% else %>
+								 		(No bracket created)
+									<% end %> 
+								<% end %>
+								</td>
+							<td> <%= member.score %></td>
+							<td> <%= @bracket.nil? ? '0%' : ((member.score / (positions_defined(@bracket)*2.00))*100).round(0) %>% </td>
+							<td> <%=  ((member.full_r16 / 16.00)*100).round(2) %>% / <%= ((member.half_r16 / 16.00)*100).round(2) %>% </td>
+							<td> <%= ((member.full_quaterfinals / 8.00)*100).round(2) %>% </td>
+							<td> <%= ((member.full_semifinals / 4.00)*100).round(2) %>% </td>
+							<td> <%= ((member.full_total / 34.00)*100).round(2) %>% </td>
+						</tr>
+						<% rank = rank + 1 %>
+					<% end %>
+				</table>
+			<% end %>
+		</div>
+</div>
+		
+
+<div id="leave-group-message" class="warning-message off">
+	<br>
+	<h4 class="center">Are you sure you want to leave this group?</h4>
+	<br>
+	<br>
+	<%= link_to "Yes", membership_path(@group), method: 'delete', class: 'btn btn-danger btn-message' %>
+	<button type="button" class="btn btn-success btn-message " onclick="clearMessage('#leave-group-message')">No</button>
+</div>
+<div id="delete-group-message" class="warning-message off">
+	<br>
+	<h4 class="center">Are you sure you want to delete this group?</h4>
+	<br>
+	<br>
+	<%= link_to "Yes", group_path(@group), method: 'delete', class: 'btn btn-danger btn-message' %>
+	<button type="button" class="btn btn-success btn-message " onclick="clearMessage('#delete-group-message')">No</button>
+</div>
+<div id="screenname-form-message" class="warning-message off">
+	<h4 class="center">Enter new screen name:</h4>
+	<br/>
+	<% @this_member = Membership.find_by(user_id: session[:user_id], group_id: @group.id) %>
+	<% if !@this_member.nil? %> 
+		<%= form_for @this_member do |f| %>
+		<%= f.text_field :user_screen_name, class: 'form-input col-md-12' %>
+		<br/>
+		<br/>
+		<br/>
+		<button type="button" class="btn btn-primary col-xs-4 col-xs-offset-1" id="cancel-screenname">Cancel</button>
+		<%= f.submit  "Save", class: 'btn btn-success col-xs-4 col-xs-offset-2' %>
+		<% end %>
+	<% end %>
+</div>
+
+<script>
+		$('#cancel-screenname').click(function (event) {
+			clearMessage("#screenname-form-message");
+		});
+		$('#change-screenname').click(function (event) {
+			showMessage("#screenname-form-message");
+		});
+		$('#button_leave_group').click(function (event) {
+			showMessage("#leave-group-message");
+		});	
+		$('#group_slug').change(function (event) {
+			var newGroup = '/groups/'+ $(this).val();
+			location.href = newGroup;
+		});	
+
+</script>

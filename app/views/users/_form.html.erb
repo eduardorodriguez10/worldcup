@@ -25,6 +25,10 @@
 				<%= f.text_field :last_name, class: 'form-input register-input', id:'register-lastname' %>
 			</div>
 			<div class='control-group form-row'>
+				<%= f.label :screenname, class: 'form-label register-label' %>
+				<%= f.text_field :screenname, class: 'form-input register-input', id:'register-screenname' %>
+			</div>
+			<div class='control-group form-row'>
 				<%= f.label :country, class: 'form-label register-label' %> 
 				<%= f.country_select(:country, ["United States"], class: 'form-label register-input') %>
 			</div>

@@ -20,6 +20,10 @@
 					<%= f.text_field :last_name, class: 'form-input register-input' %>
 				</div>
 				<div class='control-group form-row'>
+					<%= f.label :screenname, class: 'form-label register-label f90' %>
+					<%= f.text_field :screenname, class: 'form-input register-input' %>
+				</div>
+				<div class='control-group form-row'>
 					<%= f.label :country, class: 'form-label register-label f90' %> 
 					<%= f.country_select(:country, ["United States"])%>
 				</div>

@@ -33,6 +33,10 @@
 .on {
 	display:block;
 }
+
+.header-messages{
+
+}
 .warning-message{
 	padding:20px;
 	position:absolute;
@@ -41,7 +45,7 @@
 	border-color:gray;
 	border-radius:4%;
 	border-width: 4px;
-	width:300px;
+	width: 300px;
 	height:200px;
 }
 .btn-message {
@@ -453,12 +457,35 @@ input[type="text"]:disabled {
    background: #262626 !important;
    color: #ccc !important;
    }
-.alert {
+.alert-error {
 	margin-bottom: 0px !important;
-	background-color: black;
+	background-color: white;
 	color: red;
 	text-align: center;
 	font-style: bold;
+	padding: 5px;
+	width: 34%;
+	position:fixed;
+	top: 5%;
+	left: 33%;
+	border-style:solid;
+	border-width: 2px;
+	border-color: red;
+}
+.alert-success {
+	margin-bottom: 0px !important;
+	background-color: white;
+	color: blue;
+	text-align: center;
+	font-style: bold;
+	padding: 5px;
+	width: 34%;
+	position:fixed;
+	top: 5%;
+	left: 33%;
+	border-style:solid;
+	border-width: 2px;
+	border-color: blue;
 }
 .display-container{
 	margin-left:5%;

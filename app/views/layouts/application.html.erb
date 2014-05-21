@@ -32,7 +32,6 @@
       <div class="container">
          <div class="row">
           <div class="span12">
-            <%= render 'layouts/messages' %>
             <%= yield %>
           </div>
         </div>
@@ -40,5 +39,14 @@
         </footer>
       </div> <!--! end of .container -->
     </div> <!--! end of #main -->
+    <%= render 'layouts/messages' %>
+
   </body>
 </html>
+<script type="text/javascript">
+ $(document).ready(function(){
+   setTimeout(function(){
+     $('.alert').remove();
+   }, 3000);
+  })
+</script>

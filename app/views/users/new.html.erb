@@ -2,10 +2,10 @@
 
 <script>
 	$('#signup-button').prop("disabled", true);
-	$('#register-email').prop("disabled", true);
+	$('#register-email').prop("readonly", "readonly");
 	
 	$('.form-input').keyup(function(){
-		if(email_valid($('#register-email').val()) && passwords_match() && $('#register-firstname').val().length > 0 && $('#register-lastname').val().length >0)
+		if(email_valid($('#register-email').val()) && passwords_match() && $('#register-firstname').val().length > 0 && $('#register-lastname').val().length >0 && $('#register-screenname').val().length >0)
 			$('#signup-button').prop("disabled", false);
 		else
 			$('#signup-button').prop("disabled", true);

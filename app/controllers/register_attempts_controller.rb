@@ -18,8 +18,8 @@ class RegisterAttemptsController < ApplicationController
 					flash[:notice] = "A new registration email has been sent. Please check your email to complete the registration process."
 					redirect_to attempt_path
 				else
-					@attempt.passcode = geenerate_registration_code
-					if @attempt.update
+					@attempt.passcode = generate_registration_code
+					if @attempt.update(attempt_params)
 						UserMailer.send_register_email(@attempt).deliver
 						flash[:notice] = "A new registration email has been sent. Please check your email to complete the registration process."
 						redirect_to attempt_path

@@ -1,4 +1,4 @@
-	<%= render 'group_view_buttons' %>
+<%= render 'group_view_buttons' %>
 	<br>
 <div class='reportcontainer' >
 	<div class="group-info">
@@ -90,7 +90,7 @@
 	<button type="button" class="btn btn-success btn-message " onclick="clearMessage('#delete-group-message')">No</button>
 </div>
 <div id="screenname-form-message" class="warning-message off">
-	<h4 class="center">Enter new screen name:</h4>
+	<h4 class="center">Enter screen name for this group:</h4>
 	<br/>
 	<% @this_member = Membership.find_by(user_id: session[:user_id], group_id: @group.id) %>
 	<% if !@this_member.nil? %> 

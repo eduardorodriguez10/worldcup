@@ -8,7 +8,7 @@
 			<th>Group Type</th>
 		</tr>
 	<% @groups.all.each do |group| %>
-		<% if group.is_member?(current_user.id) %>
+		<% if !group.is_member?(current_user.id) %>
 			<tr>
 				<td>
 					<%= link_to group.group_name, group_path(group) %>
@@ -19,7 +19,7 @@
 							<% if group.is_member?(current_user.id) %>
 						   		<%= link_to "Leave Group", group_path(group), :class => "btn btn-danger" %>
 							<% else %>
-						   		<%= link_to "Join Group", memberships_path(isprivate: false, user_id: current_user, group_id: group.id), :method => :post, :class => "btn btn-success"  %>
+						   		<%= link_to "Join Group", memberships_path(isprivate: false, group_id: group.id), :method => :post, :class => "btn btn-success"  %>
 							<% end %>
 						<% end %>
 					<% else %>

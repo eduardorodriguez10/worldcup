@@ -22,10 +22,12 @@ class UsersController < ApplicationController
 	@user.admin = false
 	@user.admin_view = false
 		if @user.save
+			session[:user_id] = @user.id 
 			flash[:notice] = "Welcome to World Cup Bracket, You are registered now."
 			redirect_to new_bracket_path()
 		else
-			render '/register'
+			flash[:error] = @user.errors
+			redirect_to '/register'
 		end
 	end
 
@@ -66,6 +68,6 @@ class UsersController < ApplicationController
 	private
 
 	def user_params
-		params.require(:user).permit(:email, :password, :country, :first_name, :last_name)
+		params.require(:user).permit(:email, :password, :country, :first_name, :last_name, :screenname)
 	end
 end

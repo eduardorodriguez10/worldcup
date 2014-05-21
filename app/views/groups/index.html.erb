@@ -1,10 +1,15 @@
 <%= render 'group_buttons' %>
-<div class="col-md-12">
+<div class="reportcontainer">
 	<%if @groups.empty? %>
-		<h4>You haven't joined any groups yet.</h4>
+		<br>
+		<h4 class="center form-instructions">You haven't joined any groups yet. You can join a public group, join a private group if you have the group passcode or create your own group. </h4>
 	<% else %>
 			<div class="well">
-				<%= render 'group_table' %>
+				<% if @isprivate %> 
+					<%= render 'group_table' %>
+				<% else %> 
+					<%= render 'group_table_public' %> 
+				<% end %>
 			</div>
 	<% end %>
 </div>

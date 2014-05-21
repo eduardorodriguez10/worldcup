@@ -8,6 +8,7 @@ class User < ActiveRecord::Base;
 	validates :password, presence: true, on: :create, length: {minimum: 6}
 	validates :first_name, presence: true
 	validates :last_name, presence: true
+	validates :screenname, presence: true
 	validates :country, presence: true
 
 	before_save :generate_slug

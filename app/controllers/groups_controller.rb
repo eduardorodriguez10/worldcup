@@ -25,6 +25,7 @@ class GroupsController < ApplicationController
 			showpublic = false
 		end
 		if (showpublic)
+			@isprivate = false
 			@total_public_groups = Group.where(isprivate: false).count
 			if(@total_public_groups < items_per_page)
 				@pagination = false
@@ -34,6 +35,7 @@ class GroupsController < ApplicationController
 				@groups = Group.where(isprivate: false).order(page_sortby+' '+page_sortmode).limit(items_per_page).offset(page_index * items_per_page)
 			end
 		else
+			@isprivate = true
 			Group.uncached do
 				@group = Group.find_by(id: Membership.where(user_id: session[:user_id]).select(:group_id).order(last_viewed: :desc).limit(1))
 				if !@group.nil? 
@@ -106,9 +108,9 @@ class GroupsController < ApplicationController
 				email_errors << recipient
 			end
 			if(email_error)
-				flash[:error] = "There were some errors sending the invitation emails " + email_errors.to_s
+				flash[:error] = "There were some errors sending the invitation emails. Make sure you have valid email addresses."
 			else
-				flash[:notice] = "All emails were sent successfully."
+				flash[:notice] = "Invitations sent successfully."
 			end		
 		end
 		redirect_to inviteothers_path(@group)
@@ -126,11 +128,14 @@ class GroupsController < ApplicationController
 	def destroy
 		@group = Group.find_by(slug: params[:id])
 		@memberships = Membership.where(group_id: params[:id])
-		if @memberships.destroy_all
-			@group.destroy
-			redirect_to groups_path()
-		else
-			flash[:error] = "Error while deleting group."
+		if @group.organizer == current_user.id
+			if @memberships.destroy_all
+				@group.destroy
+				redirect_to groups_path()
+			else
+				flash[:error] = "Error while deleting group."
+				redirect_to :back
+			end
 		end
 	end
 

@@ -17,11 +17,11 @@ class BracketsController < ApplicationController
       	    if @bracket.save
       	      redirect_to bracket_path(@bracket)    
       	    else
-      	      flash[:error] = "There was a problem saving the bracket. Please make sure all fields are selected."
+      	      flash.now[:error] = "There was a problem saving the bracket. Please make sure all fields are selected."
       	      render :new
       	    end
         else
-          flash[:error] = "Your bracket has invalid information. Please make sure all fields are selected correctly."
+          flash.now[:error] = "Your bracket has invalid information. Please make sure all fields are selected correctly."
           render :new
         end
   end

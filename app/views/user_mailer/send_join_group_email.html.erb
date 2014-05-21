@@ -4,20 +4,21 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <%= link_to image_tag('logo.png', :width => '200px'), root_path, :class => 'brand', :id => 'logo' %>
+    <%= image_tag attachments['logo.png'].url, :style => 'width:200px' %> 
     <br>
     <h4>Group Invitation</h4>
+    
+    Hello, 
+    <br>
     <p>
-      Hello, 
-
-      <%= @user.first_name %> &nbsp <%= @user.last_name %> &nbsp invites you to join a private group TheWorldCupBracket.com!
-
-      If you don't have an account yet, you can register for an account at www.theworldcupbracket.com. 
-
-      <%= @user.first_name %> has created a private group. 
-
-      The group name is <%= @group.group_name %>, the group Id is <%=@group.id %> and the passcode to join is <%= @group.passcode %>. 
-
+    <%= @user.first_name %> <%= @user.last_name %> invites you to join a private group TheWorldCupBracket.com! </p><br>
+    <p> If you don't have an account yet, you can register for an account at www.theworldcupbracket.com. </p> <br><br>
+    <p><%= @user.first_name %> has created a private group:</p><br>
+    <p>     Group Name: <%= @group.group_name %><p>
+    <p>     Group Id: <%=@group.id %> <p>
+    <p>     Group Passcode: <%= @group.passcode %>. </p>
+    <br><br>
+    <p>
       We hope you enjoy the game!
     </p>
 

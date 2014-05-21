@@ -2,7 +2,9 @@
 <div class='span12 myform'>
 
 	<%= render 'shared/display_errors', obj: @group %>
-
-	<%= render 'group_join' %>
-	
+	<% if @isprivate %>
+		<%= render 'group_join' %>
+	<% else %>
+		<%= render 'group_join_public' %>
+	<% end %>
 </div>

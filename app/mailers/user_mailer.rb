@@ -4,12 +4,14 @@ class UserMailer < ActionMailer::Base
   def send_register_email(attempt)
     @email_attempt = attempt
     @url = '/register?email='+@email_attempt.email+'&passcode='+@email_attempt.passcode
+    attachments.inline['logo.png'] = File.read('app/assets/images/logo.png')
     mail(to: @email_attempt.email, subject: 'Welcome to The World Cup Bracket')
   end
 
   def send_join_group_email(group, email, user)
   	@group = group
   	@user = user
+  	attachments.inline['logo.png'] = File.read('app/assets/images/logo.png')
     mail(to: email, subject: 'The World Cup Bracket - Group Invitation')
   end
 

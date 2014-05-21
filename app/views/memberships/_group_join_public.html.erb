@@ -1,0 +1,14 @@
+	<%= form_for @membership do |f| %>	
+		<div class='control-group form-row'>
+			<h4 class="form-instructions">You are joining the Public Group: <%= @group.group_name %> </h4>
+			<br>
+			<input type="hidden" name="group_id" value=<%= @group.id %>>
+		</div>
+		<div class='control-group form-row'>
+			<label for="user_screen_name" class= 'form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12'>Type the Screen Name that You'd like to use for this Group</label><br>
+			<%= f.text_field :user_screen_name, class: 'form-input col-lg-3 col-md-4 col-sm-5 col-xs-10' %>
+		</div>
+		<div class='control-group form-row'>
+		<%= f.submit "Join Group", class: 'btn btn-success form-btn col-md-offset-4' %>
+		</div>
+	<% end %>

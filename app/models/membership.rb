@@ -20,10 +20,10 @@ class Membership < ActiveRecord::Base;
 		self.last_viewed = Time.now()
 		bracket = Bracket.find_by(user_id: self.user_id)
 		if(bracket.nil?)
-			self.bracket_updated_at = Datetime.now
+			self.bracket_updated_at = DateTime.now
 		else
 			if(bracket.updated_at == nil)
-				self.bracket_updated_at = Datetime.now
+				self.bracket_updated_at = DateTime.now
 			else 
 				self.bracket_updated_at = bracket.updated_at 
 			end
