@@ -6,9 +6,11 @@
 				  <li>
 				    <%= link_to "Go Back", :back %>
 				  </li>
+				  <% if (@group.organizer == session[:user_id]) || @group.others_can_invite || !@group.isprivate %>
 				  <li>
 				    <%= link_to "Invite More Players", inviteothers_path(@group) %>
 				  </li>
+				  <% end %>
 				  <% if @group.organizer == session[:user_id] %>
 					  <li>
 						<%= link_to "Edit This Group", edit_group_path(@group) %>

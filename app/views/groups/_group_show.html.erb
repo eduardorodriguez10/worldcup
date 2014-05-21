@@ -20,7 +20,12 @@
 			<% end %>
 		</div>
 		<div class="span4 col-md-4">
-			<p> Group Organizer: <%= User.find(@group.organizer).first_name %> <%= User.find(@group.organizer).last_name %> </p>
+			<p> Group Organizer: <% if @group.is_organizer?(current_user) %>
+			 		You
+			 		<% else %>
+			 		<%= User.find(@group.organizer).first_name%>  <%=User.find(@group.organizer).last_name %> 
+			 		<% end %>
+			</p>
 			<p> Number of Members: <%= Membership.where(group_id: @group.id).count() %> </p>
 			<% if !@group.leader.nil? %>
 						<p> Current Leader: <%= User.exists?(@group.leader) ? User.find(@group.leader).first_name+' '+User.find(@group.leader).last_name : "None" %></p> 
@@ -59,7 +64,7 @@
 								<% end %>
 								</td>
 							<td> <%= member.score %></td>
-							<td> <%= @bracket.nil? ? '0%' : ((member.score / (positions_defined(@bracket)*2.00))*100).round(0) %>% </td>
+							<td> <%= @bracket.nil? || positions_defined(@bracket) == 0 ? '0%' : ((member.score / (positions_defined(@bracket)*2.00))*100).round(0) %>% </td>
 							<td> <%=  ((member.full_r16 / 16.00)*100).round(2) %>% / <%= ((member.half_r16 / 16.00)*100).round(2) %>% </td>
 							<td> <%= ((member.full_quaterfinals / 8.00)*100).round(2) %>% </td>
 							<td> <%= ((member.full_semifinals / 4.00)*100).round(2) %>% </td>

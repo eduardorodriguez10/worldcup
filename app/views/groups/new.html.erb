@@ -4,3 +4,19 @@
 	<%= render 'group_new' %> 
 </div>
 
+	<script>
+		var checkbox = document.getElementById('group_isprivate');
+		var passcode = document.getElementById('div_passcode');
+		$(document).ready(function(){
+     		passcode.style['display'] = 'none';
+     		$('.form-input').tooltip({placement: 'left'});
+ 		 })
+		
+		checkbox.onchange = function(){
+			if(this.checked){
+				passcode.style['display'] = 'block';
+			} else {
+				passcode.style['display'] = 'none';
+			}
+		};
+	</script>

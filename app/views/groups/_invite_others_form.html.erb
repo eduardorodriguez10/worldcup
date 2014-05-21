@@ -2,7 +2,8 @@
 	
 		<%= form_tag '/sendinvite' do %>
 			<div class='form-instructions'>
-				<h4>Invite more people to this group</h4>
+				<h4><%= @group.group_name %> Group</h4>
+				<h4>Invite more people to this <%= @group.isprivate ? 'private' : 'public' %> group</h4>
 				<p> Enter the email addresses of the people that you'd like to invite to the group. You can enter multiple email addresses by separating each one with a comma.</p>
 				<br>
 			</div>
