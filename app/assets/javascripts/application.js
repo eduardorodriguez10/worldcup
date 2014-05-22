@@ -10,7 +10,10 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
-//= require turbolinks
-//= require_tree .
+//= require jquery-2.1.0.min.js
+//= require bootstrap.min.js
+//= require jquery.gsap.js
+//= require jquery.lettering.js
+//= require TimelineLite.js
+//= require TweenMax.js
+//= require bracket.js

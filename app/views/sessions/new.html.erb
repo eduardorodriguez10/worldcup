@@ -1,15 +1,13 @@
 <div class='login-background'>
-	<div id='login-container' class='register-form'>
-		<h4 class='register-title register-label'>Login</h4>
+	<div id='login-container' class='dialog'>
+		<h4 class='form-title'>Login</h4>
 		<%= form_tag '/login' do %>
-			<div class='control-group form-row'>
-				<%= label_tag :email, nil, class: 'form-label register-label' %>
-				<%= text_field_tag :email, params[:email] || '', class: 'form-input register-input', id: 'login-email' %>
-			</div>
-			<div class='control-group form-row'>
-				<%= label_tag :password, nil, class: 'form-label register-label' %>
-				<%= password_field_tag :password, params[:password] || '', class: 'form-input register-input', id:'login-password' %>
-				<%= link_to 'Forgot Password?', recoverpassword_path, class: 'form-input register-label ' %>
+				<%= label_tag :email, nil, class: 'form-label' %>
+				<%= text_field_tag :email, params[:email] || '', class: 'form-input', id: 'login-email' %>
+			<div class='control-group'>
+				<%= label_tag :password, nil, class: 'form-label' %>
+				<%= password_field_tag :password, params[:password] || '', class: 'form-input', id:'login-password' %>
+				<%= link_to 'Forgot Password?', recoverpassword_path, class: 'form-input' %>
 			</div>
 			<div class='control-group form-row'>
 				<%= submit_tag "Login", class: 'btn-wcb-normal register-button', id: 'login-button' %>

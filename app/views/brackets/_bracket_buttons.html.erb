@@ -6,9 +6,11 @@
 				  <li>
 				    <%= link_to 'Go Back', :back %>
 				  </li>
-				  	<li>
-				  		<%= link_to 'Edit Bracket', edit_bracket_path(@bracket.id) if @bracket.user_id == session[:user_id] %>
-				  	</li>
+				  	<% if !results_visible? %> 
+					  	<li>
+					  		<%= link_to 'Edit Bracket', edit_bracket_path(@bracket.id) if @bracket.user_id == session[:user_id] %>
+					  	</li>
+					 <% end %>
 				</ul>
 			</nav>
 		</div>

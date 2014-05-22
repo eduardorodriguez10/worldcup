@@ -1,5 +1,61 @@
+<link href="http://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet" type="text/css">
 <div class='login-background'>
-	<div class='register-form'>
-		<h4>Welcome to The World Cup Bracket!</h4>
-	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+    <h1 id="thirtytwo" class="title line1" style="position:relative; opacity:0; display:none">32</h1>
+    <h1 id="teams" class="title line1" style="position:relative; opacity:0; display:none">Teams</h1>
+    <h1 id="sixtyfour" class="title line2" style="position:relative; opacity:0; display:none">64</h1>
+    <h1 id="games" class="title line2" style="position:relative; opacity:0; display:none">Games</h1>
+    <h1 id="sevenhundred" class="title line3" style="position:relative; opacity:0; display:none">736</h1>
+    <h1 id="players" class="title line3" style="position:relative; opacity:0; display:none">Players</h1>
+    <h1 id="one" class="title line4" style="position:relative; display:none">One</h1>
+    <br>
+    <h1 id="single" class="title line4" style="position:relative; display:none">Single</h1>
+    <br>
+    <h1 id="dream" class="title line4" style="position:relative; display:none">Dream</h1>
 </div>
+
+ <script>
+      $(document).ready(function(){
+
+        (new TimelineLite())
+        .to( $('#thirtytwo'), 0.1, {css:{display:'block'}})
+        .to( $('#teams'), 0.1, {css:{display:'block'}})
+        .to( $('#thirtytwo'), 0.6, {css:{opacity:1}})
+        .to( $('#thirtytwo'), 1, {scaleX:3, scaleY:3})
+        .to( $('#teams'), 0.1, {scaleX:2, scaleY:2})
+        .to( $('#teams'), 1, {css:{opacity:1}})
+        .to( $('.line1'), 1, {css:{opacity:0}})
+        .to( $('#thirtytwo'), .1, {css:{display:'none'}})
+        .to( $('#teams'), .1, {css:{display:'none'}})
+        .to( $('#sixtyfour'), 0.1, {css:{display:'block'}})
+        .to( $('#games'), 0.1, {css:{display:'block'}})
+        .to( $('#sixtyfour'), 0.6, {css:{opacity:1}})
+        .to( $('#sixtyfour'), 1, {scaleX:3, scaleY:3})
+        .to( $('#games'), 0.1, {scaleX:2, scaleY:2})
+        .to( $('#games'), 1, {css:{opacity:1}})
+        .to( $('.line2'), 1, {css:{opacity:0}})
+        .to( $('#sixtyfour'), .1, {css:{display:'none'}})
+        .to( $('#games'), .1, {css:{display:'none'}})
+        .to( $('#sevenhundred'), 0.1, {css:{display:'block'}})
+        .to( $('#players'), 0.1, {css:{display:'block'}})
+        .to( $('#sevenhundred'), 1, {css:{opacity:1}})
+        .to( $('#sevenhundred'), 0.4, {scaleX:3, scaleY:3})
+        .to( $('#players'), 0.1, {scaleX:2, scaleY:2})
+        .to( $('#players'), 1, {css:{opacity:1}})
+        .to( $('.line3'), 1, {css:{opacity:0}})
+        .to( $('#sevenhundred'), .1, {css:{display:'none'}})
+        .to( $('#players'), .1, {css:{display:'none'}})
+        .to( $('#one'), 0.1, {css:{display:'block'}})
+        .to( $('#single'), 0.1, {css:{display:'block'}})
+        .to( $('#dream'), 0.1, {css:{display:'block'}})
+        .from( $('#one'), .6, {delay:0.2, css:{right:'1000px'}, ease:Power4.easeOut})
+        .to( $('#one'), 0.4, {scaleX:3, scaleY:3})
+        .from( $('#single'), .6, {delay:0.2, css:{left:'1000px'}, ease:Power4.easeOut})
+        .to( $('#single'), 0.4, {scaleX:3, scaleY:3})
+        .from( $('#dream'), 0.6, {css:{opacity:0}})
+        .to( $('#dream'), 0.4, {scaleX:3, scaleY:3})
+      });
+</script>

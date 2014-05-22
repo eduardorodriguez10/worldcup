@@ -15,13 +15,13 @@ class RegisterAttemptsController < ApplicationController
 				@attempt = previous_attempt
 				if(previous_attempt.created_at > 7.days.ago)
 					UserMailer.send_register_email(@attempt).deliver
-					flash[:notice] = "A new registration email has been sent. Please check your email to complete the registration process."
+					flash[:keep] = "A new registration email has been sent. Please check your email to complete the registration process."
 					redirect_to attempt_path
 				else
 					@attempt.passcode = generate_random_code
 					if @attempt.update(attempt_params)
 						UserMailer.send_register_email(@attempt).deliver
-						flash[:notice] = "A new registration email has been sent. Please check your email to complete the registration process."
+						flash[:keep] = "A new registration email has been sent. Please check your email to complete the registration process."
 						redirect_to attempt_path
 					else
 						flash[:error] = "There was an error sending the registration email."
@@ -34,8 +34,8 @@ class RegisterAttemptsController < ApplicationController
 				@attempt.passcode = generate_random_code
 				if @attempt.save
 					UserMailer.send_register_email(@attempt).deliver
-					flash[:notice] = "Welcome to World Cup Bracket. Please check your email to complete the registration process."
-					redirect_to root_path
+					flash[:keep] = "Welcome to World Cup Bracket. Please check your email to complete the registration process."
+					redirect_to attempt_path
 				else
 					render '/register'
 				end

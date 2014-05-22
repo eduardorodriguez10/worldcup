@@ -8,8 +8,8 @@
 				<br>
 			</div>
 			<div class='control-group form-row'>
-				<label for="emails" class= 'form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12'>Recipients</label>
-				<%= text_field_tag :emails, params[:emails] || '', class: 'form-input col-lg-3 col-md-4 col-sm-5 col-xs-10' %>
+				<label for="emails" class= 'form-label col-lg-2 col-lg-offset-2 col-md-3 col-md-offset-1 col-sm-4 col-xs-11 col-xs-offset-1'>Recipients</label>
+				<%= text_field_tag :emails, params[:emails] || '', class: 'form-input col-lg-4 col-md-4 col-sm-5 col-sm-offset-0 col-xs-10 col-xs-offset-1' %>
 				<input type='hidden' name='id' value=<%= @group.slug %> />
 			</div>
 			<div class='control-group form-row form-instructions'>

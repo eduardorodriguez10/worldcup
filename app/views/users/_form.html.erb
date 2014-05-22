@@ -1,36 +1,37 @@
 <div class='login-background'>
-		<h4 class='register-title register-label'>Sign Up</h4>
+	<div class='dialog'>
+		<h4>Sign Up</h4>
 		<%= form_for @user do |f| %>
 			<%= render 'shared/display_errors', obj: @user %> 
 			<div class='control-group form-row'>
-				<%= f.label :email, class: 'form-label register-label' %>
-				<%= f.text_field :email, class: 'form-input register-input', id:'register-email' %>
+				<%= f.label :email, class: 'form-label' %>
+				<%= f.text_field :email, class: 'form-input', id:'register-email' %>
 			</div>
 			<div class='control-group form-row'>
-				<%= f.label :password, class: 'form-label register-label' %> 
-				<%= f.password_field :password, class: 'form-input register-input', id:'register-password' %>
+				<%= f.label :password, class: 'form-label' %> 
+				<%= f.password_field :password, class: 'form-input', id:'register-password' %>
 				<h5 class='form-error off' id="error-password">Passwords must have at least 8 characters</h5>
 			</div>
 			<div class='control-group form-row'>
-				<label class='form-label register-label'>Re-type Password</label>
-				<input class='form-input register-input' id="register-retype" type="password"></input>
+				<label class='form-label'>Re-type Password</label>
+				<input class='form-input' id="register-retype" type="password"></input>
 				<h5 class='form-error off' id="error-retype">Passwords do not match</h5>
 			</div>
 			<div class='control-group form-row'>
-				<%= f.label :first_name, class: 'form-label register-label' %>
-				<%= f.text_field :first_name, class: 'form-input register-input', id:'register-firstname' %>
+				<%= f.label :first_name, class: 'form-label' %>
+				<%= f.text_field :first_name, class: 'form-input', id:'register-firstname' %>
 			</div>
 			<div class='control-group form-row'>
-				<%= f.label :last_name, class: 'form-label register-label' %>
-				<%= f.text_field :last_name, class: 'form-input register-input', id:'register-lastname' %>
+				<%= f.label :last_name, class: 'form-label' %>
+				<%= f.text_field :last_name, class: 'form-input', id:'register-lastname' %>
 			</div>
 			<div class='control-group form-row'>
-				<%= f.label :screenname, class: 'form-label register-label' %>
-				<%= f.text_field :screenname, class: 'form-input register-input', id:'register-screenname' %>
+				<%= f.label :screenname, class: 'form-label' %>
+				<%= f.text_field :screenname, class: 'form-input', id:'register-screenname' %>
 			</div>
-			<div class='control-group form-row'>
-				<%= f.label :country, class: 'form-label register-label' %> 
-				<%= f.country_select(:country, ["United States"], class: 'form-label register-input') %>
+			<div class='control-group'>
+				<%= f.label :country, class: 'form-label' %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<%= f.country_select(:country, ["United States"], class: 'form-country') %>
 			</div>
 			<%= f.submit @user.new_record? ? "Sign Up" : "Update Profile", class: 'btn-wcb-normal form-btn register-button', id: 'signup-button' %>
 	<% end %>
