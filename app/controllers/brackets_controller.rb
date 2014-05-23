@@ -15,7 +15,6 @@ class BracketsController < ApplicationController
       require_same_user(@bracket.user_id)
         if valid_bracket?
       	    if @bracket.save
-              update_selections
               flash[:notice] = "Your bracket has been saved."
       	      redirect_to bracket_path(@bracket)    
       	    else
@@ -65,7 +64,6 @@ class BracketsController < ApplicationController
       require_same_user(@bracket.user_id)
       if valid_bracket?
 	       if @bracket.update(bracket_params)
-            update_selections
 	         redirect_to bracket_path(@bracket.id)    
 	       else
 	          flash[:error] = "There was a problem saving the bracket. Please make sure all fields are selected."
