@@ -117,12 +117,14 @@
 				<%= f.collection_select :champion, allTeams, :id, :name, {:prompt=> 'Champion'}, {class: 'notselected champion',:onchange=>"javascript: changeFinals('champion')"} do |cb| %>
 						<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 					<% end %>
+					<input id='champion-old' type="hidden" value="0"/>
 			</div>
 			<div class="well bracket well-sm">
 				<p class="bracket-text"> Third Place</p>
 					<%= f.collection_select :third, allTeams, :id, :name, {:prompt=> 'Third Place'}, {class: 'notselected ', :onchange=>"javascript: changeFinals('third')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
+				<input id='third-old' type="hidden" value="0"/>
 			</div>
 			<div class="well bracket well-sm">
 				<p class="bracket-text"> Final</p>

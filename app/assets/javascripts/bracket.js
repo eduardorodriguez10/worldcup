@@ -139,6 +139,16 @@ function updateOptionsR16(selected, disabled, next_round){
 	};
 
 	function hide3rdAndChampion(){
+		var e = document.getElementById("bracket_third");
+		var teamSelected = document.getElementById("bracket_third").value;
+		if(teamSelected)
+		document.getElementById('third-old').value = teamSelected;
+
+		var e = document.getElementById("bracket_champion");
+		var teamSelected = document.getElementById("bracket_champion").value;
+		if(teamSelected)
+		document.getElementById('champion-old').value = teamSelected;
+
 		for(var t = 1; t<33; t++){
 				$("#bracket_third option[value="+t.toString()+"]").hide();
 				$("#bracket_third option[value="+t.toString()+"]").wrap('<span style="display:none;" />');
@@ -227,6 +237,7 @@ function updateOptionsR16(selected, disabled, next_round){
 	};
 
 	function fixLGames(){
+		var next_game = {'l61': 'third', 'l62': 'third'}
 		for (var i = 61; i < 63; i++){
 			var e = document.getElementById("bracket_l"+i.toString());
 			var teamSelected = document.getElementById("bracket_l"+i.toString()).value;
@@ -244,6 +255,7 @@ function updateOptionsR16(selected, disabled, next_round){
 		$("#bracket_third").val(teamSelectedThird);
 		var teamSelectedThird = document.getElementById("bracket_third").value;
 		console.log("TEAM SELECTED IN THIRD AFTER FIXING "+ teamSelectedThird);
+
 	};
 
 	function disableFinals(){
@@ -276,6 +288,11 @@ function updateOptionsR16(selected, disabled, next_round){
 
 				setCSSSelected("#bracket_champion",true);
 			}
+			if(document.getElementById("third-old").value != '0')
+				document.getElementById("bracket_third").value = document.getElementById("third-old").value;
+			if(document.getElementById("champion-old").value != '0')
+				document.getElementById("bracket_champion").value = document.getElementById("champion-old").value;
+
 	};
 
 	function setCSSSelected(elem, b){
@@ -324,7 +341,6 @@ function updateOptionsR16(selected, disabled, next_round){
 			fixR16Games();
 
 			fixWGames();
-			console.log("ABOUT TO CALL FIXLGAMES for WIN");
 			fixLGames();
 
 			fix3rdAndChampion();
