@@ -161,7 +161,7 @@ function updateOptionsR16(selected, disabled, next_round){
 
 	//readjust R16 javascript in case of reload
 	function fixR16Games() {
-		var next_game = {'a1': 'w49', 'b2': 'w49', 'c1': 'w50', 'd2': 'w50', 'e1': 'w53', 'f2': 'w53', 'g1': 'w54', 'h2': 'w54', 'b1': 'w51', 'a2':'w51', 'd1':'w52', 'c2': 'w52', 'f1': 'w60', 'e2': 'w60', 'h1': 'w56', 'g2': 'w56', 'w49': 'w57', 'w50': 'w57', 'w53': 'w58', 'w54': 'w58', 'w57': 'w61', 'w58': 'w61', 'w51': 'w59', 'w52': 'w59', 'w55': 'w60', 'w56': 'w60', 'w59': 'w62', 'w60': 'w62'};
+		var next_game = {'a1': 'w49', 'b2': 'w49', 'c1': 'w50', 'd2': 'w50', 'e1': 'w53', 'f2': 'w53', 'g1': 'w54', 'h2': 'w54', 'b1': 'w51', 'a2':'w51', 'd1':'w52', 'c2': 'w52', 'f1': 'w55', 'e2': 'w55', 'h1': 'w56', 'g2': 'w56', 'w49': 'w57', 'w50': 'w57', 'w53': 'w58', 'w54': 'w58', 'w57': 'w61', 'w58': 'w61', 'w51': 'w59', 'w52': 'w59', 'w55': 'w60', 'w56': 'w60', 'w59': 'w62', 'w60': 'w62'};
 		for (var i = 97; i <105; i++){
 			var e = document.getElementById("bracket_"+String.fromCharCode(i)+"1");
 			var teamSelected = e.value;
@@ -199,11 +199,11 @@ function updateOptionsR16(selected, disabled, next_round){
 	};
 
 	function fixWGames () {
-		var next_game = {'a1': 'w49', 'b2': 'w49', 'c1': 'w50', 'd2': 'w50', 'e1': 'w53', 'f2': 'w53', 'g1': 'w54', 'h2': 'w54', 'b1': 'w51', 'a2':'w51', 'd1':'w52', 'c2': 'w52', 'f1': 'w60', 'e2': 'w60', 'h1': 'w56', 'g2': 'w56', 'w49': 'w57', 'w50': 'w57', 'w53': 'w58', 'w54': 'w58', 'w57': 'w61', 'w58': 'w61', 'w51': 'w59', 'w52': 'w59', 'w55': 'w60', 'w56': 'w60', 'w59': 'w62', 'w60': 'w62', 'w61': 'champion', 'w62': 'champion', 'l58':'l61', 'l59': 'l62', 'l60': 'l62', 'l57': 'l61'};
+		var next_game = {'a1': 'w49', 'b2': 'w49', 'c1': 'w50', 'd2': 'w50', 'e1': 'w53', 'f2': 'w53', 'g1': 'w54', 'h2': 'w54', 'b1': 'w51', 'a2':'w51', 'd1':'w52', 'c2': 'w52', 'f1': 'w55', 'e2': 'w55', 'h1': 'w56', 'g2': 'w56', 'w49': 'w57', 'w50': 'w57', 'w53': 'w58', 'w54': 'w58', 'w57': 'w61', 'w58': 'w61', 'w51': 'w59', 'w52': 'w59', 'w55': 'w60', 'w56': 'w60', 'w59': 'w62', 'w60': 'w62', 'w61': 'champion', 'w62': 'champion', 'l58':'l61', 'l59': 'l62', 'l60': 'l62', 'l57': 'l61'};
 		for (var i = 49; i < 63; i++){
 			var value = document.getElementById("bracket_w"+i.toString()).value;
 			var e = document.getElementById("bracket_w"+i.toString());
-			var teamSelected = document.getElementById("bracket_w"+i.toString()).value;
+			var teamSelected = document.getElementById("w"+i.toString()+"-old").value;
 			var next_round = next_game['w'+i.toString()];
 			if(teamSelected){
 					if(e.options[0].value)
