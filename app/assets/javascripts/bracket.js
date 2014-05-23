@@ -141,12 +141,10 @@ function updateOptionsR16(selected, disabled, next_round){
 	function hide3rdAndChampion(){
 
 		for(var t = 1; t<33; t++){
-				$("#bracket_third option[value="+t.toString()+"]").hide();
-				$("#bracket_third option[value="+t.toString()+"]").wrap('<span style="display:none;" />');
+			    displayInNextRound("#bracket_third option[value="+t.toString()+"]", false);
 			};
 		for(var t = 1; t<33; t++){
-				$("#bracket_champion option[value="+t.toString()+"]").hide();
-				$("#bracket_champion option[value="+t.toString()+"]").wrap('<span style="display:none;" />');
+				displayInNextRound("#bracket_champion option[value="+t.toString()+"]", false);
 			};
 	};
 
