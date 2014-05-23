@@ -13,7 +13,7 @@ class BracketsController < ApplicationController
     	@bracket = Bracket.new(bracket_params)
     	@bracket.user_id = session[:user_id]
       require_same_user(@bracket.user_id)
-        if true
+        if valid_bracket?
       	    if @bracket.save
               update_selections
               flash[:notice] = "Your bracket has been saved."
@@ -63,7 +63,7 @@ class BracketsController < ApplicationController
     	@bracket = Bracket.find_by(slug: params[:id])
     	@bracket.user_id = session[:user_id]
       require_same_user(@bracket.user_id)
-      if true
+      if valid_bracket?
 	       if @bracket.update(bracket_params)
            update_selections
 	         redirect_to bracket_path(@bracket.id)    
