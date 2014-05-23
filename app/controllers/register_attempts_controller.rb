@@ -5,7 +5,6 @@ class RegisterAttemptsController < ApplicationController
 	end
 
 	def create
-		
 		if valid_email?(params[:email])
 			if(user_email_exists?(params[:email]))
 			   flash[:error] = "User already exists. Please log in."
@@ -40,7 +39,11 @@ class RegisterAttemptsController < ApplicationController
 					render '/register'
 				end
 			end
+		else
+			flash[:error] = "You entered an invalid email address. Please try again."
+			redirect_to attempt_path
 		end
+
 	end
 
 	private
