@@ -3,13 +3,13 @@ class UserMailer < ActionMailer::Base
 
   def send_register_email(attempt)
     @email_attempt = attempt
-    @url = 'http://0.0.0.0:3000/register?email='+@email_attempt.email+'&passcode='+@email_attempt.passcode
+    @url = 'http://www.theworldcupbracket/register?email='+@email_attempt.email+'&passcode='+@email_attempt.passcode
     attachments.inline['logo.png'] = File.read('app/assets/images/logo.png')
     mail(to: @email_attempt.email, subject: 'Welcome to The World Cup Bracket')
   end
 
    def send_password_recovery(user, url)
-    @url = 'http://0.0.0.0:3000' + url
+    @url = 'http://www.theworldcupbracket.com' + url
     @user = user
     attachments.inline['logo.png'] = File.read('app/assets/images/logo.png')
     mail(to: @user.email, subject: 'Password Recovery - The World Cup Bracket')
