@@ -4,120 +4,120 @@
 		<div class='bracket-column' id="Round16-1">
 			<div class="well bracket well-sm bracket-text">
 					<p> 1A vs 2B</p>
-					<%= image_tag @allTeams[@bracket.a1].flag_url, :class => 'icon' %> <%= @allTeams[@bracket.a1].name %> <span class=<%= get_icon(@bracket.a1s) %> ></span>
+					<%= image_tag Team.find(@bracket.a1).flag_url, :class => 'icon' %> <%= Team.find(@bracket.a1).name %> <span class=<%= get_icon(@bracket.a1s) %> ></span>
 					<br/>vs<br/>
-					<span class=<%= get_icon(@bracket.b2s) %>></span> <%= @allTeams[@bracket.b2-1].name %> <%= image_tag @allTeams[@bracket.b2-1].flag_url, :class => 'icon' %>
+					<span class=<%= get_icon(@bracket.b2s) %>></span> <%= Team.find(@bracket.b2).name %> <%= image_tag Team.find(@bracket.b2).flag_url, :class => 'icon' %>
 			</div>	
 			<div class="well bracket well-sm bracket-text">
 					<p> 1C vs 2D</p>
-					<%= image_tag @allTeams[@bracket.c1-1].flag_url, :class => 'icon' %> <%= @allTeams[@bracket.c1-1].name %> <span class=<%= get_icon(@bracket.c1s) %> ></span>
+					<%= image_tag Team.find(@bracket.c1).flag_url, :class => 'icon' %> <%= Team.find(@bracket.c1).name %> <span class=<%= get_icon(@bracket.c1s) %> ></span>
 				<br/>vs<br/>
-					<span class=<%= get_icon(@bracket.d2s) %> ></span> <%= @allTeams[@bracket.d2-1].name %> <%= image_tag @allTeams[@bracket.d2-1].flag_url, :class => 'icon' %>
+					<span class=<%= get_icon(@bracket.d2s) %> ></span> <%= Team.find(@bracket.d2).name %> <%= image_tag Team.find(@bracket.d2).flag_url, :class => 'icon' %>
 			</div>	
 			<div class="well bracket well-sm bracket-text">
 					<p> 1E vs 2F</p>
-					<%= image_tag @allTeams[@bracket.e1-1].flag_url, :class => 'icon' %> <%= @allTeams[@bracket.e1-1].name %> <span class=<%= get_icon(@bracket.e1s) %> ></span>
+					<%= image_tag Team.find(@bracket.e1).flag_url, :class => 'icon' %> <%= Team.find(@bracket.e1).name %> <span class=<%= get_icon(@bracket.e1s) %> ></span>
 				<br/>vs<br/>
-					<span class=<%= get_icon(@bracket.f2s) %> ></span> <%= @allTeams[@bracket.f2-1].name %> <%= image_tag @allTeams[@bracket.f2-1].flag_url, :class => 'icon' %>
+					<span class=<%= get_icon(@bracket.f2s) %> ></span> <%= Team.find(@bracket.f2).name %> <%= image_tag Team.find(@bracket.f2).flag_url, :class => 'icon' %>
 			</div>	
 			<div class="well bracket well-sm bracket-text">
 					<p> 1G vs 2H</p>
-					<%= image_tag @allTeams[@bracket.g1-1].flag_url, :class => 'icon' %> <%= @allTeams[@bracket.g1-1].name %> <span class=<%= get_icon(@bracket.g1s) %> ></span>
+					<%= image_tag Team.find(@bracket.g1).flag_url, :class => 'icon' %> <%= Team.find(@bracket.g1).name %> <span class=<%= get_icon(@bracket.g1s) %> ></span>
 				<br/>vs<br/>
-					<span class=<%= get_icon(@bracket.h2s) %> ></span> <%= @allTeams[@bracket.h2-1].name %> <%= image_tag @allTeams[@bracket.h2-1].flag_url, :class => 'icon' %>
+					<span class=<%= get_icon(@bracket.h2s) %> ></span> <%= Team.find(@bracket.h2).name %> <%= image_tag Team.find(@bracket.h2).flag_url, :class => 'icon' %>
 			</div>	
 		</div>
 		<div class='bracket-column qf' id="Quater-finals-1">
 			<div class="bracket bracket-qf well well-sm bracket-text">
 					<p> Quater-final</p>
-					<%= image_tag @allTeams[@bracket.w49-1].flag_url, :class => 'icon' %> <%= @allTeams[@bracket.w49-1].name %> <span class=<%= get_icon(@bracket.w49s) %> ></span>
+					<%= image_tag Team.find(@bracket.w49).flag_url, :class => 'icon' %> <%= Team.find(@bracket.w49).name %> <span class=<%= get_icon(@bracket.w49s) %> ></span>
 				<br/>vs<br/>
-					<span class=<%= get_icon(@bracket.w50s) %> ></span> <%= @allTeams[@bracket.w50-1].name %> <%= image_tag @allTeams[@bracket.w50-1].flag_url, :class => 'icon' %>
+					<span class=<%= get_icon(@bracket.w50s) %> ></span> <%= Team.find(@bracket.w50).name %> <%= image_tag Team.find(@bracket.w50).flag_url, :class => 'icon' %>
 			</div>
 			<div class="bracket bracket-qf well well-sm bracket-text">
 					<p> Quater-final</p>
-					<%= image_tag @allTeams[@bracket.w53-1].flag_url, :class => 'icon' %> <%= @allTeams[@bracket.w53-1].name %> <span class=<%= get_icon(@bracket.w53s) %> ></span>
+					<%= image_tag Team.find(@bracket.w53).flag_url, :class => 'icon' %> <%= Team.find(@bracket.w53).name %> <span class=<%= get_icon(@bracket.w53s) %> ></span>
 				<br/>vs<br/>
-					<span class=<%= get_icon(@bracket.w54s) %> ></span> <%= @allTeams[@bracket.w54-1].name %> <%= image_tag @allTeams[@bracket.w54-1].flag_url, :class => 'icon' %>
+					<span class=<%= get_icon(@bracket.w54s) %> ></span> <%= Team.find(@bracket.w54).name %> <%= image_tag Team.find(@bracket.w54).flag_url, :class => 'icon' %>
 			</div>
 		</div>
 		<div class='bracket-column sf' id="Semi-finals-1">
 			<div class="well bracket bracket-sf well-sm bracket-text">
 					<p> Semi-final</p>
-					<%= image_tag @allTeams[@bracket.w57-1].flag_url, :class => 'icon' %> <%= @allTeams[@bracket.w57-1].name %> <span class=<%= get_icon(@bracket.w57s) %> ></span>
+					<%= image_tag Team.find(@bracket.w57).flag_url, :class => 'icon' %> <%= Team.find(@bracket.w57).name %> <span class=<%= get_icon(@bracket.w57s) %> ></span>
 				<br/>vs<br/>
-					<span class=<%= get_icon(@bracket.w58s) %> ></span> <%= @allTeams[@bracket.w58-1].name %> <%= image_tag @allTeams[@bracket.w58-1].flag_url, :class => 'icon' %>
+					<span class=<%= get_icon(@bracket.w58s) %> ></span> <%= Team.find(@bracket.w58).name %> <%= image_tag Team.find(@bracket.w58).flag_url, :class => 'icon' %>
 			</div>
 		</div>
 		<div class='bracket-column' id="Finals">
 			<div class="well bracket well-sm bracket-text">
 				<h4>Champion</h4>
-				<%= image_tag @allTeams[@bracket.champion].flag_url, :class => 'icon' %>
-				<%= @allTeams[@bracket.champion].name %> <span class=<%= get_icon(@bracket.champions) %> ></span>
+				<%= image_tag Team.find(@bracket.champion).flag_url, :class => 'icon' %>
+				<%= Team.find(@bracket.champion).name %> <span class=<%= get_icon(@bracket.champions) %> ></span>
 			</div>
 			<div class="well bracket well-sm bracket-text">
 					<p> Third Place</p>
-					<%= image_tag @allTeams[@bracket.third-1].flag_url, :class => 'icon' %> <%= @allTeams[@bracket.third-1].name %> <span class=<%= get_icon(@bracket.thirds) %> ></span>
+					<%= image_tag Team.find(@bracket.third).flag_url, :class => 'icon' %> <%= Team.find(@bracket.third).name %> <span class=<%= get_icon(@bracket.thirds) %> ></span>
 			</div>
 			<div class="well bracket well-sm bracket-text">
 					<p>Final</p>
-					<%= image_tag @allTeams[@bracket.w61-1].flag_url, :class => 'icon' %> <%= @allTeams[@bracket.w61-1].name %> <span class=<%= get_icon(@bracket.w61s) %> ></span>
+					<%= image_tag Team.find(@bracket.w61).flag_url, :class => 'icon' %> <%= Team.find(@bracket.w61).name %> <span class=<%= get_icon(@bracket.w61s) %> ></span>
 				<br/>vs<br/>
-					<span class=<%= get_icon(@bracket.w62s) %> ></span> <%= @allTeams[@bracket.w62-1].name %> <%= image_tag @allTeams[@bracket.w62-1].flag_url, :class => 'icon' %>
+					<span class=<%= get_icon(@bracket.w62s) %> ></span> <%= Team.find(@bracket.w62).name %> <%= image_tag Team.find(@bracket.w62).flag_url, :class => 'icon' %>
 			</div>
 			<div class="well bracket  well-sm bracket-text">
 					<p>Third Place</p>
-					<%= image_tag @allTeams[@bracket.l61-1].flag_url, :class => 'icon' %> <%= @allTeams[@bracket.l61-1].name %> <span class=<%= get_icon(@bracket.l61s) %> ></span>
+					<%= image_tag Team.find(@bracket.l61).flag_url, :class => 'icon' %> <%= Team.find(@bracket.l61).name %> <span class=<%= get_icon(@bracket.l61s) %> ></span>
 				<br/>vs<br/>
-					<span class=<%= get_icon(@bracket.l62s) %> ></span> <%= @allTeams[@bracket.l62-1].name %> <%= image_tag @allTeams[@bracket.l62-1].flag_url, :class => 'icon' %>
+					<span class=<%= get_icon(@bracket.l62s) %> ></span> <%= Team.find(@bracket.l62).name %> <%= image_tag Team.find(@bracket.l62).flag_url, :class => 'icon' %>
 			</div>
 		</div>
 		<div class='bracket-column sf' id="Semi-finals-2">
 			<div class="well bracket bracket-sf well-sm bracket-text">
 					<p> Semi-final</p>
-					<%= image_tag @allTeams[@bracket.w59-1].flag_url, :class => 'icon' %> <%= @allTeams[@bracket.w59-1].name %> <span class=<%= get_icon(@bracket.w59s) %> ></span>
+					<%= image_tag Team.find(@bracket.w59).flag_url, :class => 'icon' %> <%= Team.find(@bracket.w59).name %> <span class=<%= get_icon(@bracket.w59s) %> ></span>
 				<br/>vs<br/>
-					<span class=<%= get_icon(@bracket.w60s) %> ></span> <%= @allTeams[@bracket.w60-1].name %> <%= image_tag @allTeams[@bracket.w60-1].flag_url, :class => 'icon' %>
+					<span class=<%= get_icon(@bracket.w60s) %> ></span> <%= Team.find(@bracket.w60).name %> <%= image_tag Team.find(@bracket.w60).flag_url, :class => 'icon' %>
 			</div>
 		</div>
 		<div class='bracket-column qf' id="Quater-finals-2">
 			<div class="bracket bracket-qf well well-sm bracket-text">
 					<p> Quater-final</p>
-					<%= image_tag @allTeams[@bracket.w51-1].flag_url, :class => 'icon' %> <%= @allTeams[@bracket.w51-1].name %> <span class=<%= get_icon(@bracket.w51s) %> ></span>
+					<%= image_tag Team.find(@bracket.w51).flag_url, :class => 'icon' %> <%= Team.find(@bracket.w51).name %> <span class=<%= get_icon(@bracket.w51s) %> ></span>
 				<br/>vs<br/>
-					<span class=<%= get_icon(@bracket.w52s) %> ></span> <%= @allTeams[@bracket.w52-1].name %> <%= image_tag @allTeams[@bracket.w52-1].flag_url, :class => 'icon' %>
+					<span class=<%= get_icon(@bracket.w52s) %> ></span> <%= Team.find(@bracket.w52).name %> <%= image_tag Team.find(@bracket.w52).flag_url, :class => 'icon' %>
 			</div>
 			<div class="bracket bracket-qf well well-sm bracket-text">
 					<p> Quater-final</p>
-					<%= image_tag @allTeams[@bracket.w55-1].flag_url, :class => 'icon' %> <%= @allTeams[@bracket.w55-1].name %> <span class=<%= get_icon(@bracket.w55s) %> ></span>
+					<%= image_tag Team.find(@bracket.w55).flag_url, :class => 'icon' %> <%= Team.find(@bracket.w55).name %> <span class=<%= get_icon(@bracket.w55s) %> ></span>
 				<br/>vs<br/>
-					<span class=<%= get_icon(@bracket.w56s) %> ></span> <%= @allTeams[@bracket.w56-1].name %> <%= image_tag @allTeams[@bracket.w56-1].flag_url, :class => 'icon' %>
+					<span class=<%= get_icon(@bracket.w56s) %> ></span> <%= Team.find(@bracket.w56).name %> <%= image_tag Team.find(@bracket.w56).flag_url, :class => 'icon' %>
 			</div>
 		</div>
 		<div class='bracket-column' id="Round16-2">
 			<div class="well bracket well-sm bracket-text">
 					<p> 1B vs 2A</p>
-					<%= image_tag @allTeams[@bracket.b1-1].flag_url, :class => 'icon' %> <%= @allTeams[@bracket.b1-1].name %> <span class=<%= get_icon(@bracket.b1s) %> ></span>
+					<%= image_tag Team.find(@bracket.b1).flag_url, :class => 'icon' %> <%= Team.find(@bracket.b1).name %> <span class=<%= get_icon(@bracket.b1s) %> ></span>
 				<br/>vs<br/>
-					<span class=<%= get_icon(@bracket.a2s) %> ></span> <%= @allTeams[@bracket.a2-1].name %> <%= image_tag @allTeams[@bracket.a2-1].flag_url, :class => 'icon' %>
+					<span class=<%= get_icon(@bracket.a2s) %> ></span> <%= Team.find(@bracket.a2).name %> <%= image_tag Team.find(@bracket.a2).flag_url, :class => 'icon' %>
 			</div>	
 			<div class="well bracket well-sm bracket-text">
 					<p> 1D vs 2C</p>
-					<%= image_tag @allTeams[@bracket.d1-1].flag_url, :class => 'icon' %> <%= @allTeams[@bracket.d1-1].name %> <span class=<%= get_icon(@bracket.d1s) %> ></span>
+					<%= image_tag Team.find(@bracket.d1).flag_url, :class => 'icon' %> <%= Team.find(@bracket.d1).name %> <span class=<%= get_icon(@bracket.d1s) %> ></span>
 				<br/>vs<br/>
-					<span class=<%= get_icon(@bracket.c2s) %> ></span> <%= @allTeams[@bracket.c2-1].name %> <%= image_tag @allTeams[@bracket.c2-1].flag_url, :class => 'icon' %>
+					<span class=<%= get_icon(@bracket.c2s) %> ></span> <%= Team.find(@bracket.c2).name %> <%= image_tag Team.find(@bracket.c2).flag_url, :class => 'icon' %>
 			</div>	
 			<div class="well bracket well-sm bracket-text">
 					<p> 1F vs 2E</p><br/>
-					<%= image_tag @allTeams[@bracket.f1-1].flag_url, :class => 'icon' %> <%= @allTeams[@bracket.f1-1].name %> <span class=<%= get_icon(@bracket.f1s) %> ></span>
+					<%= image_tag Team.find(@bracket.f1).flag_url, :class => 'icon' %> <%= Team.find(@bracket.f1).name %> <span class=<%= get_icon(@bracket.f1s) %> ></span>
 				<br/>vs<br/>
-					<span class=<%= get_icon(@bracket.e2s) %> ></span> <%= @allTeams[@bracket.e2-1].name %> <%= image_tag @allTeams[@bracket.e2-1].flag_url, :class => 'icon' %>
+					<span class=<%= get_icon(@bracket.e2s) %> ></span> <%= Team.find(@bracket.e2).name %> <%= image_tag Team.find(@bracket.e2).flag_url, :class => 'icon' %>
 			</div>	
 			<div class="well bracket well-sm bracket-text">
 					<p> 1H vs 2G</p><br/>
-					<%= image_tag @allTeams[@bracket.h1-1].flag_url, :class => 'icon' %> <%= @allTeams[@bracket.h1-1].name %> <span class=<%= get_icon(@bracket.h1s) %> ></span>
+					<%= image_tag Team.find(@bracket.h1).flag_url, :class => 'icon' %> <%= Team.find(@bracket.h1).name %> <span class=<%= get_icon(@bracket.h1s) %> ></span>
 				<br/>vs<br/>
-					<span class=<%= get_icon(@bracket.g2s) %> ></span> <%= @allTeams[@bracket.g2-1].name %> <%= image_tag @allTeams[@bracket.g2-1].flag_url, :class => 'icon' %>
+					<span class=<%= get_icon(@bracket.g2s) %> ></span> <%= Team.find(@bracket.g2).name %> <%= image_tag Team.find(@bracket.g2).flag_url, :class => 'icon' %>
 			</div>	
 		</div>
 	</div>
