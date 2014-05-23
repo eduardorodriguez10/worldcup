@@ -1,31 +1,32 @@
+	<div class="dialog">
 	<%= form_for @group do |f| %>	
 		<div class='control-group form-row'>
-			<%= f.label :group_name, class: 'form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12' %>
-			<%= f.text_field :group_name, class: 'form-input col-lg-3 col-md-4 col-sm-5 col-xs-10', title: 'Enter the name of the group' %>
+			<%= f.label :group_name, class: 'form-label' %>
+			<%= f.text_field :group_name, class: 'form-input', title: 'Enter the name of the group' %>
 		</div>
 		<br>
 		<div class='control-group form-row'>
-			<label class='form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12'>Private</label> 
-			<%= f.check_box :isprivate, class: 'form-input col-lg-3 col-md-4 col-sm-5 col-xs-10', title: 'Define if the group will be private or public'%>
+			<label class=''>Private</label> 
+			<%= f.check_box :isprivate, title: 'Define if the group will be private or public'%>
 		</div>
 		<br>
 		<div id="div_passcode" class='control-group form-row'>
-			<%= f.label :passcode, class: 'form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12' %> 
-			<%= f.text_field :passcode, class: 'form-input col-lg-3 col-md-4 col-sm-5 col-xs-10', title: 'Enter a passcode if group will be private' %>
+			<%= f.label :passcode, class: 'form-label' %> 
+			<%= f.text_field :passcode, class: 'form-input', title: 'Enter a passcode if group will be private' %>
 		</div>
-		<br>
 		<div class='control-group form-row'>
-			<label class='form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12'>Group Members can send invitations?</label> 
-			<%= f.check_box :others_can_invite, class: 'form-input col-lg-3 col-md-4 col-sm-5 col-xs-10', title: 'Define if ohter members can send invitations for this group'%>
+			<label>Group Members can send invitations?</label> 
+			<%= f.check_box :others_can_invite, title: 'Define if ohter members can send invitations for this group'%>
 		</div>
 		<% if @group.new_record? %>
 			<div class='control-group form-row'>
-				<label for="screen_name" class= 'form-label col-lg-2 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-4 col-xs-12'>Your screen name</label>
-				<input type="text" name="screenname" id="screen_name" value=<%=current_user.screenname%> class='form-input col-lg-3 col-md-4 col-sm-5 col-xs-10', title="Define the Screen Name that you will use for this group">
+				<label for="screen_name" class= 'form-label'>Your screen name</label>
+				<input type="text" name="screenname" id="screen_name" value=<%=current_user.screenname%> class='form-input', title="Define the Screen Name that you will use for this group">
 			</div>
 		<% end %>
 		<div class='control-group form-row'>
 		<%= f.submit @group.new_record? ? "Create Group" : "Update Group", class: 'btn-wcb-normal form-btn col-md-offset-4' %>
 		</div>
 	<% end %>
+</div>
 
