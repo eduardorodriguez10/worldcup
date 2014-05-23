@@ -124,12 +124,13 @@ function updateOptionsR16(selected, disabled, next_round){
 		};
 	};
 	function hideTeamsL(){
+		var prev_game = {'l611': 'w58', 'l612': 'w57', 'l621': 'w59', 'l622': 'w60' };
 		for (var i = 61; i < 63; i++){
 		var selIndex = document.getElementById("bracket_l"+i).selectedIndex;
 		if (selIndex)
 			selIndex++;
 		for(var t = 1; t<33; t++){
-				if(selIndex!=t){
+				if(selIndex!=t && t!=document.getElementById(prev_game["l"+i+"1"]+"-old").value && t!=document.getElementById(prev_game["l"+i+"2"]+"-old").value){
 				$("#bracket_l"+i.toString()+" option[value="+t.toString()+"]").hide();
 				$("#bracket_l"+i.toString()+" option[value="+t.toString()+"]").wrap('<span style="display:none;" />');
 				}
@@ -243,12 +244,6 @@ function updateOptionsR16(selected, disabled, next_round){
 				displayInNextRound("#bracket_third option[value="+teamSelected+"]", true);
 			};
 		};
-		var teamSelectedThird = document.getElementById("bracket_third").value;
-		console.log("TEAM SELECTED IN THIRD BEFORE FIXING "+ teamSelectedThird);
-		$("#bracket_third").val(teamSelectedThird);
-		var teamSelectedThird = document.getElementById("bracket_third").value;
-		console.log("TEAM SELECTED IN THIRD AFTER FIXING "+ teamSelectedThird);
-
 	};
 
 	function disableFinals(){
