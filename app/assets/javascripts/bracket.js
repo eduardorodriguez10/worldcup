@@ -112,7 +112,6 @@ function updateOptionsR16(selected, disabled, next_round){
 	function hideTeamsW(){
 		for (var i = 49; i<63; i++){
 			var selIndex = document.getElementById("bracket_w"+i).selectedIndex;
-			document.getElementById("w"+i+"-old").value = document.getElementById("bracket_w"+i).value;
 			if (selIndex)
 				selIndex++;
 			for(var t = 1; t<33; t++){
@@ -126,7 +125,6 @@ function updateOptionsR16(selected, disabled, next_round){
 	function hideTeamsL(){
 		for (var i = 61; i < 63; i++){
 		var selIndex = document.getElementById("bracket_l"+i).selectedIndex;
-		document.getElementById("l"+i+"-old").value = document.getElementById("bracket_l"+i).value;
 		if (selIndex)
 			selIndex++;
 		for(var t = 1; t<33; t++){
@@ -139,15 +137,6 @@ function updateOptionsR16(selected, disabled, next_round){
 	};
 
 	function hide3rdAndChampion(){
-		var e = document.getElementById("bracket_third");
-		var teamSelected = document.getElementById("bracket_third").value;
-		if(teamSelected)
-		document.getElementById('third-old').value = teamSelected;
-
-		var e = document.getElementById("bracket_champion");
-		var teamSelected = document.getElementById("bracket_champion").value;
-		if(teamSelected)
-		document.getElementById('champion-old').value = teamSelected;
 
 		for(var t = 1; t<33; t++){
 				$("#bracket_third option[value="+t.toString()+"]").hide();
@@ -165,11 +154,14 @@ function updateOptionsR16(selected, disabled, next_round){
 		for (var i = 97; i <105; i++){
 			var e = document.getElementById("bracket_"+String.fromCharCode(i)+"1");
 			var teamSelected = e.value;
+			var teamSelected = document.getElementById(String.fromCharCode(i)+"1"+"-old").value;
 			var e2 = document.getElementById("bracket_"+String.fromCharCode(i)+"2");
 			var teamSelected2 = e2.value;
+			var teamSelected2 = document.getElementById(String.fromCharCode(i)+"2"+"-old").value;
 			var next_round1 = next_game[String.fromCharCode(i)+'1'];
 			var next_round2 = next_game[String.fromCharCode(i)+'2'];
-
+			console.log("Team Selected 1 "+ teamSelected);
+			console.log("Team Selected 2 "+ teamSelected2);
 			if(teamSelected){
 					if(e.options[0].value)
 					$("#bracket_"+String.fromCharCode(i)+"1").prepend("<option value=''>Group "+String.fromCharCode(i-32)+" 1st</option>");

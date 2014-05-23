@@ -32,40 +32,48 @@
 					<%= f.collection_select :a1, Team.where(group: 'A'), :id, :name, {:prompt=> 'Group A 1st'}, {class: 'notselected',:onchange=>"javascript: updateOptionsR16('a1','a2','w49')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
+				<input id='a1-old' type="hidden" value=<%= @bracket.a1.nil? ? "0" : @bracket.a1 %> />
 				<br/>
 				<%= f.collection_select :b2, Team.where(group: 'B'), :id, :name, {:prompt=> 'Group B 2nd'}, {class: 'notselected',:onchange=>"javascript: updateOptionsR16('b2','b1','w49')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
+				<input id='b2-old' type="hidden" value=<%= @bracket.b2.nil? ? "0" : @bracket.b2 %> />
 			</div>
 			<div class="well bracket well-sm">
 				<p class="bracket-text"> 1C vs 2D</p>
 					<%= f.collection_select :c1, Team.where(group: 'C'), :id, :name, {:prompt=> 'Group C 1st'}, {class: 'notselected',:onchange=>"javascript: updateOptionsR16('c1','c2','w50')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
+				<input id='c1-old' type="hidden" value=<%= @bracket.c1.nil? ? "0" : @bracket.c1 %> />
 				<br/>
 				<%= f.collection_select :d2, Team.where(group: 'D'), :id, :name, {:prompt=> 'Group D 2nd'}, {class: 'notselected',:onchange=>"javascript: updateOptionsR16('d2','d1','w50')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
+				<input id='d2-old' type="hidden" value=<%= @bracket.d2.nil? ? "0" : @bracket.d2 %> />
 			</div>
 			<div class="well bracket well-sm">
 				<p class="bracket-text"> 1E vs 2F</p>
 					<%= f.collection_select :e1, Team.where(group: 'E'), :id, :name, {:prompt=> 'Group E 1st'}, {class: 'notselected',:onchange=>"javascript: updateOptionsR16('e1','e2','w53')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
+				<input id='e1-old' type="hidden" value=<%= @bracket.e1.nil? ? "0" : @bracket.e1 %> />
 				<br/>
 				<%= f.collection_select :f2, Team.where(group: 'F'), :id, :name, {:prompt=> 'Group F 2nd'}, {class: 'notselected',:onchange=>"javascript: updateOptionsR16('f2','f1','w53')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
+				<input id='f2-old' type="hidden" value=<%= @bracket.f2.nil? ? "0" : @bracket.f2 %> />
 			</div>
 			<div class="well bracket well-sm">
 				<p class="bracket-text"> 1G vs 2H</p>
 					<%= f.collection_select :g1, Team.where(group: 'G'), :id, :name, {:prompt=> 'Group G 1st'}, {class: 'notselected',:onchange=>"javascript: updateOptionsR16('g1','g2','w54')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
+				<input id='g1-old' type="hidden" value=<%= @bracket.g1.nil? ? "0" : @bracket.g1 %> />
 				<br/>
 				<%= f.collection_select :h2, Team.where(group: 'H'), :id, :name, {:prompt=> 'Group H 2nd'}, {class: 'notselected',:onchange=>"javascript: updateOptionsR16('h2','h1','w54')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
+				<input id='h2-old' type="hidden" value=<%= @bracket.h2.nil? ? "0" : @bracket.h2 %> />
 			</div>
 		</div>
 		<div class='bracket-column qf' id="Quater-finals-1">
@@ -75,24 +83,24 @@
 					<%= f.collection_select :w49, allTeams, :id, :name, {:prompt=> 'Winner Game 49'}, {class: 'notselected',:onchange=>"javascript: updateOptionsQF('w49','w57')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
-				<input id='w49-old' type="hidden" value="0"/>
+				<input id='w49-old' type="hidden" value=<%= @bracket.w49.nil? ? "0" : @bracket.w49 %> />
 				<br/>
 				<%= f.collection_select :w50, allTeams, :id, :name, {:prompt=> 'Winner Game 50'}, {class: 'notselected',:onchange=>"javascript: updateOptionsQF('w50', 'w57')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
-				<input id='w50-old' type="hidden" value="0"/>
+				<input id='w50-old' type="hidden" value=<%= @bracket.w50.nil? ? "0" : @bracket.w50 %> />
 			</div>
 			<div class="well bracket bracket-qf well-sm">
 				<p class="bracket-text"> Quater-final</p>
 					<%= f.collection_select :w53, allTeams, :id, :name, {:prompt=> 'Winner Game 53'}, {class: 'notselected',:onchange=>"javascript: updateOptionsQF('w53','w58')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
-				<input id='w53-old' type="hidden" value="0"/>
+				<input id='w53-old' type="hidden" value=<%= @bracket.w53.nil? ? "0" : @bracket.w53 %> />
 				<br/>
 				<%= f.collection_select :w54, allTeams, :id, :name, {:prompt=> 'Winner Game 54'}, {class: 'notselected',:onchange=>"javascript: updateOptionsQF('w54','w58')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
-				<input id='w54-old' type="hidden" value="0"/>
+				<input id='w54-old' type="hidden" value=<%= @bracket.w54.nil? ? "0" : @bracket.w54 %> />
 			</div>
 		</div>
 		<div class='bracket-column sf' id="Semi-finals-1">
@@ -102,12 +110,12 @@
 					<%= f.collection_select :w57, allTeams, :id, :name, {:prompt=> 'Winner Game 57'}, {class: 'notselected',:onchange=>"javascript: updateOptionsSF('w57','61')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
-				<input id='w57-old' type="hidden" value="0"/>
+				<input id='w57-old' type="hidden" value=<%= @bracket.w57.nil? ? "0" : @bracket.w57 %> />
 				<br/>
 				<%= f.collection_select :w58, allTeams, :id, :name, {:prompt=> 'Winner Game 58'}, {class: 'notselected',:onchange=>"javascript: updateOptionsSF('w58','61')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
-				<input id='w58-old' type="hidden" value="0"/>
+				<input id='w58-old' type="hidden" value=<%= @bracket.w58.nil? ? "0" : @bracket.w58 %> />
 			</div>
 		</div>
 		<div class='bracket-column' id="Finals">
@@ -117,38 +125,38 @@
 				<%= f.collection_select :champion, allTeams, :id, :name, {:prompt=> 'Champion'}, {class: 'notselected champion',:onchange=>"javascript: changeFinals('champion')"} do |cb| %>
 						<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 					<% end %>
-					<input id='champion-old' type="hidden" value="0"/>
+					<input id='champion-old' type="hidden" value=<%= @bracket.champion.nil? ? "0" : @bracket.champion %> />
 			</div>
 			<div class="well bracket well-sm">
 				<p class="bracket-text"> Third Place</p>
 					<%= f.collection_select :third, allTeams, :id, :name, {:prompt=> 'Third Place'}, {class: 'notselected ', :onchange=>"javascript: changeFinals('third')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
-				<input id='third-old' type="hidden" value="0"/>
+				<input id='third-old' type="hidden" value=<%= @bracket.third.nil? ? "0" : @bracket.third %> />
 			</div>
 			<div class="well bracket well-sm">
 				<p class="bracket-text"> Final</p>
 					<%= f.collection_select :w61, allTeams, :id, :name, {:prompt=> 'Winner Game 61'}, {class: 'notselected',:onchange=>"javascript: updateOptionsFinals('w61','l61','champion')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
-				<input id='w61-old' type="hidden" value="0"/>
+				<input id='w61-old' type="hidden" value=<%= @bracket.w61.nil? ? "0" : @bracket.w61 %> />
 				<br/>
 				<%= f.collection_select :w62, allTeams, :id, :name, {:prompt=> 'Winner Game 62'}, {class: 'notselected',:onchange=>"javascript: updateOptionsFinals('w62','l62','champion')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
-				<input id='w62-old' type="hidden" value="0"/>
+				<input id='w62-old' type="hidden" value=<%= @bracket.w62.nil? ? "0" : @bracket.w62 %> />
 			</div>
 			<div class="well bracket well-sm">
 				<p class="bracket-text">Third Place Game</p>
 					<%= f.collection_select :l61, allTeams, :id, :name, {:prompt=> 'Loser Game 61'}, {class: 'notselected',:onchange=>"javascript: updateOptionsFinals('l61','w61','third')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
-				<input id='l61-old' type="hidden" value="0"/>
+				<input id='l61-old' type="hidden" value=<%= @bracket.l61.nil? ? "0" : @bracket.l61 %> />
 				<br/>
 				<%= f.collection_select :l62, allTeams, :id, :name, {:prompt=> 'Loser Game 62'}, {class: 'notselected',:onchange=>"javascript: updateOptionsFinals('l62','w62','third')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
-				<input id='l62-old' type="hidden" value="0"/>
+				<input id='l62-old' type="hidden" value=<%= @bracket.l62.nil? ? "0" : @bracket.l62 %> />
 			</div>
 		</div>
 		<div class='bracket-column' id="Semi-finals-2">
@@ -158,12 +166,12 @@
 					<%= f.collection_select :w59, allTeams, :id, :name, {:prompt=> 'Winner Game 59'}, {class: 'notselected',:onchange=>"javascript: updateOptionsSF('w59','62')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
-				<input id='w59-old' type="hidden" value="0"/>
+				<input id='w59-old' type="hidden" value=<%= @bracket.w59.nil? ? "0" : @bracket.w59 %> />
 				<br/>
 				<%= f.collection_select :w60, allTeams, :id, :name, {:prompt=> 'Winner Game 60'}, {class: 'notselected',:onchange=>"javascript: updateOptionsSF('w60', '62')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
-				<input id='w60-old' type="hidden" value="0"/>
+				<input id='w60-old' type="hidden" value=<%= @bracket.w60.nil? ? "0" : @bracket.w60 %> />
 			</div>
 		</div>
 		<div class='bracket-column qf' id="Quater-finals-2">
@@ -173,24 +181,24 @@
 					<%= f.collection_select :w51, allTeams, :id, :name, {:prompt=> 'Winner Game 51'}, {class: 'notselected',:onchange=>"javascript: updateOptionsQF('w51','w59')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
-				<input id='w51-old' type="hidden" value="0"/>
+				<input id='w51-old' type="hidden" value=<%= @bracket.w51.nil? ? "0" : @bracket.w51 %> />
 				<br/>
 				<%= f.collection_select :w52, allTeams, :id, :name, {:prompt=> 'Winner Game 52'}, {class: 'notselected',:onchange=>"javascript: updateOptionsQF('w52','w59')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
-				<input id='w52-old' type="hidden" value="0"/>
+				<input id='w52-old' type="hidden" value=<%= @bracket.w52.nil? ? "0" : @bracket.w52 %> />
 			</div>
 			<div class="well bracket bracket-qf well-sm">
 				<p class="bracket-text"> Quater-final</p>
 					<%= f.collection_select :w55, allTeams, :id, :name, {:prompt=> 'Winner Game 55'}, {class: 'notselected',:onchange=>"javascript: updateOptionsQF('w55','w60')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
-				<input id='w55-old' type="hidden" value="0"/>
+				<input id='w55-old' type="hidden" value=<%= @bracket.w55.nil? ? "0" : @bracket.w55 %> />
 				<br/>
 				<%= f.collection_select :w56, allTeams, :id, :name, {:prompt=> 'Winner Game 56'}, {class: 'notselected',:onchange=>"javascript: updateOptionsQF('w56','w60')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
-				<input id='w56-old' type="hidden" value="0"/>
+				<input id='w56-old' type="hidden" value=<%= @bracket.w56.nil? ? "0" : @bracket.w56 %> />
 			</div>
 		</div>
 		<div class='bracket-column' id="Round16-2">
@@ -200,20 +208,24 @@
 					<%= f.collection_select :b1, Team.where(group: 'B'), :id, :name, {:prompt=> 'Group B 1st'}, {class: 'notselected',:onchange=>"javascript: updateOptionsR16('b1','b2','w51')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
+				<input id='b1-old' type="hidden" value=<%= @bracket.b1.nil? ? "0" : @bracket.b1 %> />
 				<br/>
 				<%= f.collection_select :a2, Team.where(group: 'A'), :id, :name, {:prompt=> 'Group A 2nd'}, {class: 'notselected',:onchange=>"javascript: updateOptionsR16('a2','a1','w51')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
+				<input id='a2-old' type="hidden" value=<%= @bracket.a2.nil? ? "0" : @bracket.a2 %> />
 			</div>
 			<div class="well bracket well-sm">
 				<p class="bracket-text"> 1D vs 2C</p>
 					<%= f.collection_select :d1, Team.where(group: 'D'), :id, :name, {:prompt=> 'Group D 1st'}, {class: 'notselected',:onchange=>"javascript: updateOptionsR16('d1','d2','w52')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
+				<input id='d1-old' type="hidden" value=<%= @bracket.d1.nil? ? "0" : @bracket.d1 %> />
 				<br/>
 				<%= f.collection_select :c2, Team.where(group: 'C'), :id, :name, {:prompt=> 'Group C 2nd'}, {class: 'notselected',:onchange=>"javascript: updateOptionsR16('c2','c1','w52')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
+				<input id='c2-old' type="hidden" value=<%= @bracket.c2.nil? ? "0" : @bracket.c2 %> />
 			</div>
 			
 			<div class="well bracket well-sm">
@@ -221,20 +233,24 @@
 					<%= f.collection_select :f1, Team.where(group: 'F'), :id, :name, {:prompt=> 'Group F 1st'}, {class: 'notselected',:onchange=>"javascript: updateOptionsR16('f1','f2','w55')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
+				<input id='f1-old' type="hidden" value=<%= @bracket.a1.nil? ? "0" : @bracket.f1 %> />
 				<br/>
 				<%= f.collection_select :e2, Team.where(group: 'E'), :id, :name, {:prompt=> 'Group E 2nd'}, {class: 'notselected',:onchange=>"javascript: updateOptionsR16('e2','e1','w55')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
+				<input id='e2-old' type="hidden" value=<%= @bracket.e2.nil? ? "0" : @bracket.e2 %> />
 			</div>
 			<div class="well bracket well-sm">
 				<p class="bracket-text"> 1H vs 2G</p>
 					<%= f.collection_select :h1, Team.where(group: 'H'), :id, :name, {:prompt=> 'Group H 1st'}, {class: 'notselected',:onchange=>"javascript: updateOptionsR16('h1','h2','w56')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
+				<input id='h1-old' type="hidden" value=<%= @bracket.h1.nil? ? "0" : @bracket.h1 %> />
 				<br/>
 				<%= f.collection_select :g2, Team.where(group: 'G'), :id, :name, {:prompt=> 'Group G 2nd'}, {class: 'notselected',:onchange=>"javascript: updateOptionsR16('g2','g1','w56')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
 				<% end %>
+				<input id='g2-old' type="hidden" value=<%= @bracket.g2.nil? ? "0" : @bracket.g2 %> />
 			</div>
 		</div>
 	</div>
