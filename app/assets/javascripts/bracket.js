@@ -110,12 +110,13 @@ function updateOptionsR16(selected, disabled, next_round){
 
 
 	function hideTeamsW(){
+		var prev_game = {'w491':'a1', 'w492': 'b2', 'w501': 'c1', 'w502':'d2', 'w531': 'e1', 'w532': 'f2', 'w541': 'g1', 'w542': 'h2', 'w511': 'b1', 'w512': 'a2', 'w521': 'd1', 'w522': 'c2', 'w551': 'f1', 'w552': 'e2', 'w561': 'h1', 'w562': 'g2', 'w571': 'w49', 'w572': 'w50', 'w581': 'w53', 'w582': 'w54', 'w611': 'w57', 'w612': 'w58', 'w591': 'w51', 'w592': 'w52', 'w601': 'w55', 'w602': 'w56', 'w621': 'w59', 'w622': 'w60', 'champion1': 'w61', 'champion2': 'w62', 'l611': 'w58', 'l612': 'w57', 'l621': 'w59', 'l622': 'w60' };
 		for (var i = 49; i<63; i++){
 			var selIndex = document.getElementById("bracket_w"+i).selectedIndex;
 			if (selIndex)
 				selIndex++;
 			for(var t = 1; t<33; t++){
-					if(selIndex!=t){
+					if(selIndex!=t && t!=document.getElementById(prev_game["w"+i+"1"]+"-old").value && t!=document.getElementById(prev_game["w"+i+"2"]+"-old").value){
 					$("#bracket_w"+i.toString()+" option[value="+t.toString()+"]").hide();
 					$("#bracket_w"+i.toString()+" option[value="+t.toString()+"]").wrap('<span style="display:none;" />');
 					}
@@ -291,6 +292,7 @@ function updateOptionsR16(selected, disabled, next_round){
 			}
 	};
 
+
 	function setCSSSelected(elem, b){
 		if (b) {
 		$(elem).removeClass("notselected");
@@ -358,6 +360,8 @@ function updateOptionsR16(selected, disabled, next_round){
 			fix3rdAndChampion();
 
 			disableFinals();
+
+			hideTeamsW();
 	};
 
 	function showMessage(elem){
