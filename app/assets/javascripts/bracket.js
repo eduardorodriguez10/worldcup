@@ -357,6 +357,8 @@ function updateOptionsR16(selected, disabled, next_round){
 			disableFinals();
 
 			hideTeamsW();
+			hideTeamsL();
+
 	};
 
 	function showMessage(elem){
