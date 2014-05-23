@@ -35,7 +35,7 @@ gem 'country_select'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 gem 'sprockets-rails', :require => 'sprockets/railtie'
-
+gem 'postmark-rails'
 group :doc do
   gem 'sdoc', require: false
 end

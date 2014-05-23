@@ -72,6 +72,12 @@ GEM
     multi_json (1.9.2)
     pg (0.17.1)
     polyglot (0.3.4)
+    postmark (1.2.0)
+      json
+      rake
+    postmark-rails (0.7.0)
+      actionmailer (>= 3.0.0)
+      postmark (~> 1.2.0)
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -150,6 +156,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   pg
+  postmark-rails
   pry
   quiet_assets
   rails (= 4.1.0.rc1)
