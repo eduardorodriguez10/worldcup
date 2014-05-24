@@ -80,7 +80,7 @@ function updateOptionsR16(selected, disabled, next_round){
 		setCSSSelected("#bracket_"+selected, valueSelected);
 		// show the new team and hide the old team in the next round
 		if(valueSelected){
-			console.log('Trying to disable');
+			console.log('Value Selected = '+teamSelected);
 			console.log("#bracket_"+disabled+" option[value="+teamSelected.toString()+"]");
 			document.getElementById("bracket_"+disabled).options[teamSelected].disabled = true;
 			console.log("Disabling "+"#bracket_"+disabled+" option[value="+teamSelected.toString()+"]");
@@ -95,9 +95,10 @@ function updateOptionsR16(selected, disabled, next_round){
 		};
 
 		if(oldTeam){
+			console.log("OldTeam = "+oldTeam);
 			document.getElementById("bracket_"+disabled).options[oldTeam].disabled = false;
-			$("#bracket_"+disabled+" option[value="+teamSelected.toString()+"]").removeAttr("disabled");
-			console.log("Removing Disabled"+"#bracket_"+disabled+" option[value="+teamSelected.toString()+"]");
+			$("#bracket_"+disabled+" option[value="+oldTeam.toString()+"]").removeAttr("disabled");
+			console.log("Removing Disabled"+"#bracket_"+disabled+" option[value="+oldTeam.toString()+"]");
 			if(selected[0]=='w'){
 				displayInNextRound("#bracket_champion option[value="+oldTeam.toString()+"]", false);
 			};
