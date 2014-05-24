@@ -80,7 +80,11 @@ function updateOptionsR16(selected, disabled, next_round){
 		setCSSSelected("#bracket_"+selected, valueSelected);
 		// show the new team and hide the old team in the next round
 		if(valueSelected){
+			console.log('Trying to disable');
+			console.log("#bracket_"+disabled+" option[value="+teamSelected.toString()+"]");
 			document.getElementById("bracket_"+disabled).options[teamSelected].disabled = true;
+			
+			$("#bracket_"+disabled+" option[value="+teamSelected.toString()+"]").prop('disabled', true);
 			if(selected[0]=='w'){
 				displayInNextRound("#bracket_champion option[value="+teamSelected.toString()+"]", true);
 			};
@@ -91,6 +95,7 @@ function updateOptionsR16(selected, disabled, next_round){
 
 		if(oldTeam){
 			document.getElementById("bracket_"+disabled).options[oldTeam].disabled = false;
+			$("#bracket_"+disabled+" option[value="+teamSelected.toString()+"]").removeAttr("disabled");
 			if(selected[0]=='w'){
 				displayInNextRound("#bracket_champion option[value="+oldTeam.toString()+"]", false);
 			};
@@ -119,8 +124,7 @@ function updateOptionsR16(selected, disabled, next_round){
 				selIndex++;
 			for(var t = 1; t<33; t++){
 					if(selIndex!=t && t!=document.getElementById(prev_game["w"+i+"1"]+"-old").value && t!=document.getElementById(prev_game["w"+i+"2"]+"-old").value){
-					$("#bracket_w"+i.toString()+" option[value="+t.toString()+"]").hide();
-					$("#bracket_w"+i.toString()+" option[value="+t.toString()+"]").wrap('<span style="display:none;" />');
+						displayInNextRound("#bracket_w"+i.toString()+" option[value="+t.toString()+"]", false);
 					}
 				};
 		};
@@ -133,8 +137,7 @@ function updateOptionsR16(selected, disabled, next_round){
 			selIndex++;
 		for(var t = 1; t<33; t++){
 				if(selIndex!=t && t!=document.getElementById(prev_game["l"+i+"1"]+"-old").value && t!=document.getElementById(prev_game["l"+i+"2"]+"-old").value){
-				$("#bracket_l"+i.toString()+" option[value="+t.toString()+"]").hide();
-				$("#bracket_l"+i.toString()+" option[value="+t.toString()+"]").wrap('<span style="display:none;" />');
+						displayInNextRound("#bracket_l"+i.toString()+" option[value="+t.toString()+"]", false);
 				}
 			};
 		}
@@ -143,12 +146,10 @@ function updateOptionsR16(selected, disabled, next_round){
 	function hide3rdAndChampion(){
 
 		for(var t = 1; t<33; t++){
-				$("#bracket_third option[value="+t.toString()+"]").hide();
-				$("#bracket_third option[value="+t.toString()+"]").wrap('<span style="display:none;" />');
+			    displayInNextRound("#bracket_third option[value="+t.toString()+"]", false);
 			};
 		for(var t = 1; t<33; t++){
-				$("#bracket_champion option[value="+t.toString()+"]").hide();
-				$("#bracket_champion option[value="+t.toString()+"]").wrap('<span style="display:none;" />');
+				displayInNextRound("#bracket_champion option[value="+t.toString()+"]", false);
 			};
 	};
 
@@ -304,38 +305,36 @@ function updateOptionsR16(selected, disabled, next_round){
 
 	function displayInNextRound(elem, b){
 		if(b) {
-			if($(elem).parent("span").length==1){
+			if($(elem).parent("span").length){
 				console.log(elem+" Parent span length: "+$(elem).parent("span").length);
 				$(elem).show();
 				$(elem).unwrap('<span style="display:none;" />');
 			}
 		}
 		else{
-			if($(elem).parent("span").length<1){
-				$(elem).hide();
-				$(elem).prop("selected", false);
-				if($(elem).parent("select").length)
+			$(elem).prop("selected", false);
+			if(!($(elem).parent("span").length)){
 				$(elem).wrap('<span style="display:none;" />');
+				$(elem).hide();
 			}
 		};
 	};
+
 	function displayInThisRound(elem, b){
 		if(b) {
 			console.log("trying to set "+elem+" with span length "+$(elem).parent("span").length)
-			if($(elem).parent("span").length==1){
+			if($(elem).parent("span").length){
 				console.log(elem+" Parent span length: "+$(elem).parent("span").length);
 				$(elem).show();
 				$(elem).unwrap('<span style="display:none;" />');
 			}
 		}
 		else {
-			if($(elem).parent("span").length==0){
 				$(elem).hide();
 				$(elem).prop("selected", false);
-				if($(elem).parent("select").length)
-				$(elem).wrap('<span style="display:none;" />');
-			}
-		};
+				if(!($(elem).parent("span").length))
+					$(elem).wrap('<span style="display:none;" />');
+		}
 	};
 
 	function hideTeams(){
