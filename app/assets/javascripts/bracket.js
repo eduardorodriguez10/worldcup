@@ -105,7 +105,7 @@ function updateOptionsR16(selected, disabled, next_round){
 				displayInNextRound("#bracket_third option[value="+oldTeam.toString()+"]", false);
 			}
 		}
-		document.getElementById(selected+"-old").value = e.value;
+		document.getElementById(selected+"-old").value = teamSelected;
 	};
 	function changeFinals(selected){
 		var e = document.getElementById("bracket_"+selected);
