@@ -83,6 +83,7 @@ function updateOptionsR16(selected, disabled, next_round){
 			console.log('Trying to disable');
 			console.log("#bracket_"+disabled+" option[value="+teamSelected.toString()+"]");
 			document.getElementById("bracket_"+disabled).options[teamSelected].disabled = true;
+			console.log("Disabling "+"#bracket_"+disabled+" option[value="+teamSelected.toString()+"]");
 			
 			$("#bracket_"+disabled+" option[value="+teamSelected.toString()+"]").prop('disabled', true);
 			if(selected[0]=='w'){
@@ -96,6 +97,7 @@ function updateOptionsR16(selected, disabled, next_round){
 		if(oldTeam){
 			document.getElementById("bracket_"+disabled).options[oldTeam].disabled = false;
 			$("#bracket_"+disabled+" option[value="+teamSelected.toString()+"]").removeAttr("disabled");
+			console.log("Removing Disabled"+"#bracket_"+disabled+" option[value="+teamSelected.toString()+"]");
 			if(selected[0]=='w'){
 				displayInNextRound("#bracket_champion option[value="+oldTeam.toString()+"]", false);
 			};
