@@ -80,9 +80,10 @@ function updateOptionsR16(selected, disabled, next_round){
 		setCSSSelected("#bracket_"+selected, valueSelected);
 		// show the new team and hide the old team in the next round
 		if(valueSelected){
-			console.log('Trying to disable');
+			console.log('Value Selected = '+teamSelected);
 			console.log("#bracket_"+disabled+" option[value="+teamSelected.toString()+"]");
 			document.getElementById("bracket_"+disabled).options[teamSelected].disabled = true;
+			console.log("Disabling "+"#bracket_"+disabled+" option[value="+teamSelected.toString()+"]");
 			
 			$("#bracket_"+disabled+" option[value="+teamSelected.toString()+"]").prop('disabled', true);
 			if(selected[0]=='w'){
@@ -94,8 +95,10 @@ function updateOptionsR16(selected, disabled, next_round){
 		};
 
 		if(oldTeam){
+			console.log("OldTeam = "+oldTeam);
 			document.getElementById("bracket_"+disabled).options[oldTeam].disabled = false;
-			$("#bracket_"+disabled+" option[value="+teamSelected.toString()+"]").removeAttr("disabled");
+			$("#bracket_"+disabled+" option[value="+oldTeam.toString()+"]").removeAttr("disabled");
+			console.log("Removing Disabled"+"#bracket_"+disabled+" option[value="+oldTeam.toString()+"]");
 			if(selected[0]=='w'){
 				displayInNextRound("#bracket_champion option[value="+oldTeam.toString()+"]", false);
 			};
@@ -103,7 +106,7 @@ function updateOptionsR16(selected, disabled, next_round){
 				displayInNextRound("#bracket_third option[value="+oldTeam.toString()+"]", false);
 			}
 		}
-		document.getElementById(selected+"-old").value = e.value;
+		document.getElementById(selected+"-old").value = teamSelected;
 	};
 	function changeFinals(selected){
 		var e = document.getElementById("bracket_"+selected);
@@ -254,12 +257,16 @@ function updateOptionsR16(selected, disabled, next_round){
 			var e = document.getElementById("bracket_l"+i.toString());
 			var teamSelected = document.getElementById("l"+i.toString()+"-old").value;
 			console.log("l"+i.toString()+"-old "+ document.getElementById("l"+i.toString()+"-old").value);
-			if(teamSelected!='-1')
+			if(teamSelected!='-1'){
 				document.getElementById("bracket_w"+i.toString()).options[teamSelected].disabled = true;
+				$("#bracket_w"+i.toString()+" option[value="+teamSelected.toString()+"]").prop('disabled', true);
+			}
 			var e = document.getElementById("bracket_w"+i.toString());
 			var teamSelected = document.getElementById("w"+i.toString()+"-old").value;
-			if(teamSelected!='-1')
+			if(teamSelected!='-1'){
 				document.getElementById("bracket_l"+i.toString()).options[teamSelected].disabled = true;
+				$("#bracket_l"+i.toString()+" option[value="+teamSelected.toString()+"]").prop('disabled', true);
+			}
 		};
 	};
 

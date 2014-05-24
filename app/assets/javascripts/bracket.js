@@ -257,12 +257,16 @@ function updateOptionsR16(selected, disabled, next_round){
 			var e = document.getElementById("bracket_l"+i.toString());
 			var teamSelected = document.getElementById("l"+i.toString()+"-old").value;
 			console.log("l"+i.toString()+"-old "+ document.getElementById("l"+i.toString()+"-old").value);
-			if(teamSelected!='-1')
+			if(teamSelected!='-1'){
 				document.getElementById("bracket_w"+i.toString()).options[teamSelected].disabled = true;
+				$("#bracket_w"+i.toString()+" option[value="+teamSelected.toString()+"]").prop('disabled', true);
+			}
 			var e = document.getElementById("bracket_w"+i.toString());
 			var teamSelected = document.getElementById("w"+i.toString()+"-old").value;
-			if(teamSelected!='-1')
+			if(teamSelected!='-1'){
 				document.getElementById("bracket_l"+i.toString()).options[teamSelected].disabled = true;
+				$("#bracket_l"+i.toString()+" option[value="+teamSelected.toString()+"]").prop('disabled', true);
+			}
 		};
 	};
 
