@@ -1,40 +1,42 @@
-<ul class="nav main-nav">
-  <li class ="logo">
-    <%= link_to image_tag('logo.png', :width => '200px'), root_path, :class => 'brand', :id => 'logo' %>
-  </li>
-   <% if !logged_in? %>
-      <li class="right login btn-wcb-normal">
-        <%= link_to 'Login', login_path %>
-      </li>
-      <li class="right register btn-wcb-normal">
-      	<%= link_to 'Sign Up', attempt_path %>
-      </li>
-  <% end %>
-     <div class="btn-group nav_item right">
-      <% if logged_in? %>
-        <a class="btn btn-small dropdown-toggle nav-dropdown" data-toggle="dropdown" href="#"><span class="caret">  </span><span class="dropdown-info"> Manage Account</span></a>
-        <ul class="dropdown-menu">
-          <% if is_admin? %> 
-            <% if admin_view? %>
-            <li>
-              <%= link_to 'User View', updateview_path(view: false) %>
-            </li>
-            <% else %>
-            <li> 
-              <%= link_to 'Admin View', updateview_path(view: true) %>
-            </li>
+<nav class="navbar navbar-default" role ="navigation">
+  <ul class="nav main-nav">
+    <li class ="logo">
+      <%= link_to image_tag('logo.png', :width => '200px'), root_path, :class => 'brand', :id => 'logo' %>
+    </li>
+     <% if !logged_in? %>
+        <li class="right login btn-wcb-normal">
+          <%= link_to 'Login', login_path %>
+        </li>
+        <li class="right register btn-wcb-normal">
+        	<%= link_to 'Sign Up', attempt_path %>
+        </li>
+    <% end %>
+       <div class="btn-group nav_item right" id="navbar-collapse-1">
+        <% if logged_in? %>
+          <a class="btn btn-small dropdown-toggle nav-dropdown" data-toggle="dropdown" href="#"><span class="caret">  </span><span class="dropdown-info"> Manage Account</span></a>
+          <ul class="dropdown-menu">
+            <% if is_admin? %> 
+              <% if admin_view? %>
+              <li>
+                <%= link_to 'User View', updateview_path(view: false) %>
+              </li>
+              <% else %>
+              <li> 
+                <%= link_to 'Admin View', updateview_path(view: true) %>
+              </li>
+              <% end %>
             <% end %>
-          <% end %>
-          <li>
-            <%= link_to 'Edit Profile', edit_user_path(current_user.slug) %>
-          </li>
-          <li>
-            <%= link_to 'Logout', logout_path %>
-          </li>
-        </ul>
-      <% end %>
-    </div>
-</ul>
+            <li>
+              <%= link_to 'Edit Profile', edit_user_path(current_user.slug) %>
+            </li>
+            <li>
+              <%= link_to 'Logout', logout_path %>
+            </li>
+          </ul>
+        <% end %>
+      </div>
+  </ul>
+</nav>
 
 <% if !logged_in? %>
   <div id="register-email-message" class="warning-message off">
