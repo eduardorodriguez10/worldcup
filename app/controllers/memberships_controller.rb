@@ -25,11 +25,31 @@ class MembershipsController < ApplicationController
 				redirect_to groups_path()
 			else	     
 				flash[:error] = "There was a problem joining the group."
-			    render 'new'
+			    redirect_to groups_path()
 			end
 		else
 			flash[:error] = "Invalid Passcode. Please try again."
-			redirect_to :back
+			redirect_to groups_path()
+		end
+	end
+
+	def index
+		@membership = Membership.new(membership_create_params)
+		@membership.user_id = session[:user_id]
+		@membership.group_id = params[:group_id].to_i
+		@membership.user_screen_name = current_user.screenname
+		@group = Group.find(@membership.group_id)
+		if(@group.passcode == params[:passcode] || (params[:isprivate] == "false"))
+			if @membership.save
+				flash[:notice] = "You have successfully joined the group."
+				redirect_to groups_path()
+			else	     
+				flash[:error] = "There was a problem joining the group."
+			    redirect_to groups_path()
+			end
+		else
+			flash[:error] = "Invalid Passcode. Please try again."
+			redirect_to groups_path()
 		end
 	end
 

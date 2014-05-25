@@ -29,7 +29,8 @@ class GroupsController < ApplicationController
 			@total_public_groups = Group.where(isprivate: false).count
 			if(@total_public_groups < items_per_page)
 				@pagination = false
-				@groups = Group.where(isprivate: false)
+				@memberships = Membership.where(user_id: session[:user_id]).select(:group_id)
+				@groups = Group.where(isprivate: false).where.not(id: @memberships)
 			else 
 				@pagination = true
 				@groups = Group.where(isprivate: false).order(page_sortby+' '+page_sortmode).limit(items_per_page).offset(page_index * items_per_page)
