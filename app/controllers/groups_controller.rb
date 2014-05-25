@@ -119,10 +119,14 @@ class GroupsController < ApplicationController
 
 	def show
 		@group = Group.find_by(slug: params[:id])
-		membership = Membership.find_by(group_id: @group.id, user_id: session[:user_id])
-		if(!membership.nil?)
-			membership.last_viewed = Time.now
-			membership.save
+		if(!@group.nil?)
+			membership = Membership.find_by(group_id: @group.id, user_id: session[:user_id])
+			if(!membership.nil?)
+				membership.last_viewed = Time.now
+				membership.save
+			end
+		else
+			redirect_to groups_path()
 		end
 	end
 
