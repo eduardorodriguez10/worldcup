@@ -32,7 +32,7 @@ class BracketsController < ApplicationController
   		@allTeams = Team.all
   		if(Bracket.where("user_id = ?",session[:user_id]).blank?)
   			redirect_to new_bracket_path
-  		elsif (params[:other_bracket])
+  		elsif (params.has_key?(:other_bracket) && results_visible?)
           @bracket = Bracket.find_by(slug: params[:id])
           @screen_name = params[:screen_name]
         else
