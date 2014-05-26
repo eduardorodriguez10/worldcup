@@ -17,6 +17,7 @@
 </div>
 
 <script>
+    $('body').css({"min-width": "0px"});
 	$('#login-button').prop("disabled", true);
 	$('.form-input').keyup(function(){
 		if($('#login-email').val().length > 3 && $('#login-password').val().length > 3)

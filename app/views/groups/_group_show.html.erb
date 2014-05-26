@@ -42,7 +42,7 @@
 						<td> Screen Name </td>
 						<td> Score </td>
 						<td> Accuracy </td>
-						<td> Round of 16 </td>
+						<td> Round of 16 <br> 2 pts / 1 pt</td>
 						<td> Quater-finals </td>
 						<td> Semi-finals </td>
 						<td> Total Correct </td>
@@ -64,7 +64,7 @@
 								<% end %>
 								</td>
 							<td> <%= member.score %></td>
-							<td> <%= @bracket.nil? || positions_defined(@bracket) == 0 ? '0%' : ((member.score / (positions_defined(@bracket)*2.00))*100).round(0) %>% </td>
+							<td> <%= @bracket.nil? || positions_defined_teams == 0 ? '0' : ((member.score / (positions_defined_teams*2.00))*100).round(0) %>% </td>
 							<td> <%=  ((member.full_r16 / 16.00)*100).round(2) %>% / <%= ((member.half_r16 / 16.00)*100).round(2) %>% </td>
 							<td> <%= ((member.full_quaterfinals / 8.00)*100).round(2) %>% </td>
 							<td> <%= ((member.full_semifinals / 4.00)*100).round(2) %>% </td>
@@ -100,7 +100,7 @@
 	<% @this_member = Membership.find_by(user_id: session[:user_id], group_id: @group.id) %>
 	<% if !@this_member.nil? %> 
 		<%= form_for @this_member do |f| %>
-		<%= f.text_field :user_screen_name, class: 'form-input col-md-12' %>
+		<%= f.text_field :user_screen_name, class: '' %>
 		<br/>
 		<br/>
 		<br/>

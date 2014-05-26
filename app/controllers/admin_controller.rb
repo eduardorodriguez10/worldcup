@@ -36,6 +36,7 @@ class AdminController < ApplicationController
 
 	def team_update
 		@team = Team.find(params[:id])
+		params[:team][:r16_position] = @team.group.downcase + params[:team][:r16_position]
 		if @team.update(team_params)
 			flash[:notice] = "The team has been updated."
 			update_all_scores

@@ -131,7 +131,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 	clear:right;
 	float:right;
 	min-width:768px;
-	overflow-x:scroll!important;
+	overflow-x:auto!important;
 	-webkit-overflow-scrolling: touch;
 }
 
@@ -235,30 +235,45 @@ body {
    }
 
 .login {
-	margin-right: 20px;
-	margin-top: 10px;
 	color: white;
 }
 .login a {
 	color: white;
 }
 @media (max-width: 767px){
+	.logo {
+		float:left!important;
+	}
 	.login {
-		min-width:60%;
+		clear:both!important;
+		float:left!important;
+		margin-left:10px!important;
 	}
 	.register {
-		min-width:60%!important;
+		float:left!important;
+		margin-left:10px!important;
 	}
+	.dialog {
+		margin: 20px 0;
+	}
+	.login-background {
+		background-color: #2D4C76;
+	}
+
 }
+
 @media (min-width: 768px){
-
 	.login {
-		min-width:0px!important;
+		margin-right: 20px;
+		margin-top: 10px;
 	}
-	.register {
-		min-width:0px!important;
+	.dialog {
+		margin: 0 auto;
 	}
+	.register{
+		margin-top: 10px;
 
+	}
 	.form-label{
 		text-align:left;
 	}
@@ -510,7 +525,6 @@ body {
 .register {
 	background-color: #000000 !important;
 	margin-right: 10px !important;
-	margin-top: 10px;
 	color: white;
 }
 
@@ -652,7 +666,6 @@ input[type="text"]:disabled {
 	border: 1px solid #373553;
 	background-image: -webkit-gradient(linear,0% 0,0% 100%,color-stop(0%,#2D4C76),color-stop(100%,rgba(14,38,93,0.4)));
 	background-image: -moz-linear-gradient(top,#2D4C76 0,rgba(14,38,93,0.4) 100%);
-	margin: 0 auto;
 	background-repeat: repeat-x;
 	text-align: left;
 	-moz-border-radius: 10px;

@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :current_user, :logged_in?, :results_visible?, :to_boolean, :is_admin?, :admin_view?, :positions_defined, :cutover_time, :valid_email?
+  helper_method :current_user, :logged_in?, :results_visible?, :to_boolean, :is_admin?, :admin_view?, :positions_defined, :cutover_time, :valid_email?, :positions_defined_teams
 
   def current_user
   	@current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   end
 
   def cutover_time
-    ActiveSupport::TimeZone["Brasilia"].parse("2014-06-12 3:45pm")
+    ActiveSupport::TimeZone["Brasilia"].parse("2014-05-12 3:45pm")
   end
 
   def require_user
@@ -72,6 +72,34 @@ class ApplicationController < ActionController::Base
 
   def generate_random_code
     (0...12).map { (65 + rand(26)).chr }.join
+  end
+
+  def positions_defined_teams
+    count = 0
+    Team.all.each do |t|
+      if (t.r16_defined && t.r16_madeit)
+        count +=1
+      end
+      if (t.quaterfinals_defined && t.quaterfinals_madeit)
+        count +=1
+      end
+      if (t.semifinals_defined && t.semifinals_defined)
+        count +=1
+      end
+      if (t.final_defined && t.final_defined)
+        count +=1 
+      end
+      if (t.third_match_defined && t.third_match_madeit)
+        count +=1
+      end
+      if (t.third_place_defined && t.third_place_madeit)
+        count +=1
+      end
+      if (t.champion_defined && t.champion_madeit)
+        count +=1 
+      end
+    end
+    return count
   end
 
   def positions_defined(bracket)

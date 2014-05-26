@@ -1,11 +1,16 @@
 <div class="bracket-info">
-			<h4>Positions Defined: <%= (((positions_defined(@bracket)/34.00)) * 100).round(2) %>%   &nbsp&nbsp&nbsp&nbsp   Accuracy: <%= positions_defined(@bracket)>0 ? ((@bracket.score / ((positions_defined(@bracket))*2.00))*100).round(2) : 0%>%&nbsp&nbsp&nbsp&nbsp Score:&nbsp<%= @bracket.score %>  </h4>
-			<% if (Time.now + 1.hour) > cutover_time %> 
-				<h4 style='color:red'> <%= ((cutover_time - (Time.now + 1.day))/60).round(0) %> minutes left to submit final bracket! </h4>
-			<% elsif (Time.now + 1.day) > cutover_time %> 
-				<h4 style='color:red'> <%= ((cutover_time - (Time.now + 1.day))/3600).round(0) %> hours left to submit final bracket! </h4>
-			<% elsif (Time.now < cutover_time) %> 
-				<h4> <%= ((cutover_time - (Time.now + 1.day))/3600/24).round(0) %> days left to submit final bracket! </h4> 
+		<% if @bracket.user_id != session[:user_id] %>
+			<h4>You are seeing <%= @screen_name %>'s bracket</h4>
+		<% end %> 	
+			<h4>Positions Defined: <%= ((positions_defined_teams/34.00) * 100).round(2) %>%   &nbsp&nbsp&nbsp&nbsp   Accuracy: <%= positions_defined_teams > 0 ? ((@bracket.score / (positions_defined_teams * 2.00))*100).round(2) : 0%>%&nbsp&nbsp&nbsp&nbsp Score:&nbsp<%= @bracket.score %>  </h4>
+			<% if Time.now < cutover_time %>
+				<% if (Time.now + 1.hour) > cutover_time %> 
+					<h4 style='color:red'> <%= ((cutover_time - (Time.now + 1.day))/60).round(0) %> minutes left to submit final bracket! </h4>
+				<% elsif (Time.now + 1.day) > cutover_time %> 
+					<h4 style='color:red'> <%= ((cutover_time - (Time.now + 1.day))/3600).round(0) %> hours left to submit final bracket! </h4>
+				<% elsif (Time.now < cutover_time) %> 
+					<h4> <%= ((cutover_time - (Time.now + 1.day))/3600/24).round(0) %> days left to submit final bracket! </h4> 
+				<% end %>
 			<% end %>
 			<h4 class='f90'>Symbols: &nbsp&nbsp <span class=<%= get_icon(-1) %> ></span>&nbspNot defined yet&nbsp&nbsp&nbsp&nbsp<span class=<%= get_icon(0) %> ></span>&nbsp0 Points&nbsp&nbsp&nbsp&nbsp<span class=<%= get_icon(1) %> ></span>&nbsp1 Point&nbsp&nbsp&nbsp&nbsp<span class=<%= get_icon(2) %> ></span>&nbsp2 Points</h4>
 </div>
