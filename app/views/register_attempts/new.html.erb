@@ -3,7 +3,7 @@
 		<h4>Register</h4>
 		<%= form_tag '/attempt' do %>
 				<%= label_tag :email, nil, class: 'form-label' %>
-				<%= text_field_tag :email, params[:email] || '', class: 'form-input' %>
+				<%= text_field_tag :email, params[:email] || '', class: 'form-input', autocapitalize: 'off', autocorrect: 'off' %>
 			<div class='control-group form-row'>
 				<%= submit_tag "Register", class: 'btn-wcb-normal register-button' %>
 			</div>
