@@ -68,11 +68,11 @@ class BracketsController < ApplicationController
            update_selections
 	         redirect_to bracket_path(@bracket.id)    
 	       else
-	          flash[:error] = "There was a problem saving the bracket. Please make sure all fields are selected."
+	          flash.now[:error] = "There was a problem saving the bracket. Please make sure all fields are selected correctly."
 	         render :edit
 	       end
       else
-      flash[:error] = "Your bracket has invalid information. Please make sure all fields are selected correctly."
+      flash.now[:error] = "Your bracket has invalid information. Please make sure all fields are selected correctly."
       render :edit
       end
   end
