@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   post '/recover_password_email', to: 'users#recover_password_email', as: 'recover_password_email'
   get '/password_modify', to: 'users#password_modify', as: 'password_modify'
   get '/registerattempts', to: 'admin#register_attempts'
+  get '/howdoesitwork', to: 'welcome#how_does_it_work'
   get '*path', to: 'welcome#index'
   end
 

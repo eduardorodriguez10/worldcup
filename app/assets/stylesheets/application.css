@@ -227,6 +227,23 @@ body {
 #forgot-password {
 	color:white;
 }
+.how-image {
+	width:100%;
+	min-height:300px;
+	max-height:1000px;
+	background-position:center;
+	background-repeat:no-repeat;
+	background-size: contain;
+}
+#bracket-empty{
+	background-image: url('how-bracket-empty.png');
+}
+#bracket-full{
+	background-image: url('how-bracket-full.png');
+}
+#group-full{
+	background-image: url('how-group-full.png');
+}
 @media (max-width: 767px){
 	.logo {
 		float:left!important;
