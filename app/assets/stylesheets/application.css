@@ -174,24 +174,8 @@ body {
 .body {
 	margin:0px;
 }
-.dropdown-info{
-		display: none;
-	}
-.nav-dropdown {
-   background: #595959;
-   min-width: 50px;
-   min-height: 50px;
-   margin-right:25px;
-}
-@media (min-width: 768px){
 
-	#navbar-collapse-1 {
-	width: auto!important;
-	}
-	.dropdown-info{
-		display: inline;
-	}
-	.nav-dropdown {
+.nav-dropdown {
    background: #595959;
    min-height: 0!important;
    padding: 5px 10px;
@@ -216,6 +200,9 @@ body {
 	-webkit-box-shadow: 0 0 10px #040307;
 	box-shadow: 0 0 2px #040307
    }
+   	#navbar-collapse-1 {
+	width: auto!important;
+	}
 
 	.nav-dropdown:hover {
    /*border-top-color: #262626;*/
@@ -229,6 +216,11 @@ body {
    background: #262626 !important;
    color: #ccc !important;
    }
+
+
+@media (min-width: 768px){
+
+
 
 	.form-label{
 		text-align:left;
