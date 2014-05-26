@@ -40,36 +40,3 @@
       </div>
   </ul>
 </nav>
-
-<% if !logged_in? %>
-  <div id="register-email-message" class="warning-message off">
-  <br>
-  <%= form_tag '/attempt' do %>
-      <div class='control-group form-row'>
-       <label class='form-label register-label'>Enter Your Email Address:</label>
-      <%= text_field_tag :email, params[:email] || '', class: 'form-input register-input' %>
-      </div>
-      <div class='control-group form-row'>
-        <%= submit_tag "Register", class: 'btn-wcb-normal register-button' %>
-      </div>
-    <% end %>
-  </div>
-  <div id="register-thanks-message" class="warning-message off">
-  <br>
-      <div class='control-group form-row'>
-       <label class='form-label register-label'>Thank you! Check your email to complete the registration process. </label>
-      </div>
-      <div class='control-group form-row'>
-        <%= link_to "Register", "#", class: 'btn-wcb-normal register-button' %>
-      </div>
-  </div>
-  <div id="register-error-message" class="warning-message off">
-  <br>
-      <div class='control-group form-row'>
-       <label class='form-label register-label'>Invalid Email. Please Try Again.</label>
-      </div>
-      <div class='control-group form-row'>
-        <%= link_to "Register", "#", class: 'btn-wcb-normal register-button' %>
-      </div>
-  </div>
-<% end %>
