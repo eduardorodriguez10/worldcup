@@ -240,6 +240,10 @@ body {
 .login a {
 	color: white;
 }
+
+#forgot-password {
+	color:white;
+}
 @media (max-width: 767px){
 	.logo {
 		float:left!important;
@@ -247,17 +251,34 @@ body {
 	.login {
 		clear:both!important;
 		float:left!important;
-		margin-left:10px!important;
+		margin: auto!important;
+		margin-bottom:10px!important;
 	}
 	.register {
-		float:left!important;
-		margin-left:10px!important;
+		float:right!important;
+		margin: auto!important;
+		margin-bottom:10px!important;
 	}
 	.dialog {
-		margin: 20px 0;
+		margin: 0 auto;
+		min-width: 200px;
+		max-width: 400px;
+	}
+	.login-background {
+		background-color: #2D4C76;
+		min-height: 400px!important;
+		padding-top: 20px;
+	}
+	.form-input {
+		width:75%;
+	}
+	.register-button {
+		margin-top:10px;
+		margin-left:30%;
 	}
 
 }
+
 @media (min-width: 768px){
 	.login {
 		margin-right: 20px;
@@ -265,6 +286,7 @@ body {
 	}
 	.dialog {
 		margin: 0 auto;
+		width: 400px;
 	}
 	.register{
 		margin-top: 10px;
@@ -272,6 +294,9 @@ body {
 	}
 	.form-label{
 		text-align:left;
+	}
+	.form-input{
+		width:350px;
 	}
 	.container {
 		width: 100% !important;
@@ -298,7 +323,7 @@ body {
 	}
 
 	.login-background {
-	background-image: url('background1.jpg');
+	background-image: url('background2.jpg');
 	min-height:600px;
 	background-position:center;
 	background-repeat:no-repeat;
@@ -316,7 +341,6 @@ body {
 	font-size:16px;
 	font-weight: 200;
 	text-align:left;
-	width:350px;
 	margin-left:25px;
 	color:black;
 	margin-bottom: 5px;
@@ -656,7 +680,6 @@ input[type="text"]:disabled {
 	opacity: 1;
 }
 .dialog {
-	width: 400px;
 	padding:5px;
 	color: white;
 	border: 1px solid #373553;

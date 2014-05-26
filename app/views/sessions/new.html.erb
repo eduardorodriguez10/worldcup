@@ -7,7 +7,7 @@
 			<div class='control-group'>
 				<%= label_tag :password, nil, class: 'form-label' %>
 				<%= password_field_tag :password, params[:password] || '', class: 'form-input', id:'login-password' %>
-				<%= link_to 'Forgot Password?', recoverpassword_path, class: 'form-input' %>
+				<%= link_to 'Forgot Password?', recoverpassword_path, class: 'form-input', id: 'forgot-password'%>
 			</div>
 			<div class='control-group form-row'>
 				<%= submit_tag "Login", class: 'btn-wcb-normal register-button', id: 'login-button' %>

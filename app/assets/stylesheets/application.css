@@ -223,6 +223,10 @@ body {
 .login a {
 	color: white;
 }
+
+#forgot-password {
+	color:white;
+}
 @media (max-width: 767px){
 	.logo {
 		float:left!important;
@@ -248,6 +252,13 @@ body {
 		min-height: 400px!important;
 		padding-top: 20px;
 	}
+	.form-input {
+		width:75%;
+	}
+	.register-button {
+		margin-top:10px;
+		margin-left:30%;
+	}
 
 }
 
@@ -266,6 +277,9 @@ body {
 	}
 	.form-label{
 		text-align:left;
+	}
+	.form-input{
+		width:350px;
 	}
 	.container {
 		width: 100% !important;
@@ -310,7 +324,6 @@ body {
 	font-size:16px;
 	font-weight: 200;
 	text-align:left;
-	width:350px;
 	margin-left:25px;
 	color:black;
 	margin-bottom: 5px;
