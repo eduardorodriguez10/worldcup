@@ -217,10 +217,30 @@ body {
    color: #ccc !important;
    }
 
-
+.login {
+	margin-right: 20px;
+	margin-top: 10px;
+	color: white;
+}
+.login a {
+	color: white;
+}
+@media (max-width: 767px){
+	.login {
+		min-width:60%;
+	}
+	.register {
+		min-width:60%!important;
+	}
+}
 @media (min-width: 768px){
 
-
+	.login {
+		min-width:0px!important;
+	}
+	.register {
+		min-width:0px!important;
+	}
 
 	.form-label{
 		text-align:left;
@@ -629,14 +649,7 @@ input[type="text"]:disabled {
 .register a {
 	color: white;
 }
-.login {
-	margin-right: 20px;
-	margin-top: 10px;
-	color: white;
-}
-.login a {
-	color: white;
-}
+
 .front-page-text {
 	margin-top: 0px;
 }
