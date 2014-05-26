@@ -1,7 +1,22 @@
-<div class="panel-body register-form">	
-	<div class='control-group form-row'>
-		<label class='form-label register-label f90'>User Name</label>
-		<input class='form-input register-input' id="user-search" type="text"></input>
-		<input class='btn-wcb-normal register-button' if="user-search-submit" type="submit" value="Search"></input>
-	</div>
+<div class="display-container">
+	<table class="table table-striped overflow-400">
+			<tr>
+				<th>Id</th>
+				<th>Email</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Has Bracket</th>
+				<th>Created At</th>
+			</tr>
+		<% @users.all.each do |user| %>
+				<tr>
+					<td><%=  user.id %> </td>
+					<td><%= user.email %> </td>
+					<td><%= user.first_name %></td>
+					<td><%= user.last_name %></td>
+					<td><%= Bracket.find_by(user_id: user.id).nil? ? 'No' : 'Yes'%></td>
+					<td><%= user.created_at %>
+				</tr>
+		<% end %>
+	</table>
 </div>

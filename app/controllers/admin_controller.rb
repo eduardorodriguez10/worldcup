@@ -19,7 +19,11 @@ class AdminController < ApplicationController
 	end
 
 	def user_search
+		@users = User.all.order('created_at DESC')
+	end
 
+	def register_attempts
+		@attempts = RegisterAttempt.all.order('created_at DESC')
 	end
 
 	def admin_info

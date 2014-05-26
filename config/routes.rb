@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   get '/recoverpassword', to: 'users#recover_password', as: 'recoverpassword'
   post '/recover_password_email', to: 'users#recover_password_email', as: 'recover_password_email'
   get '/password_modify', to: 'users#password_modify', as: 'password_modify'
+  get '/registerattempts', to: 'admin#register_attempts'
   get '*path', to: 'welcome#index'
   end
 

@@ -1,0 +1,18 @@
+<div class="display-container">
+	<table class="table table-striped overflow-400">
+			<tr>
+				<th>Id</th>
+				<th>Email</th>
+				<th>Passcode</th>
+				<th>Created At</th>
+			</tr>
+		<% @attempts.all.each do |attempt| %>
+				<tr>
+					<td><%=  attempt.id %> </td>
+					<td><%= attempt.email %> </td>
+					<td><%= attempt.passcode %></td>
+					<td><%= attempt.created_at %>
+				</tr>
+		<% end %>
+	</table>
+</div>

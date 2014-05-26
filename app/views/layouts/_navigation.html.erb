@@ -41,7 +41,7 @@
 <% if !logged_in? %>
   <div id="register-email-message" class="warning-message off">
   <br>
-  <%= form_tag '/attemp' do %>
+  <%= form_tag '/attempt' do %>
       <div class='control-group form-row'>
        <label class='form-label register-label'>Enter Your Email Address:</label>
       <%= text_field_tag :email, params[:email] || '', class: 'form-input register-input' %>
