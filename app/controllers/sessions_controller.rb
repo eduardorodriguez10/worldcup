@@ -4,20 +4,25 @@ class SessionsController < ApplicationController
 	end
 
 	def create
-		user = User.find_by(email: params[:email])
-		if user && user.authenticate(params[:password])
-			bracket = Bracket.find_by(user_id: user.id)
-			session[:user_id] = user.id 
-			if bracket.nil?
-				redirect_to new_bracket_path()
+		if(params.has_key?(:email))
+			params[:email] = params[:email].downcase
+			user = User.find_by(email: params[:email])
+			if user && user.authenticate(params[:password])
+				bracket = Bracket.find_by(user_id: user.id)
+				session[:user_id] = user.id 
+				if bracket.nil?
+					redirect_to new_bracket_path()
+				else
+					redirect_to bracket_path(user.id)
+				end
 			else
-				redirect_to bracket_path(user.id)
+				flash[:error] = "There's something wrong with your username or password"
+				redirect_to login_path
 			end
 		else
 			flash[:error] = "There's something wrong with your username or password"
 			redirect_to login_path
 		end
-
 	end
 
 	def destroy

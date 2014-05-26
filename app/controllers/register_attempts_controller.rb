@@ -5,6 +5,7 @@ class RegisterAttemptsController < ApplicationController
 	end
 
 	def create
+		params[:email] = params[:email].downcase
 		if valid_email?(params[:email])
 			if(user_email_exists?(params[:email]))
 			   flash[:error] = "User already exists. Please log in."

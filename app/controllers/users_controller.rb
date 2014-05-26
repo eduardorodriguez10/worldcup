@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 	def new
 		if(params.has_key?(:email) && params.has_key?(:passcode))
+			params[:email] = params[:email].downcase
 			if(user_attempt_exists?(params[:email]))
 				attempt = RegisterAttempt.find_by(email: params[:email])
 				if(attempt.passcode == params[:passcode])
@@ -18,15 +19,21 @@ class UsersController < ApplicationController
 	end
 
 	def create
-	@user = User.new(user_params)
-	@user.admin = false
-	@user.admin_view = false
-		if @user.save
-			session[:user_id] = @user.id 
-			flash[:notice] = "Welcome to World Cup Bracket, You are registered now."
-			redirect_to new_bracket_path()
+		if(params[:user].has_key?(:email))
+		params[:user][:email] = params[:user][:email].downcase
+		@user = User.new(user_params)
+		@user.admin = false
+		@user.admin_view = false
+			if @user.save
+				session[:user_id] = @user.id 
+				flash[:notice] = "Welcome to World Cup Bracket, You are registered now."
+				redirect_to new_bracket_path()
+			else
+				flash[:error] = @user.errors
+				redirect_to '/register'
+			end
 		else
-			flash[:error] = @user.errors
+			flash[:error] = "There was a problem creating the user account."
 			redirect_to '/register'
 		end
 	end
@@ -93,19 +100,25 @@ class UsersController < ApplicationController
 	end
 
 	def recover_password_email
-		if valid_email?(params[:email])
-			if(user_email_exists?(params[:email]))
-				@user = User.find_by(email: params[:email])
-				@user.password_recovery = generate_random_code
-				@user.recovery_time = DateTime.now
-				@user.recovery_attemps = 0
-				@user.save
-				@url = '/password_modify?email='+@user.email+'&passcode='+@user.password_recovery
-				UserMailer.send_password_recovery(@user, @url).deliver
-			   flash[:notice] = "Please check your email to update your password."
-			   redirect_to login_path
-			else 
-				flash[:error] = "Could not find your email address in the system."
+		if (params.has_key?(:email))
+			params[:email] = params[:email].downcase
+			if valid_email?(params[:email])
+				if(user_email_exists?(params[:email]))
+					@user = User.find_by(email: params[:email])
+					@user.password_recovery = generate_random_code
+					@user.recovery_time = DateTime.now
+					@user.recovery_attemps = 0
+					@user.save
+					@url = '/password_modify?email='+@user.email+'&passcode='+@user.password_recovery
+					UserMailer.send_password_recovery(@user, @url).deliver
+				   flash[:notice] = "Please check your email to update your password."
+				   redirect_to login_path
+				else 
+					flash[:error] = "Could not find your email address in the system."
+					redirect_to login_path
+				end
+			else
+				flash[:error] = "Invalid Email Address. Please try again."
 				redirect_to login_path
 			end
 		else
@@ -116,6 +129,7 @@ class UsersController < ApplicationController
 
 	def password_modify
 		if(params.has_key?(:email) && params.has_key?(:passcode))
+			params[:email] = params[:email].downcase
 			if(user_password_recovery_exists?(params[:email], params[:passcode]))
 				@user = User.find_by(email: params[:email])
 				@passcode = params[:passcode]
