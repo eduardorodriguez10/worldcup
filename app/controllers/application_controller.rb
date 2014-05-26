@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   end
 
   def cutover_time
-    ActiveSupport::TimeZone["Brasilia"].parse("2014-05-12 3:45pm")
+    ActiveSupport::TimeZone["Brasilia"].parse("2014-06-12 3:45pm")
   end
 
   def require_user
