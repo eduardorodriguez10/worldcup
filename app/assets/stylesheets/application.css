@@ -226,21 +226,33 @@ body {
 	color: white;
 }
 @media (max-width: 767px){
+	.logo {
+		float:left!important;
+	}
 	.login {
-		min-width:60%;
+		clear:both!important;
+		float:left!important;
+		margin-left:10px!important;
+		margin-top:10%!important;
+		min-width:250px!important;
+		min-height:100px!important;
+		padding-top:20px;
+		font-size:200%!important;
 	}
 	.register {
-		min-width:60%!important;
+		clear:both!important;
+		float:left!important;
+		margin-left:10px!important;
+		margin-top:10%!important;
+		min-width:250px!important;
+		min-height:100px!important;
+		padding-top:20px;
+		margin-bottom:10%;
+		font-size:200%!important;
 	}
+
 }
 @media (min-width: 768px){
-
-	.login {
-		min-width:0px!important;
-	}
-	.register {
-		min-width:0px!important;
-	}
 
 	.form-label{
 		text-align:left;
