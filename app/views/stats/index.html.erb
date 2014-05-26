@@ -1,17 +1,17 @@
 <%= render 'stats_buttons' %>
-<div class="display-container">
+<div class="display-container overflow-report">
 			<div class="overflow-header">
 			<% if !@teams.empty? %>
 				<table class="table table-striped stats-table">
 						<tr> 
-							<td class="col-xs-3"> <%= link_to 'Team', (@sortbyteam=='asc') ? stats_path(sortbyteam: 'desc') : stats_path(sortbyteam: 'asc')  %> </td>
-							<td class="col-xs-1"> <%= link_to 'Round of 16', (@sortbyR16=='asc') ? stats_path(sortbyR16: 'desc') : stats_path(sortbyR16: 'asc')  %> </td>
-							<td class="col-xs-1"> <%= link_to 'Quater-Finals', (@sortbyQF=='asc') ? stats_path(sortbyQF: 'desc') : stats_path(sortbyQF: 'asc')  %> </td>
-							<td class="col-xs-1"> <%= link_to 'Semi-Finals', (@sortbySF=='asc') ? stats_path(sortbySF: 'desc') : stats_path(sortbySF: 'asc')  %> </td> 
-							<td class="col-xs-1"> <%= link_to 'Final Match', (@sortbyFM=='asc') ? stats_path(sortbyFM: 'desc') : stats_path(sortbyFM: 'asc')  %></td>
-							<td class="col-xs-1"> <%= link_to 'Thrid Place Match', (@sortbyTPM=='asc') ? stats_path(sortbyTPM: 'desc') : stats_path(sortbyTPM: 'asc')  %> </td>
-							<td class="col-xs-1 col-sm-offset-1"> <%= link_to 'Thrid Place', (@sortbyTP=='asc') ? stats_path(sortbyTP: 'desc') : stats_path(sortbyTP: 'asc')  %> </td>
-							<td class="col-xs-1"> <%= link_to 'Champion', (@sortbyCP=='asc') ? stats_path(sortbyCP: 'desc') : stats_path(sortbyCP: 'asc')  %> </td>
+							<td class="report-column"> <%= link_to 'Team', (@sortbyteam=='asc') ? stats_path(sortbyteam: 'desc') : stats_path(sortbyteam: 'asc')  %> </td>
+							<td class="report-column"> <%= link_to 'Round of 16', (@sortbyR16=='asc') ? stats_path(sortbyR16: 'desc') : stats_path(sortbyR16: 'asc')  %> </td>
+							<td class="report-column"> <%= link_to 'Quater-Finals', (@sortbyQF=='asc') ? stats_path(sortbyQF: 'desc') : stats_path(sortbyQF: 'asc')  %> </td>
+							<td class="report-column"> <%= link_to 'Semi-Finals', (@sortbySF=='asc') ? stats_path(sortbySF: 'desc') : stats_path(sortbySF: 'asc')  %> </td> 
+							<td class="report-column"> <%= link_to 'Final Match', (@sortbyFM=='asc') ? stats_path(sortbyFM: 'desc') : stats_path(sortbyFM: 'asc')  %></td>
+							<td class="report-column"> <%= link_to 'Thrid Place Match', (@sortbyTPM=='asc') ? stats_path(sortbyTPM: 'desc') : stats_path(sortbyTPM: 'asc')  %> </td>
+							<td class="report-column"> <%= link_to 'Thrid Place', (@sortbyTP=='asc') ? stats_path(sortbyTP: 'desc') : stats_path(sortbyTP: 'asc')  %> </td>
+							<td class="report-column"> <%= link_to 'Champion', (@sortbyCP=='asc') ? stats_path(sortbyCP: 'desc') : stats_path(sortbyCP: 'asc')  %> </td>
 						</tr>
 				</table>
 			</div>
@@ -20,14 +20,14 @@
 					<table class="table table-striped stats-table">
 					<% @teams.each do |team| %>
 						<tr class="stats-data">
-							<td class="col-xs-3"><%= team.name %></td>
-							<td class="col-xs-1"> <%= number_with_precision((team.r16_selections / number_of_brackets)*100, :precision => 2) %>%</td>
-							<td class="col-xs-1"> <%= number_with_precision((team.quaterfinals_selections / number_of_brackets)*100, :precision => 2) %>%</td>
-							<td class="col-xs-1"> <%= number_with_precision((team.semifinals_selections / number_of_brackets)*100, :precision => 2) %>%</td>
-							<td class="col-xs-1"> <%= number_with_precision((team.final_selections / number_of_brackets)*100, :precision => 2) %>%</td>
-							<td class="col-xs-1"> <%= number_with_precision((team.third_match_selections / number_of_brackets)*100, :precision => 2) %>%</td>
-							<td class="col-xs-1 col-sm-offset-1"> <%= number_with_precision((team.third_selections / number_of_brackets)*100, :precision => 2) %>%</td>
-							<td class="col-xs-1"> <%= number_with_precision((team.champion_selections / number_of_brackets)*100, :precision => 2) %>%</td>
+							<td class="report-column"><%= team.name %></td>
+							<td class="report-column"> <%= number_with_precision((team.r16_selections / number_of_brackets)*100, :precision => 2) %>%</td>
+							<td class="report-column"> <%= number_with_precision((team.quaterfinals_selections / number_of_brackets)*100, :precision => 2) %>%</td>
+							<td class="report-column"> <%= number_with_precision((team.semifinals_selections / number_of_brackets)*100, :precision => 2) %>%</td>
+							<td class="report-column"> <%= number_with_precision((team.final_selections / number_of_brackets)*100, :precision => 2) %>%</td>
+							<td class="report-column"> <%= number_with_precision((team.third_match_selections / number_of_brackets)*100, :precision => 2) %>%</td>
+							<td class="report-column"> <%= number_with_precision((team.third_selections / number_of_brackets)*100, :precision => 2) %>%</td>
+							<td class="report-column"> <%= number_with_precision((team.champion_selections / number_of_brackets)*100, :precision => 2) %>%</td>
 						</tr>
 					<% end %>
 				</table>

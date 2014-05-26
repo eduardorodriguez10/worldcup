@@ -6,8 +6,8 @@
 		</div>
 		<br>
 		<div class='control-group form-row'>
+			<%= f.check_box :isprivate, title: 'Define if the group will be private or public', class: 'form-checkbox'%>
 			<label class=''>Private</label> 
-			<%= f.check_box :isprivate, title: 'Define if the group will be private or public'%>
 		</div>
 		<br>
 		<div id="div_passcode" class='control-group form-row'>
@@ -15,8 +15,8 @@
 			<%= f.text_field :passcode, class: 'form-input', title: 'Enter a passcode if group will be private' %>
 		</div>
 		<div class='control-group form-row'>
+			<%= f.check_box :others_can_invite, title: 'Define if ohter members can send invitations for this group', class: 'form-checkbox'%>
 			<label>Group Members can send invitations?</label> 
-			<%= f.check_box :others_can_invite, title: 'Define if ohter members can send invitations for this group'%>
 		</div>
 		<% if @group.new_record? %>
 			<div class='control-group form-row'>
@@ -24,8 +24,8 @@
 				<input type="text" name="screenname" id="screen_name" value=<%=current_user.screenname%> class='form-input', title="Define the Screen Name that you will use for this group">
 			</div>
 		<% end %>
-		<div class='control-group form-row'>
-		<%= f.submit @group.new_record? ? "Create Group" : "Update Group", class: 'btn-wcb-normal form-btn col-md-offset-4' %>
+		<div class='control-group form-row center'>
+		<%= f.submit @group.new_record? ? "Create Group" : "Update Group", class: 'btn-wcb-normal form-btn' %>
 		</div>
 	<% end %>
 </div>

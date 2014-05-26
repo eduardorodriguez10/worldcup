@@ -1,3 +1,4 @@
+<div class="dialog" style="margin-top:50px">	
 	<h5> Total Number of Users Registered: <%= User.all.count %></h5>
 	<h5> Total Number of Brackets Created: <%= Bracket.all.count %> </h5>
 	<h5> Total Number of Private Groups: <%= Group.where(isprivate: true).count %></h5>

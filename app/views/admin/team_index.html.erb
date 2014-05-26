@@ -13,40 +13,68 @@
 	<% Team.all.each do |t| %> 
 		<tr>
 		<td><%= link_to t.name, teamedit_path(t) %></td>
-		<% if t.r16_madeit %>
-			<td><%= t.r16_position %></td>
+		<% if t.r16_defined %>
+			<% if t.r16_madeit %>
+				<td><%= t.r16_position %></td>
+			<% else %> 
+				<td>No</td>
+			<% end %> 
 		<% else %> 
-			<td>No</td>
-		<% end %> 
-		<% if t.quaterfinals_madeit %>
-			<td><%= t.quaterfinals_position %></td>
-		<% else %> 
-			<td>No</td>
-		<% end %> 
-		<% if t.semifinals_madeit %>
-			<td><%= t.semifinals_position %></td>
-		<% else %> 
-			<td> No </td>
-		<% end %> 
-		<% if t.final_madeit %>
-			<td>Yes</td>
-		<% else %> 
-			<td> No </td>
-		<% end %> 
-		<% if t.third_match_madeit %>
-			<td>Yes</td>
-		<% else %> 
-			<td> No </td>
+			<td>TBD</td>
 		<% end %>
-		<% if t.third_place_madeit %>
-			<td>Yes</td>
+		<% if t.quaterfinals_defined %>
+			<% if t.quaterfinals_madeit %>
+				<td>Yes</td>
+			<% else %> 
+				<td>No</td>
+			<% end %> 
 		<% else %> 
-			<td> No </td>
+			<td>TBD</td>
 		<% end %>
-		<% if t.champion_madeit %>
-			<td>Yes</td>
+		<% if t.semifinals_defined %>
+			<% if t.semifinals_madeit %>
+				<td>Yes</td>
+			<% else %> 
+				<td> No </td>
+			<% end %>
+		<% else %>
+			<td>TBD</td>
+		<% end %>
+		<% if t.final_defined %> 
+			<% if t.final_madeit %>
+				<td>Yes</td>
+			<% else %> 
+				<td> No </td>
+			<% end %> 
+		<% else %>
+			<td>TBD</td>
+		<% end %>
+		<% if t.third_match_defined %>
+			<% if t.third_match_madeit %>
+				<td>Yes</td>
+			<% else %> 
+				<td> No </td>
+			<% end %>
 		<% else %> 
-			<td> No </td>
+			<td>TBD</td>
+		<% end %> 
+		<% if t.third_place_defined %> 
+			<% if t.third_place_madeit %>
+				<td>Yes</td>
+			<% else %> 
+				<td> No </td>
+			<% end %>
+		<% else %> 
+			<td>TBD</td>
+		<% end %>
+		<% if t.champion_defined %>
+			<% if t.champion_madeit %>
+				<td>Yes</td>
+			<% else %> 
+				<td> No </td>
+			<% end %>
+		<% else %> 
+			<td> TBD </td>
 		<% end %>
 		</tr>
 	<% end %>

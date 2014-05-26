@@ -98,6 +98,9 @@
 	font-style:bold;
 	font-size:125%;
 }
+.form-checkbox {
+	margin-left:20px!important;
+}
 .bracketcontainer {
 	background-color: white;
 	padding-left:25px !important;
@@ -129,6 +132,7 @@
 	text-align:left;
 	width: 100%;
 	margin-left:25px;
+	margin-top:10px;
 	margin-bottom:0px;
 	color:white;
 	/*width:15%;*/
@@ -420,16 +424,26 @@
 .overflow-header{
 	overflow-x: hidden;
 }
+.overflow-report{
+	overflow-x: auto;
+}
+.report-column {
+	width:5%;
+}
 .stats-table {
 	font-variant: small-caps;
 	font-style: bold;
-	min-width: 940px;
+	min-width: 480px;
 	margin-bottom: 0px;
+	font-size: 90%;
+	width:95%;
 }
 .stats-data {
 	font-family:helvetica;
 	font-style: bold;
 	font-variant: small-caps;
+	font-size: 90%;
+	width:95%;
 }
 .bracket span {
 	position: relative;
