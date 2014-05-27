@@ -2,7 +2,7 @@
 	<br>
 	<h4>Game Rules and Scoring System</h4>
 	<br>
-	<h5>A. A player can define only one bracket per account. This same bracket will be used to compete in all the groups joined by the player. </h5>
+	<h5>A. A player can define only one bracket per account. This bracket will be used to compete in all the groups joined by the player. </h5>
 	<h5>B. The dateline to submit brackets is <%= cutover_time.strftime("%A") %>, <%= cutover_time.strftime("%B") %> <%= cutover_time.strftime("%d") %>, <%= cutover_time.strftime("%Y") %> at <%=cutover_time.strftime("%I") %>:<%= cutover_time.strftime("%M")%> <%= cutover_time.strftime("%p") %> Brasil Time. This is fifteen minutes prior to kick-off on the inaugural game. </h5>
 	<h5>C. The bracket score will be updated as the World Cup progresses. The bracket scoring will be determined as follows: </h5>
 	<h5 class="display-container"> 1. Players will receive <%= points_full %> points for Round of 16 positions if their selected team makes it to the next round in the exact position selected. For instance, if Brazil is selected as 1st Place for Group A, and that's the exact position of Brazil in the Bracket, then the player will receive <%= points_full %> points for this selection. </h5> 
