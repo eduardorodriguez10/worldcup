@@ -24,6 +24,9 @@
 		</div>
 	</div>
 </div>
+	<div class='bracketcontainer container center off' id="bracket-loading">
+		<h5>Loading Bracket, please wait...</h5>
+	</div>
 	<div class='bracketcontainer container' id="bracket-main">
 		<input id='browser' type="hidden" value=<%= get_browser %> />
 		<div class='bracket-column' id="Round16-1">
@@ -254,8 +257,5 @@
 				<input id='g2-old' type="hidden" value=<%= @bracket.g2.nil? ? '-1' : @bracket.g2 %> />
 			</div>
 		</div>
-	</div>
-	<div class='bracketcontainer container center off' id="bracket-loading">
-		<h5>Loading Bracket, please wait...</h5>
 	</div>
 <% end %>
