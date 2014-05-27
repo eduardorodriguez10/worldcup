@@ -153,7 +153,7 @@ class ApplicationController < ActionController::Base
     Browser = Struct.new(:browser, :version)
 
     SupportedBrowsers = [
-      Browser.new('Safari', '6.0.2'),
+      Browser.new('Safari', '5.0.2'),
       Browser.new('Firefox', '19.0.2'),
       Browser.new('Chrome', '27.0.1364.160'),
     ]
