@@ -80,10 +80,10 @@ function updateOptionsR16(selected, disabled, next_round){
 		setCSSSelected("#bracket_"+selected, valueSelected);
 		// show the new team and hide the old team in the next round
 		if(valueSelected){
-			console.log('Value Selected = '+teamSelected);
-			console.log("#bracket_"+disabled+" option[value="+teamSelected.toString()+"]");
-			document.getElementById("bracket_"+disabled).options[teamSelected].disabled = true;
-			console.log("Disabling "+"#bracket_"+disabled+" option[value="+teamSelected.toString()+"]");
+			// console.log('Value Selected = '+teamSelected);
+			// console.log("#bracket_"+disabled+" option[value="+teamSelected.toString()+"]");
+			// document.getElementById("bracket_"+disabled).options[teamSelected].disabled = true;
+			// console.log("Disabling "+"#bracket_"+disabled+" option[value="+teamSelected.toString()+"]");
 			
 			$("#bracket_"+disabled+" option[value="+teamSelected.toString()+"]").prop('disabled', true);
 			if(selected[0]=='w'){
@@ -96,7 +96,7 @@ function updateOptionsR16(selected, disabled, next_round){
 
 		if(oldTeam){
 			console.log("OldTeam = "+oldTeam);
-			document.getElementById("bracket_"+disabled).options[oldTeam].disabled = false;
+			// document.getElementById("bracket_"+disabled).options[oldTeam].disabled = false;
 			$("#bracket_"+disabled+" option[value="+oldTeam.toString()+"]").removeAttr("disabled");
 			console.log("Removing Disabled"+"#bracket_"+disabled+" option[value="+oldTeam.toString()+"]");
 			if(selected[0]=='w'){
@@ -258,13 +258,13 @@ function updateOptionsR16(selected, disabled, next_round){
 			var teamSelected = document.getElementById("l"+i.toString()+"-old").value;
 			console.log("l"+i.toString()+"-old "+ document.getElementById("l"+i.toString()+"-old").value);
 			if(teamSelected!='-1'){
-				document.getElementById("bracket_w"+i.toString()).options[teamSelected].disabled = true;
+				// document.getElementById("bracket_w"+i.toString()).options[teamSelected].disabled = true;
 				$("#bracket_w"+i.toString()+" option[value="+teamSelected.toString()+"]").prop('disabled', true);
 			}
 			var e = document.getElementById("bracket_w"+i.toString());
 			var teamSelected = document.getElementById("w"+i.toString()+"-old").value;
 			if(teamSelected!='-1'){
-				document.getElementById("bracket_l"+i.toString()).options[teamSelected].disabled = true;
+				// document.getElementById("bracket_l"+i.toString()).options[teamSelected].disabled = true;
 				$("#bracket_l"+i.toString()+" option[value="+teamSelected.toString()+"]").prop('disabled', true);
 			}
 		};
@@ -283,7 +283,7 @@ function updateOptionsR16(selected, disabled, next_round){
 			var e = document.getElementById("bracket_champion");
 			var teamSelected = document.getElementById("champion-old").value;
 			if(teamSelected!='-1'){
-				if(e.options[0].value)
+				if(e.options[0] == null || e.options[0].value)
 					$("#bracket_champion").prepend("<option value=''>Champion</option>");
 
 				setCSSSelected("#bracket_champion",true);
@@ -311,36 +311,52 @@ function updateOptionsR16(selected, disabled, next_round){
 	};
 
 	function displayInNextRound(elem, b){
-		if(b) {
-			if($(elem).parent("span").length){
-				console.log(elem+" Parent span length: "+$(elem).parent("span").length);
+		
+		if(document.getElementById("browser").value != 'Chrome' || document.getElementById("browser").value != 'Safari'){
+			if(b){
 				$(elem).show();
-				$(elem).unwrap('<span style="display:none;" />');
+				if($(elem).parent("span").length)
+					$(elem).unwrap('<span style="display:none;" />');
+			}
+			else {
+					$(elem).hide();
+					$(elem).prop("selected", false);
+					if(!($(elem).parent("span").length))
+						$(elem).wrap('<span style="display:none;" />');
+				}
+		} 
+		else {
+			if(b)
+				$(elem).show();
+			else {
+				$(elem).hide();
+				$(elem).prop("selected", false);
 			}
 		}
-		else{
-			$(elem).prop("selected", false);
-			if(!($(elem).parent("span").length)){
-				$(elem).wrap('<span style="display:none;" />');
-				$(elem).hide();
-			}
-		};
 	};
 
 	function displayInThisRound(elem, b){
-		if(b) {
-			console.log("trying to set "+elem+" with span length "+$(elem).parent("span").length)
-			if($(elem).parent("span").length){
-				console.log(elem+" Parent span length: "+$(elem).parent("span").length);
+
+		if(document.getElementById("browser").value != 'Chrome' || document.getElementById("browser").value != 'Safari'){
+			if(b){
 				$(elem).show();
-				$(elem).unwrap('<span style="display:none;" />');
+				if($(elem).parent("span").length)
+					$(elem).unwrap('<span style="display:none;" />');
 			}
-		}
+			else {
+					$(elem).hide();
+					$(elem).prop("selected", false);
+					if(!($(elem).parent("span").length))
+						$(elem).wrap('<span style="display:none;" />');
+				}
+		} 
 		else {
+			if(b)
+				$(elem).show();
+			else {
 				$(elem).hide();
 				$(elem).prop("selected", false);
-				if(!($(elem).parent("span").length))
-					$(elem).wrap('<span style="display:none;" />');
+			}
 		}
 	};
 

@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :check_browser
-  helper_method :current_user, :logged_in?, :results_visible?, :to_boolean, :is_admin?, :admin_view?, :positions_defined, :cutover_time, :valid_email?, :positions_defined_teams
+  helper_method :current_user, :logged_in?, :results_visible?, :to_boolean, :is_admin?, :admin_view?, :positions_defined, :cutover_time, :valid_email?, :positions_defined_teams, :get_browser
 
   def current_user
   	@current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -16,6 +16,14 @@ class ApplicationController < ActionController::Base
 
   def results_visible? 
     return (Time.now > cutover_time)
+  end
+
+  def set_browser(browser)
+    @browser = browser
+  end
+
+  def get_browser
+    return @browser
   end
 
   def cutover_time
@@ -148,13 +156,16 @@ class ApplicationController < ActionController::Base
       Browser.new('Safari', '6.0.2'),
       Browser.new('Firefox', '19.0.2'),
       Browser.new('Internet Explorer', '10.0'), 
-      Browser.new('Chrome', '27.0.1364.160')
+      Browser.new('Chrome', '27.0.1364.160'),
+      Browser.new('Opera', '12')
     ]
 
     def check_browser
        user_agent = UserAgent.parse(request.user_agent)
       unless SupportedBrowsers.detect { |browser| user_agent >= browser }
         render 'welcome/unsupported_browser'
+      else
+        set_browser(user_agent.browser)
       end
     end
 end
