@@ -2,12 +2,16 @@
 <script>
 	$(document).ready(function(){
 
+		$('#bracket-main').hide();
+		$('#bracket-loading').show();
 		//hide all teams in select opionts
 		hideTeams();
 
 
 		//fix selects with old selections if page reload
-		fixSelects(); 
+		fixSelects();
+		$('#bracket-loading').hide();
+		$('#bracket-main').show(); 
 		
 	});
 </script>
