@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   get '/password_modify', to: 'users#password_modify', as: 'password_modify'
   get '/registerattempts', to: 'admin#register_attempts'
   get '/howdoesitwork', to: 'welcome#how_does_it_work'
+  get '/unsupportedbrowser', to: 'welcome#unsupported_browser'
   get '*path', to: 'welcome#index'
   end
 

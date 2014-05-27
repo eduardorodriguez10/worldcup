@@ -15,4 +15,8 @@ class WelcomeController < ApplicationController
 
 	end
 
+	def unsupported_browser
+
+	end
+
 end

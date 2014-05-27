@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  before_filter :check_browser
   helper_method :current_user, :logged_in?, :results_visible?, :to_boolean, :is_admin?, :admin_view?, :positions_defined, :cutover_time, :valid_email?, :positions_defined_teams
 
   def current_user
@@ -140,5 +141,20 @@ class ApplicationController < ActionController::Base
       return count
   end
 
+  private 
+    Browser = Struct.new(:browser, :version)
 
+    SupportedBrowsers = [
+      Browser.new('Safari', '6.0.2'),
+      Browser.new('Firefox', '19.0.2'),
+      Browser.new('Internet Explorer', '10.0'), 
+      Browser.new('Chrome', '27.0.1364.160')
+    ]
+
+    def check_browser
+       user_agent = UserAgent.parse(request.user_agent)
+      unless SupportedBrowsers.detect { |browser| user_agent >= browser }
+        render 'welcome/unsupported_browser'
+      end
+    end
 end
