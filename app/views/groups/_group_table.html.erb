@@ -23,9 +23,7 @@
 							<% end %>
 						<% end %>
 					<% else %>
-						<% if group.is_organizer?(current_user) %>
-							<%= link_to "Delete Group", group_path(group), :class => "btn btn-danger"  %>
-						<% else %>
+						<% if !(group.is_organizer?(current_user)) %>
 							<%= link_to "Leave Group", group_path(group), :class => "btn btn-danger"  %>
 						<% end %>
 					<% end %>
