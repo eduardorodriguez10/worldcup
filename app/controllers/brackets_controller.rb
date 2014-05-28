@@ -187,7 +187,7 @@ class BracketsController < ApplicationController
           if ((params[:bracket][:champion] != params[:bracket][:w61]) && (params[:bracket][:champion] != params[:bracket][:w62])) then valid_bracket = false end
           if ((params[:bracket][:l61] == params[:bracket][:w61]) || (params[:bracket][:l61] == params[:bracket][:w62])) then valid_bracket = false end
           if ((params[:bracket][:l62] == params[:bracket][:w61]) || (params[:bracket][:l62] == params[:bracket][:w62])) then valid_bracket = false end
-          if (params[:bracket][:champion] == params[:bracket][:champion]) then valid_bracket = false end
+          if (params[:bracket][:champion] == params[:bracket][:third]) then valid_bracket = false end
         end
         return valid_bracket
       end
