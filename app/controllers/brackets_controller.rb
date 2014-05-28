@@ -13,7 +13,7 @@ class BracketsController < ApplicationController
     	@bracket = Bracket.new(bracket_params)
     	@bracket.user_id = session[:user_id]
       require_same_user(@bracket.user_id)
-        if valid_bracket?
+        if valid_bracket?(@bracket)
       	    if @bracket.save
               update_selections
               flash[:notice] = "Your bracket has been saved."
@@ -63,7 +63,7 @@ class BracketsController < ApplicationController
     	@bracket = Bracket.find_by(slug: params[:id])
     	@bracket.user_id = session[:user_id]
       require_same_user(@bracket.user_id)
-      if valid_bracket?
+      if valid_bracket?(@bracket)
 	       if @bracket.update(bracket_params)
            update_selections
 	         redirect_to bracket_path(@bracket.id)    
@@ -151,14 +151,14 @@ class BracketsController < ApplicationController
         end
       end
 
-      def valid_bracket?
+      def valid_bracket?(bracket)
         valid_bracket = true
         for i in 97..104
           for x in 1..2
-            t = Team.find_by(id: @bracket.send(i.chr+x.to_s))
+            t = Team.find_by(id: bracket.send(i.chr+x.to_s))
             m = (x % 2) + 1
             if(!t.nil?)
-              if(t.send('group') != (i - 32).chr || @bracket.send(i.chr+x.to_s)==@bracket.send(i.chr+m.to_s))
+              if(t.send('group') != (i - 32).chr || bracket.send(i.chr+x.to_s)==bracket.send(i.chr+m.to_s))
                 valid_bracket = false
               end
             else
@@ -167,27 +167,27 @@ class BracketsController < ApplicationController
           end
         end
         if(valid_bracket)
-          if ((@bracket.w49 != @bracket.a1) && (@bracket.w49 != @bracket.b2)) then valid_bracket = false end
-          if ((@bracket.w50 != @bracket.c1) && (@bracket.w50 != @bracket.d2)) then valid_bracket = false end
-          if ((@bracket.w53 != @bracket.e1) && (@bracket.w53 != @bracket.f2)) then valid_bracket = false end
-          if ((@bracket.w54 != @bracket.g1) && (@bracket.w54 != @bracket.h2)) then valid_bracket = false end
-          if ((@bracket.w57 != @bracket.w49) && (@bracket.w57 != @bracket.w50)) then valid_bracket = false end
-          if ((@bracket.w58 != @bracket.w53) && (@bracket.w58 != @bracket.w54)) then valid_bracket = false end
-          if ((@bracket.w51 != @bracket.b1) && (@bracket.w51 != @bracket.a2)) then valid_bracket = false end
-          if ((@bracket.w52 != @bracket.d1) && (@bracket.w52 != @bracket.c2)) then valid_bracket = false end
-          if ((@bracket.w55 != @bracket.f1) && (@bracket.w55 != @bracket.e2)) then valid_bracket = false end
-          if ((@bracket.w56 != @bracket.h1) && (@bracket.w56 != @bracket.g2)) then valid_bracket = false end
-          if ((@bracket.w59 != @bracket.w51) && (@bracket.w59 != @bracket.w52)) then valid_bracket = false end
-          if ((@bracket.w60 != @bracket.w55) && (@bracket.w60 != @bracket.w56)) then valid_bracket = false end
-          if ((@bracket.w61 != @bracket.w57) && (@bracket.w61 != @bracket.w58)) then valid_bracket = false end
-          if ((@bracket.w62 != @bracket.w59) && (@bracket.w62 != @bracket.w60)) then valid_bracket = false end
-          if ((@bracket.l61 != @bracket.w57) && (@bracket.l61 != @bracket.w58)) then valid_bracket = false end
-          if ((@bracket.l62 != @bracket.w59) && (@bracket.l62 != @bracket.w60)) then valid_bracket = false end
-          if ((@bracket.third != @bracket.l61) && (@bracket.third != @bracket.l62)) then valid_bracket = false end
-          if ((@bracket.champion != @bracket.w61) && (@bracket.champion != @bracket.w62)) then valid_bracket = false end
-          if ((@bracket.l61 == @bracket.w61) || (@bracket.l61 == @bracket.w62)) then valid_bracket = false end
-          if ((@bracket.l62 == @bracket.w61) || (@bracket.l62 == @bracket.w62)) then valid_bracket = false end
-          if (@bracket.champion == @bracket.third) then valid_bracket = false end
+          if ((bracket.w49 != bracket.a1) && (bracket.w49 != bracket.b2)) then valid_bracket = false end
+          if ((bracket.w50 != bracket.c1) && (bracket.w50 != bracket.d2)) then valid_bracket = false end
+          if ((bracket.w53 != bracket.e1) && (bracket.w53 != bracket.f2)) then valid_bracket = false end
+          if ((bracket.w54 != bracket.g1) && (bracket.w54 != bracket.h2)) then valid_bracket = false end
+          if ((bracket.w57 != bracket.w49) && (bracket.w57 != bracket.w50)) then valid_bracket = false end
+          if ((bracket.w58 != bracket.w53) && (bracket.w58 != bracket.w54)) then valid_bracket = false end
+          if ((bracket.w51 != bracket.b1) && (bracket.w51 != bracket.a2)) then valid_bracket = false end
+          if ((bracket.w52 != bracket.d1) && (bracket.w52 != bracket.c2)) then valid_bracket = false end
+          if ((bracket.w55 != bracket.f1) && (bracket.w55 != bracket.e2)) then valid_bracket = false end
+          if ((bracket.w56 != bracket.h1) && (bracket.w56 != bracket.g2)) then valid_bracket = false end
+          if ((bracket.w59 != bracket.w51) && (bracket.w59 != bracket.w52)) then valid_bracket = false end
+          if ((bracket.w60 != bracket.w55) && (bracket.w60 != bracket.w56)) then valid_bracket = false end
+          if ((bracket.w61 != bracket.w57) && (bracket.w61 != bracket.w58)) then valid_bracket = false end
+          if ((bracket.w62 != bracket.w59) && (bracket.w62 != bracket.w60)) then valid_bracket = false end
+          if ((bracket.l61 != bracket.w57) && (bracket.l61 != bracket.w58)) then valid_bracket = false end
+          if ((bracket.l62 != bracket.w59) && (bracket.l62 != bracket.w60)) then valid_bracket = false end
+          if ((bracket.third != bracket.l61) && (bracket.third != bracket.l62)) then valid_bracket = false end
+          if ((bracket.champion != bracket.w61) && (bracket.champion != bracket.w62)) then valid_bracket = false end
+          if ((bracket.l61 == bracket.w61) || (bracket.l61 == bracket.w62)) then valid_bracket = false end
+          if ((bracket.l62 == bracket.w61) || (bracket.l62 == bracket.w62)) then valid_bracket = false end
+          if (bracket.champion == bracket.third) then valid_bracket = false end
         end
         return valid_bracket
       end
