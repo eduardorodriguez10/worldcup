@@ -178,7 +178,7 @@ class BracketsController < ApplicationController
           if ((params[:bracket][:w55] != params[:bracket][:f1]) && (params[:bracket][:w55] != params[:bracket][:e2])) then valid_bracket = false end
           if ((params[:bracket][:w56] != params[:bracket][:h1]) && (params[:bracket][:w56] != params[:bracket][:g2])) then valid_bracket = false end
           if ((params[:bracket][:w59] != params[:bracket][:w51]) && (params[:bracket][:w59] != params[:bracket][:w52])) then valid_bracket = false end
-          if ((params[:bracket][:w60] != params[:bracket][:w55]) && (parmas[:bracket][:w60] != params[:bracket][:w56])) then valid_bracket = false end
+          if ((params[:bracket][:w60] != params[:bracket][:w55]) && (params[:bracket][:w60] != params[:bracket][:w56])) then valid_bracket = false end
           if ((params[:bracket][:w61] != params[:bracket][:w57]) && (params[:bracket][:w61] != params[:bracket][:w58])) then valid_bracket = false end
           if ((params[:bracket][:w62] != params[:bracket][:w59]) && (params[:bracket][:w62] != params[:bracket][:w60])) then valid_bracket = false end
           if ((params[:bracket][:l61] != params[:bracket][:w57]) && (params[:bracket][:l61] != params[:bracket][:w58])) then valid_bracket = false end
