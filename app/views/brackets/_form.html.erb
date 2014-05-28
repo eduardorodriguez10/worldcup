@@ -82,7 +82,7 @@
 		</div>
 		<div class='bracket-column qf' id="Quater-finals-1">
 			<p class='column-title'>Quarter-Finals</p>
-			<div class="bracket bracket-qf well well-sm">
+			<div class="well bracket bracket-qf well-sm">
 				<p class="bracket-text"> Quater-final</p>
 					<%= f.collection_select :w49, allTeams, :id, :name, {:prompt=> 'Winner Game 49'}, {class: 'notselected',:onchange=>"javascript: updateOptionsQF('w49','w57')"} do |cb| %>
 					<% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>

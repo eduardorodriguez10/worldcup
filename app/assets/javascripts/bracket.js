@@ -234,8 +234,6 @@ function updateOptionsR16(selected, disabled, next_round){
 
 			};
 		};
-		
-
 	};
 
 	function fixLGames(){
