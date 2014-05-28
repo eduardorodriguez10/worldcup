@@ -156,6 +156,7 @@ class ApplicationController < ActionController::Base
       Browser.new('Safari', '5.0.2'),
       Browser.new('Firefox', '19.0.2'),
       Browser.new('Chrome', '27.0.1364.160'),
+      Browser.new('Internet Explorer', '10.0')
     ]
 
     def check_browser
