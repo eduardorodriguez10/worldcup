@@ -219,7 +219,7 @@ function updateOptionsR16(selected, disabled, next_round){
 					displayInThisRound("#bracket_w"+i+" option[value="+team1+"]", true);
 					displayInThisRound("#bracket_w"+i+" option[value="+team2+"]", true);
 					document.getElementById('bracket_w'+i.toString()).value = document.getElementById('w'+i.toString()+"-old").value;
-					
+					$("#bracket_w"+i.toString()).val($("#w"+i.toString()+"-old").val());
 
 					if(i==61){
 						displayInThisRound("#bracket_l61 option[value="+document.getElementById(prev_game['l'+i.toString()+'1']+"-old").value+"]", true);
