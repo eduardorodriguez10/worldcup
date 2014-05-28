@@ -45,6 +45,7 @@ function updateOptionsR16(selected, disabled, next_round){
 			displayInNextRound("#bracket_"+next_round+" option[value="+oldTeam.toString()+"]", false);
 		}
 		document.getElementById(selected+"-old").value = e.value;
+		$("#bracket_"+selected).val(teamSelected);
 	};
 	function updateOptionsSF(selected, next_round){
 		var e = document.getElementById("bracket_"+selected);
