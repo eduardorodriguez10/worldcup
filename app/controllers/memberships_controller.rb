@@ -19,17 +19,23 @@ class MembershipsController < ApplicationController
 		@membership.group_id = params[:group_id].to_i
 		@membership.user_screen_name = current_user.screenname
 		@group = Group.find(@membership.group_id)
-		if(@group.passcode == params[:passcode] || (params[:isprivate] == "false"))
-			if @membership.save
-				flash[:notice] = "You have successfully joined the group."
-				redirect_to groups_path()
-			else	     
-				flash[:error] = "There was a problem joining the group."
-			    redirect_to groups_path()
-			end
-		else
-			flash[:error] = "Invalid Passcode. Please try again."
+		alreadymember = Membership.where(:user_id => @membership.user_id).where(:group_id => @membership.group_id)
+		if (!alreadymember.empty?)
+			flash[:error] = "You are already member of this group"
 			redirect_to groups_path()
+		else
+			if(@group.passcode == params[:passcode] || (params[:isprivate] == "false"))
+				if @membership.save
+					flash[:notice] = "You have successfully joined the group."
+					redirect_to groups_path()
+				else	     
+					flash[:error] = "There was a problem joining the group."
+				    redirect_to groups_path()
+				end
+			else
+				flash[:error] = "Invalid Passcode. Please try again."
+				redirect_to groups_path()
+			end
 		end
 	end
 
